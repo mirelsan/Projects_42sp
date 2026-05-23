@@ -1,28 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       :::      ::::::::    */
-/*   ft_memchr.c                                       :+:      :+:    :+:    */
+/*   ft_atoi.c                                         :+:      :+:    :+:    */
 /*                                                   +:+ +:+         +:+      */
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/05/23 19:33:33 by username         #+#    #+#              */
-/*   Updated: 2026/05/23 19:56:15 by username        ###   ########.fr        */
+/*   Created: 2026/05/23 20:18:39 by username         #+#    #+#              */
+/*   Updated: 2026/05/23 20:19:13 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+int	ft_atoi(const char *nptr)
 {
-	const unsigned	char = *str;
-
-	str = s;
-	while (n > 0)
-	{
-		if (*str == (unsigned char) c)
-			return ((void *) str);
-		str++;
-		n--;
-	}
-	return (NULL);
 }

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/23 00:31:49 by codespace         #+#    #+#             */
-/*   Updated: 2026/05/23 00:46:07 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   ft_isalnum.c                                      :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/05/23 00:31:49 by username         #+#    #+#              */
+/*   Updated: 2026/05/23 14:39:40 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_isalnum(int c)
+int	ft_isalnum(int c)
 {
-    if((c >= '0' && c <= '9'))
-        return(1);
-    else if(c >= 'a' && c <= 'z') 
-        return(2);
-    else if(c >= 'A' && c <= 'Z')
-        return(3);      
-    else
-        return(0);
+	if ((c >= '0' && c <= '9'))
+		return (1);
+	else if (c >= 'a' && c <= 'z')
+		return (2);
+	else if (c >= 'A' && c <= 'Z')
+		return (3);
+	else
+		return (0);
 }

@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/23 01:14:06 by codespace         #+#    #+#             */
-/*   Updated: 2026/05/23 01:32:37 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   ft_bzero.c                                        :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/05/23 01:14:06 by username         #+#    #+#              */
+/*   Updated: 2026/05/23 14:39:34 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_bzero(size_t n, void *s)
+void	ft_bzero(size_t n, void *s)
 {
-    size_t i;
+	size_t	i;
 
-    i = 0;
-    while(i < n)
-    {
-        ((char *)s)[i] = '\0';
-        i++;
-    }
-    return ;
+	i = 0;
+	while (i < n)
+	{
+		((char *) s)[i] = '\0';
+		i++;
+	}
+	return ;
 }

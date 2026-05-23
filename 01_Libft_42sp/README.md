@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by <login>.*
+*This project has been created as part of the 42 curriculum by <mirelsan>.*
 
 ---
 
@@ -285,7 +285,7 @@ make bonus
 ```
 
 Bonus files must follow the naming convention `ft_<function>_bonus.c` and `ft_<function>_bonus.h` (unless otherwise specified).
-
+[text](include/libft.h)
 #### Linked List Functions
 
 | Function | Prototype | Description |

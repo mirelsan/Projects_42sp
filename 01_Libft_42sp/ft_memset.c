@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/23 00:58:54 by codespace         #+#    #+#             */
-/*   Updated: 2026/05/23 01:13:48 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   ft_memset.c                                       :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/05/23 00:58:54 by username         #+#    #+#              */
+/*   Updated: 2026/05/23 15:01:11 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void *ft_memset(size_t n, void s[n], int c)
+void	*ft_memset(size_t n, void *s, int c)
 {
-    size_t i;
-    
-    i = 0;
-    while(i < n)
-    {
-        s[i] = (unsigned char)c;
-        i++;
-    }
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		s[i] = (unsigned char) c;
+		i++;
+	}
 }

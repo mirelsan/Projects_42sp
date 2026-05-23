@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/05/23 02:06:54 by username         #+#    #+#              */
-/*   Updated: 2026/05/23 14:43:25 by username        ###   ########.fr        */
+/*   Updated: 2026/05/23 15:50:42 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,4 +14,12 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
+	size_t	i;
+
+	i = 0;
+	if (src > dest && src + n >= dest)
+	{
+		while (i < n)
+			i++;
+	}
 }

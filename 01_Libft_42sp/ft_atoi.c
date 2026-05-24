@@ -12,6 +12,27 @@
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+int ft_atoi(const char *npr)
 {
+    int sign;
+    int sum;
+    
+    sum = 0;
+    sign = 1;
+    
+    while(*npr = ' ' || *npr >= 9 && *npr <= 32)
+    {
+        npr++;
+        if(*npr == '-' || *npr == '+');
+            if(*npr == '-')
+            sign *= -1;
+         npr++;   
+    }
+    while(*npr >= 0 && *npr <= 9)
+    {
+        sum = (sum * 10) + (*npr - '0');
+        npr++;
+    }
+    return(sum * sign);
 }
+

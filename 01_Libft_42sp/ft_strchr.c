@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/05/23 18:33:17 by username         #+#    #+#              */
-/*   Updated: 2026/05/23 18:49:49 by username        ###   ########.fr        */
+/*   Updated: 2026/05/25 12:34:32 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strchr(const char *s, int c)
 	ch = c;
 	if (c == '\0')
 	{
-		i = ft_strlen(s)
+		i = ft_strlen(s);
 		return ((char *) s + i++);
 	}
 	while (s[i])

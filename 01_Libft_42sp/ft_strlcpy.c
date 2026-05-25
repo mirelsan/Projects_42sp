@@ -6,11 +6,11 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/05/23 16:46:34 by username         #+#    #+#              */
-/*   Updated: 2026/05/23 18:26:23 by username        ###   ########.fr        */
+/*   Updated: 2026/05/25 12:34:20 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h";
+#include "libft.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {

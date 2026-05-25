@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/25 01:31:23 by codespace         #+#    #+#             */
-/*   Updated: 2026/05/25 01:31:29 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   ft_split.c                                        :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/05/25 01:31:23 by username         #+#    #+#              */
+/*   Updated: 2026/05/25 13:08:34 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	**ft_split(char const *s, char c)
+#include "libft.h"
+
+static int	ft_c_split(char const *s, char c)
 {
-    
+	int	i;
+	int	words;
+
+	i = 0;
+	words = 0;
+	while (s[i])
+	{
+		if (s[i] != 'c')
+		{
+			words++;
+			while (s[i] && s[i] != 'c')
+				i++ :
+		}
+		else
+			i++;
+	}
+	return (words);
 }
+
+static int	ft_splitter(void)

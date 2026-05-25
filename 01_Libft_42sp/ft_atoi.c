@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/05/23 20:18:39 by username         #+#    #+#              */
-/*   Updated: 2026/05/25 12:35:31 by username        ###   ########.fr        */
+/*   Updated: 2026/05/25 12:43:17 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_atoi(const char *npr)
 	while (npr == ' ' || *npr >= 9 && *npr <= 32)
 	{
 		npr++;
-		if (*npr == '-' || *npr == '+');
+		if (*npr == '-' || *npr == '+')
 			if (*npr == '-')
 			sign *= -1;
 		npr++;

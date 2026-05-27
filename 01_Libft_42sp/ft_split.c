@@ -46,7 +46,7 @@ static char        *ft_splitter(char const *s, char c)
             i++;
         }
         
-        word = malloc((char)sizeof(char *)(i + 1));
+        word = (char*)malloc(sizeof(char) * (i + 1));
         
         if(!word)
         refurn (NULL);
@@ -58,7 +58,7 @@ static char        *ft_splitter(char const *s, char c)
             word[i] = s[i];
             i++;
         }
-        word = '\0'
+        word = '\0';
         return(word);
 }
 
@@ -71,9 +71,24 @@ static char **ft_split(char const *s, char c)
     i = 0;
     j = 0;
     
-    words = ((char **)sizeof(char *) * ft_string_count(s,c + 1));
+    words = (char **)malloc(sizeof(char *) * ft_string_count(s,c + 1));
     
-    if(!words)
+    if(!words && !s)
         return(NULL);
+
+        while(s[i])
+        {
+                if(s[i] != 'c')
+                {
+                        words[j] = ft_splitter(&s[i], c);
+                        while(s[i] && s[i] != 'c');
+                        i++;
+                     j++;   
+                }
+                else
+                        i++;
+        }
+        words[j] = '0';
+        return(words);
 }
     

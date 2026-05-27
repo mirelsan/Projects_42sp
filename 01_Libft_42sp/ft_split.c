@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   ft_split.c                                        :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/05/25 01:31:23 by username         #+#    #+#              */
-/*   Updated: 2026/05/25 13:08:34 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/25 01:31:23 by username          #+#    #+#             */
+/*   Updated: 2026/05/27 13:19:55 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int        ft_string_count(char const *s, char c)
         words = 0;
         while (s[i])
         {
-                if (s[i] != 'c')
+                if (s[i] != c)
                 {
                         words++;
                         while (s[i] && s[i] != 'c')
@@ -42,7 +42,7 @@ static char        *ft_splitter(char const *s, char c)
         
         while(s[i])
         {
-            if(s[i] != 'c')
+            if(s[i] != c)
             i++;
         }
         
@@ -53,7 +53,7 @@ static char        *ft_splitter(char const *s, char c)
         
         i = 0;
         
-        while(s[i] && s[i] != 'c')
+        while(s[i] && s[i] != c)
         {
             word[i] = s[i];
             i++;
@@ -78,10 +78,10 @@ static char **ft_split(char const *s, char c)
 
         while(s[i])
         {
-                if(s[i] != 'c')
+                if(s[i] != c)
                 {
                         words[j] = ft_splitter(&s[i], c);
-                        while(s[i] && s[i] != 'c');
+                        while(s[i] && s[i] != c);
                         i++;
                      j++;   
                 }

@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 13:58:14 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/05/27 14:31:08 by mirelapitt       ###   ########.fr       */
+/*   Created: 2026/05/27 15:02:01 by mirelapitt        #+#    #+#             */
+/*   Updated: 2026/05/27 15:02:10 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+void	ft_putnbr_fd(int n, int fd)
 {
-    unsigned int i;
-
-    i = 0;
-
-    if(!s || !f)
-        return ;
-
     
-    while(s[i])
-    {
-        f(i, &s[i]);
-        i++;
-    }    
 }

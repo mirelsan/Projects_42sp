@@ -6,11 +6,16 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:02:01 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/05/27 15:02:10 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/05/27 16:00:41 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_putnbr_fd(int n, int fd)
 {
+    long int long_int;
+    long_int = n;
+
+    if(n < 0)
+    write(fd,)
     
 }

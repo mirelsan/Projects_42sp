@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 15:02:01 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/05/27 22:14:40 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   ft_putnbr_fd.c                                    :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/05/27 15:02:01 by username         #+#    #+#              */
+/*   Updated: 2026/05/28 14:23:30 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {
-    long int long_int;
-    long_int = n;
+	long int	long_int;
 
-    if(n < 0)
-    ft_putchar(fd, '-', 1);
-    long_int *= -1;
-
-    if(n > 9)
-    {
-        ft_putnbr_fd(long_int / 10, fd);
-        ft_putchar_fd(long_int % 10 + '0', fd);
-    }
+	long_int = n;
+	if (n < 0)
+		ft_putchar(fd, '-', 1);
+	long_int *= -1;
+	if (n > 9)
+	{
+		ft_putnbr_fd(long_int / 10, fd);
+		ft_putchar_fd(long_int % 10 + '0', fd);
+	}
 }

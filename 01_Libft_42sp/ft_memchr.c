@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/05/23 19:33:33 by username         #+#    #+#              */
-/*   Updated: 2026/05/23 19:56:15 by username        ###   ########.fr        */
+/*   Updated: 2026/05/28 14:19:54 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	const unsigned	char = *str;
+	const unsigned char	*str;
 
 	str = s;
 	while (n > 0)

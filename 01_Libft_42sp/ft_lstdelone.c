@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/28 02:05:33 by codespace         #+#    #+#             */
-/*   Updated: 2026/05/28 02:12:27 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   ft_lstdelone.c                                    :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/05/28 02:05:33 by username         #+#    #+#              */
+/*   Updated: 2026/05/28 14:19:18 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-    if(lst == NULL)
-        return ;
-
-    del(lst->content);
-    free(lst);   
-    return ;     
+	if (lst == NULL)
+		return ;
+	del(lst->content);
+	free(lst);
+	return ;
 }

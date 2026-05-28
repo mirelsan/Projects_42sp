@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/28 02:23:15 by codespace         #+#    #+#             */
-/*   Updated: 2026/05/28 02:23:38 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   ft_lstiter.c                                      :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/05/28 02:23:15 by username         #+#    #+#              */
+/*   Updated: 2026/05/28 14:19:29 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
-    
 #include "libft.h"
 
-void        ft_lstiter(t_list *lst, void (*f)(void *))
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-    if(lst == NULL)
-        return ;
-        
-    t_list *tmp;
-    
-    tmp = lst;
-    while(tmp != NULL)
-    {
-        f(tmp->content);
-        tmp = tmp->next;
-    }
-}
+	t_list	*tmp;
 
-    
+	if (lst == NULL)
+		return ;
+	tmp = lst;
+	while (tmp != NULL)
+	{
+		f(tmp->content);
+		tmp = tmp->next;
+	}
+}

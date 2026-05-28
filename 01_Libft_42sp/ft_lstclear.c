@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/28 02:13:03 by codespace         #+#    #+#             */
-/*   Updated: 2026/05/28 02:22:06 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   ft_lstclear.c                                     :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/05/28 02:13:03 by username         #+#    #+#              */
+/*   Updated: 2026/05/28 14:19:14 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-    if(*lst == NULL)
-        return ;
+	t_list	*ptr;
 
-    t_list *ptr;
-    
-    while(*lst)
-    {
-        ptr = (*lst)->next;
-        ft_lstdelone(lst, del);
-        lst = ptr;
-
-    }
-    *lst == NULL;
+	if (*lst == NULL)
+		return ;
+	while (*lst)
+	{
+		ptr = (*lst)->next;
+		ft_lstdelone(lst, del);
+		lst = ptr;
+	}
+	*lst == NULL;
 }

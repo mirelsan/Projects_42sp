@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/05/25 01:31:23 by username         #+#    #+#              */
-/*   Updated: 2026/05/28 14:21:22 by username        ###   ########.fr        */
+/*   Updated: 2026/05/28 15:17:36 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_string_count(char const *s, char c)
 		if (s[i] != c)
 		{
 			words++;
-			while (s[i] && s[i] != 'c')
+			while (s[i] && s[i] != c)
 				i++;
 		}
 		else
@@ -57,7 +57,7 @@ static char	*ft_splitter(char const *s, char c)
 	return (word);
 }
 
-static char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int		i;
 	int		j;
@@ -66,7 +66,7 @@ static char	**ft_split(char const *s, char c)
 	i = 0;
 	j = 0;
 	words = (char **) malloc(sizeof(char *) * ft_string_count(s, c + 1));
-	if (!words && !s)
+	if (!words || !s)
 		return (NULL);
 	while (s[i])
 	{

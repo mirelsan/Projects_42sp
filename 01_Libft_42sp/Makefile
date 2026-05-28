@@ -1,18 +1,20 @@
-NAME = libft.a 
+NAME = libft.a
 
-SOURCE = ft_*.c
+all: $(NAME)
+
+$(NAME): $(OBJECTS)
+		ar rcs $(NAME) $(OBJECTS)
+
+SOURCE = $(wildcard ft_*.c)
 
 CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
-SOURCE := $(addprefix ./src/,$(SOURCE))
-OBJECTS = $(SOURCE:./src/%.c=./obj/%.o)
+OBJECTS = $(SOURCE:.c=.o)
 
-all: $(NAME)
-
-obj/%.o: src/%.c
-	$(CC) $(FLAGS) -I ./include -c $< -o $@
+%.o: %.c
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean: 
 	rm -f $(OBJECTS)

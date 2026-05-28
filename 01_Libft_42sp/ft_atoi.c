@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/05/23 20:18:39 by username         #+#    #+#              */
-/*   Updated: 2026/05/25 12:43:17 by username        ###   ########.fr        */
+/*   Updated: 2026/05/28 16:49:05 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,24 @@ int	ft_atoi(const char *npr)
 {
 	int	sign;
 	int	sum;
+	int	i;
 
 	sum = 0;
 	sign = 1;
-	while (npr == ' ' || *npr >= 9 && *npr <= 32)
+	i = 0;
+	while ((npr[i] == ' ' && (npr[i] >= 9) || npr[i] <= 13))
 	{
-		npr++;
-		if (*npr == '-' || *npr == '+')
-			if (*npr == '-')
-			sign *= -1;
-		npr++;
+		i++;
 	}
-	while (*npr >= 0 && *npr <= 9)
+	if (npr[i] == '-' || npr[i] == '+')
 	{
-		sum = (sum * 10) + (*npr - '0');
-		npr++;
+		if (npr[i++] == '-')
+			sign *= -1;
+	}
+	while (npr[i] >= '0' && npr[i] <= '9')
+	{
+		sum = (npr[i] - '0') + (sum * 10);
+		i++;
 	}
 	return (sum * sign);
 }

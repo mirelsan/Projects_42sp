@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/05/23 20:18:39 by username         #+#    #+#              */
-/*   Updated: 2026/05/28 16:49:05 by username        ###   ########.fr        */
+/*   Updated: 2026/05/28 17:16:43 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_atoi(const char *npr)
 	sum = 0;
 	sign = 1;
 	i = 0;
-	while ((npr[i] == ' ' && (npr[i] >= 9) || npr[i] <= 13))
+	while (npr[i] == ' ' || (npr[i] >= 9 && npr[i] <= 13))
 	{
 		i++;
 	}

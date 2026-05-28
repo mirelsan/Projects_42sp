@@ -1,17 +1,13 @@
 NAME = libft.a
+CC = gcc
+FLAGS = -Wall -Wextra -Werror
+SOURCE = $(wildcard ft_*.c)
+OBJECTS = $(SOURCE:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-		ar rcs $(NAME) $(OBJECTS)
-
-SOURCE = $(wildcard ft_*.c)
-
-CC = gcc
-
-FLAGS = -Wall -Wextra -Werror
-
-OBJECTS = $(SOURCE:.c=.o)
+	ar rcs $(NAME) $(OBJECTS)
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@

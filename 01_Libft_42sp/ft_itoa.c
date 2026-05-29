@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   ft_itoa.c                                         :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/05/26 23:49:44 by username         #+#    #+#              */
-/*   Updated: 2026/05/29 12:37:40 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/26 23:49:44 by username          #+#    #+#             */
+/*   Updated: 2026/05/29 13:15:44 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 size_t	ft_is_negative(int n)
+size_t	ft_is_negative(int n)
 {
+	if (n < 0)
+		return (1);
+	else
+		return (0);
 	if (n < 0)
 		return (1);
 	else
 		return (0);
 }
 
+size_t	ft_count_digits(size_t n)
 size_t	ft_count_digits(size_t n)
 {
 	unsigned int	i;
@@ -61,3 +67,4 @@ char	*ft_itoa(int n)
 	}
 	return (str);
 }
+

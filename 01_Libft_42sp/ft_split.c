@@ -6,17 +6,14 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 01:31:23 by username          #+#    #+#             */
-/*   Updated: 2026/05/29 13:20:24 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/05/29 13:32:22 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 static int	ft_string_count(char const *s, char c)
-static int	ft_string_count(char const *s, char c)
 {
-	int	i;
-	int	words;
 	int	i;
 	int	words;
 
@@ -36,7 +33,6 @@ static int	ft_string_count(char const *s, char c)
 	return (words);
 }
 
-static char	*ft_splitter(char const *s, char c)
 static char	*ft_splitter(char const *s, char c)
 {
 	int		i;
@@ -87,4 +83,3 @@ static char	**ft_split(char const *s, char c)
 	words[j] = '0';
 	return (words);
 }
-

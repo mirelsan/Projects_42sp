@@ -6,13 +6,12 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 23:49:44 by username          #+#    #+#             */
-/*   Updated: 2026/05/29 13:15:44 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/05/29 13:39:21 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_is_negative(int n)
 size_t	ft_is_negative(int n)
 {
 	if (n < 0)
@@ -25,7 +24,6 @@ size_t	ft_is_negative(int n)
 		return (0);
 }
 
-size_t	ft_count_digits(size_t n)
 size_t	ft_count_digits(size_t n)
 {
 	unsigned int	i;
@@ -67,4 +65,3 @@ char	*ft_itoa(int n)
 	}
 	return (str);
 }
-

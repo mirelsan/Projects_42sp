@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   ft_memmove.c                                      :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/05/23 02:06:54 by username         #+#    #+#              */
-/*   Updated: 2026/05/25 12:34:46 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/23 02:06:54 by username          #+#    #+#             */
+/*   Updated: 2026/05/29 13:47:45 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 		}
 	}
 	else
+	{
+		while (n--)
 		{
-			while(n--)
-			{
-				*dst = *tmp;
-				 dst++;
-				 tmp++;
-			}
+			*dst = *tmp;
+			dst++;
+			tmp++;
 		}
+	}
 	return (dest);
 }

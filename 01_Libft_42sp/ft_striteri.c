@@ -6,13 +6,12 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:58:14 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/05/29 13:21:31 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/05/29 14:12:49 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	unsigned int	i;
 	unsigned int	i;
 
 	i = 0;

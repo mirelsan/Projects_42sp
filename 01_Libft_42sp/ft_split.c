@@ -6,7 +6,7 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 01:31:23 by username          #+#    #+#             */
-/*   Updated: 2026/05/29 13:32:22 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/05/29 14:12:13 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_string_count(char const *s, char c)
 		if (s[i] != c)
 		{
 			words++;
-			while (s[i] && s[i] != 'c')
+			while (s[i] && s[i] != c)
 				i++;
 		}
 		else
@@ -46,18 +46,18 @@ static char	*ft_splitter(char const *s, char c)
 	}
 	word = (char *) malloc(sizeof(char) * (i + 1));
 	if (!word)
-		refurn(NULL);
+		return (NULL);
 	i = 0;
 	while (s[i] && s[i] != c)
 	{
 		word[i] = s[i];
 		i++;
 	}
-	word = '\0';
+	word[i] = '\0';
 	return (word);
 }
 
-static char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int		i;
 	int		j;
@@ -65,8 +65,10 @@ static char	**ft_split(char const *s, char c)
 
 	i = 0;
 	j = 0;
-	words = (char **) malloc(sizeof(char *) * ft_string_count(s, c + 1));
-	if (!words && !s)
+	if (!s)
+		return (NULL);
+	words = (char **) malloc(sizeof(char *) * ft_string_count(s, c) + 1);
+	if (!words)
 		return (NULL);
 	while (s[i])
 	{
@@ -80,6 +82,6 @@ static char	**ft_split(char const *s, char c)
 		else
 			i++;
 	}
-	words[j] = '0';
+	words[j] = NULL;
 	return (words);
 }

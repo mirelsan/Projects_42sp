@@ -6,7 +6,7 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 23:49:44 by username          #+#    #+#             */
-/*   Updated: 2026/05/29 13:39:21 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/05/29 14:02:33 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ size_t	ft_count_digits(size_t n)
 	if (n == 0)
 		return (1);
 	i = 0;
-	if (n > 0)
+	while (n > 0)
 	{
-		n / 10;
+		n /= 10;
 		i++;
 	}
 	return (i);
@@ -46,11 +46,11 @@ char	*ft_itoa(int n)
 	long int		number;
 	unsigned int	count_digits;
 
-	str = ft_is_negative(n);
+	i = ft_is_negative(n);
 	number = n;
-	if (str == 1)
+	if (i == 1)
 		number *= -1;
-	count_digits = ft_count_digits(n);
+	count_digits = ft_count_digits((size_t)number);
 	str = (malloc(count_digits + i + 1));
 	if (!str)
 		return (NULL);
@@ -59,7 +59,7 @@ char	*ft_itoa(int n)
 	str[count_digits + i] = '\0';
 	while (count_digits > 0)
 	{
-		str[(count_digits - 1) + i] = (number % 10) + '\0';
+		str[(count_digits - 1) + i] = (number % 10) + '0';
 		number /= 10;
 		count_digits--;
 	}

@@ -16,7 +16,7 @@
 - [Functions Reference](#functions-reference)
   - [Part 1 — Libc Functions](#part-1--libc-functions)
   - [Part 2 — Additional Functions](#part-2--additional-functions)
-  - [Part 3 — Linked List (Bonus)](#part-3--linked-list-bonus)
+  - [Part 3 — Linked List](#part-3--linked-list)
 - [Technical Rules](#technical-rules)
 - [Resources](#resources)
 
@@ -78,15 +78,15 @@ The library is compiled into a static archive `libft.a` that can be linked to an
 ├── ft_putstr_fd.c
 ├── ft_putendl_fd.c
 ├── ft_putnbr_fd.c
-├── ft_lstnew_bonus.c
-├── ft_lstadd_front_bonus.c
-├── ft_lstsize_bonus.c
-├── ft_lstlast_bonus.c
-├── ft_lstadd_back_bonus.c
-├── ft_lstdelone_bonus.c
-├── ft_lstclear_bonus.c
-├── ft_lstiter_bonus.c
-└── ft_lstmap_bonus.c
+├── ft_lstnew.c
+├── ft_lstadd_front.c
+├── ft_lstsize.c
+├── ft_lstlast.c
+├── ft_lstadd_back.c
+├── ft_lstdelone.c
+├── ft_lstclear.c
+├── ft_lstiter.c
+└── ft_lstmap.c
 ```
 
 > All files must be placed at the **root** of the repository.
@@ -106,11 +106,6 @@ The library is compiled into a static archive `libft.a` that can be linked to an
 **Compile the mandatory part:**
 ```bash
 make
-```
-
-**Compile including the bonus (linked list functions):**
-```bash
-make bonus
 ```
 
 **Clean object files:**
@@ -155,7 +150,6 @@ Don't forget to include the header:
 | `clean` | Removes `.o` object files |
 | `fclean` | Removes `.o` files and `libft.a` |
 | `re` | Runs `fclean` then `all` |
-| `bonus` | Compiles bonus linked list functions into `libft.a` |
 
 > The Makefile uses `ar` to create the static library. `libtool` is **not** used.  
 > Compilation flags: `-Wall -Wextra -Werror`
@@ -263,7 +257,7 @@ Functions not present in the standard libc, or present in a different form.
 
 ---
 
-### Part 3 — Linked List (Bonus)
+### Part 3 — Linked List
 
 Implementation of linked list manipulation functions using the following structure, declared in `libft.h`:
 
@@ -279,13 +273,7 @@ typedef struct s_list
 - `content` — a `void *` that can hold any type of data
 - `next` — pointer to the next node, or `NULL` if it is the last node
 
-Compile the bonus with:
-```bash
-make bonus
-```
-
-Bonus files must follow the naming convention `ft_<function>_bonus.c` and `ft_<function>_bonus.h` (unless otherwise specified).
-[text](include/libft.h)
+[text](libft.h)
 #### Linked List Functions
 
 | Function | Prototype | Description |

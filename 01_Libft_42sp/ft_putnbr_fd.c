@@ -18,7 +18,7 @@ void	ft_putnbr_fd(int n, int fd)
 
 	long_int = n;
 	if (n < 0)
-		ft_putchar(fd, '-', 1);
+		ft_putchar_fd('-', 1);
 	long_int *= -1;
 	if (n > 9)
 	{

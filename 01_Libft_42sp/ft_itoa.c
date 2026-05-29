@@ -22,14 +22,14 @@ size_t	ft_is_negative(int n)
 
 size_t	ft_count_digits(size_t n)
 {
-	unsigned int	i;
+	size_t	i;
 
 	if (n == 0)
 		return (1);
 	i = 0;
-	if (n > 0)
+	while (n > 0)
 	{
-		n / 10;
+		n /= 10;
 		i++;
 	}
 	return (i);
@@ -41,13 +41,15 @@ char	*ft_itoa(int n)
 	unsigned int	i;
 	long int		number;
 	unsigned int	count_digits;
+	int				is_neg;
 
-	str = ft_is_negative(n);
+	i = 0;
+	is_neg = ft_is_negative(n);
 	number = n;
-	if (str == 1)
+	if (is_neg)
 		number *= -1;
 	count_digits = ft_count_digits(n);
-	str = (malloc(count_digits + i + 1));
+	str = (malloc(count_digits + is_neg + 1));
 	if (!str)
 		return (NULL);
 	if (i == 1)
@@ -55,7 +57,7 @@ char	*ft_itoa(int n)
 	str[count_digits + i] = '\0';
 	while (count_digits > 0)
 	{
-		str[(count_digits - 1) + i] = (number % 10) + '\0';
+		str[(count_digits - 1) + i] = (number % 10) + '0';
 		number /= 10;
 		count_digits--;
 	}

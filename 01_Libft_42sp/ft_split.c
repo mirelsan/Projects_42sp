@@ -46,7 +46,7 @@ static char	*ft_splitter(char const *s, char c)
 	}
 	word = (char *) malloc(sizeof(char) * (i + 1));
 	if (!word)
-		refurn(NULL);
+		return(NULL);
 	i = 0;
 	while (s[i] && s[i] != c)
 	{
@@ -80,6 +80,6 @@ char	**ft_split(char const *s, char c)
 		else
 			i++;
 	}
-	words[j] = '0';
+	words[j] = NULL;
 	return (words);
 }

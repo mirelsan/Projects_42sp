@@ -19,7 +19,7 @@ bonus: $(NAME) $(BONUS_OBJECTS)
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean: 
-	rm -f $(OBJECTS)
+	rm -f $(OBJECTS) $(BONUS_OBJECTS)
 
 fclean: clean
 	rm -f $(NAME) 

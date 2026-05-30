@@ -6,7 +6,7 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:18:39 by username          #+#    #+#             */
-/*   Updated: 2026/05/30 15:33:08 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/05/30 18:32:26 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_atoi(const char *npr)
 {
-	int	sign;
-	int	sum;
-	int	i;
+	int			sign;
+	long int	sum;
+	int			i;
 
 	sum = 0;
 	sign = 1;
@@ -30,12 +30,12 @@ int	ft_atoi(const char *npr)
 		sign *= -1;
 		i++;
 	}
-	if (npr[i] == '+')
+	else if (npr[i] == '+')
 		i++;
 	while (npr[i] >= '0' && npr[i] <= '9')
 	{
 		sum = (npr[i] - '0') + (sum * 10);
 		i++;
 	}
-	return (sum * sign);
+	return ((long)sum * sign);
 }

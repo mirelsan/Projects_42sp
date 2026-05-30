@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 14:29:24 by username          #+#    #+#             */
-/*   Updated: 2026/05/29 13:41:33 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/05/30 19:25:09 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	new_node = ft_lstnew((*f)(lst->content));
 	if (new_node == NULL)
 	{
-		free(new_node);
 		return (NULL);
 	}
 	new_lst = new_node;
@@ -30,7 +29,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	while (lst)
 	{
 		new_node->next = ft_lstnew((*f)(lst->content));
-		if (new_node == NULL)
+		if (new_node->next == NULL)
 		{
 			ft_lstclear(&new_lst, del);
 			return (NULL);

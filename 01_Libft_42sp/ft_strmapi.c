@@ -6,7 +6,7 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 02:07:57 by codespace         #+#    #+#             */
-/*   Updated: 2026/05/29 13:49:55 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/05/30 16:31:48 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	if (!new_str)
 		return (NULL);
 	i = 0;
-	while (length > '0')
+	while (i < (int)length)
 	{
-		new_str[i] = f(i, new_str[i]);
+		new_str[i] = f(i, s[i]);
 		i++;
 	}
-	new_str = '\0';
+	new_str[i] = '\0';
 	return (new_str);
 }

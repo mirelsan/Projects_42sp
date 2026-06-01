@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/05/28 01:54:21 by username         #+#    #+#              */
-/*   Updated: 2026/05/28 14:18:00 by username        ###   ########.fr        */
+/*   Updated: 2026/06/01 14:09:03 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	{
 		last = ft_lstlast(*lst);
 		last->next = new;
-		new->next = NULL;
 	}
 }

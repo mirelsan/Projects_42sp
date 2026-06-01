@@ -331,6 +331,6 @@ These constraints apply to the entire project:
 AI was used in this project in the following ways:
 - **Understanding concepts**: asking for explanations of memory management, pointer arithmetic, and undefined behavior cases
 - **Clarifying man page behavior**: asking about edge cases (e.g., `calloc` with `size = 0`, `memmove` with overlapping regions)
-- **README writing**: assisting in structuring and formatting this documentation
+- **README writing**: this documentation.
 
 > Direct code generation by AI was **avoided** in order to build genuine understanding of each function, in compliance with the AI guidelines of the 42 curriculum.

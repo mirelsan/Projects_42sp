@@ -1,16 +1,17 @@
 NAME = 
 CC = cc
 FLAGS = -Wall -Wextra -Werror
+SOURCE
 
 $(NAME)
 
-all:
+all: $(NAME)
 
 clean:
 
 fclean:
 
-re:
+re: fclean all
 
 
 

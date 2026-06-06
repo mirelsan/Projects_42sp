@@ -6,10 +6,12 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 13:25:11 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/05/31 13:25:44 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/06/05 19:34:20 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdarg.h>
+#include <string.h>
 
 int ft_printf(const char *, ...);

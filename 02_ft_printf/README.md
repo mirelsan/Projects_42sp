@@ -1,4 +1,5 @@
 ft_handler_format = act like guard traffic datas
+
 first, handler receiver the identifier s,d,i etc%
 
 then pass through a tree of conditional verifications

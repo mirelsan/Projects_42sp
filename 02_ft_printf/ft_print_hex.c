@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_hex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mirelsan <mirelsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 18:31:09 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/06/05 18:31:11 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/06/06 15:20:19 by mirelsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "printf.h"

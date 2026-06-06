@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mirelsan <mirelsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 18:30:57 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/06/05 18:30:59 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/06/06 15:19:52 by mirelsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "printf.h"

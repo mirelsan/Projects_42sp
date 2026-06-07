@@ -11,3 +11,27 @@
 /* ************************************************************************** */
 
 #include "printf.h"
+
+int ft_print_hex(int n, int base)
+{
+    int i;
+    char *symbols;
+
+    i = 0;
+    symbols = "0123456789abcdef";
+
+    if(n < 0)
+    {
+        write(1, "-", 1);
+        return ft_print_hex(-n, base) + 1;
+    }
+    else if (n < base)
+    {
+        print_char(symbols[n]);
+    }
+    else
+    {
+        i = ft_print_hex(n / base, base);
+        return i + ft_print_hex(n % base, base);
+    }
+}

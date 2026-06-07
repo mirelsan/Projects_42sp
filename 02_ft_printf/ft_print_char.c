@@ -3,11 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mirelsan <mirelsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 18:31:13 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/06/06 15:20:25 by mirelsan         ###   ########.fr       */
+/*   Updated: 2026/06/07 01:37:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+int print_char(int c)
+{
+    write(1, &c, 1);
+}

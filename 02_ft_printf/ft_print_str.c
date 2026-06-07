@@ -10,16 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 int ft_print_str(char *str)
 {
     int i;
     i = 0;
 
+    if(str == NULL)
+        str = "(null)";
+
     while(*str)
     {
-        ft_print_char((int)*str);
+        print_char((int)*str);
         i++;
         str++;
     }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mirelsan <mirelsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 13:25:11 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/06/06 15:40:20 by mirelsan         ###   ########.fr       */
+/*   Updated: 2026/06/07 23:36:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,24 @@
 #ifndef FT_PRINTF_H
 #define FT_PRINTF_H
 
+#define DECIMAL_BASE 10
+#define HEX_BASE 16
+
 #include <unistd.h>
 #include <stdarg.h>
 #include <string.h>
 #include <stdlib.h>
 
 int ft_printf(const char *format, ...);
+
+int print_char(char c);
+int ft_print_str(const char *str);
+int print_p(void *ptr);
+int print_d(int number);
+int print_u(unsigned int number);
+int print_x(unsigned int number, char type);
+int print_hex(unsigned long int number, char type);
+
 size_t ft_strlen(const char *s);
-int print_char(int c);
-int ft_print_str(char *str);
 
 #endif

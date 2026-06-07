@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   print_d.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/05 18:31:09 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/06/07 23:36:48 by codespace        ###   ########.fr       */
+/*   Created: 2026/06/07 23:17:20 by codespace         #+#    #+#             */
+/*   Updated: 2026/06/07 23:18:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 
-int ft_print_hex(unsigned long int number, char type)
-{
-    int i;
-    char *symbols;
+#include "ft_printf.h";
+
+int print_d(int number)
+{    int i;
 
     i = 0;
-
-    if(type == 'X')
-        symbols = "0123456789ABCDEF";
+    if(number < 0)
+    {
+        write(1, "-", 1);
+        return print_d(-number) + 1;
+    }
+    else if (number < DECIMAL_BASE)
+    {
+        print_char(number + '0');
+    }
     else
-    symbols = "0123456789abcdef";
-
-    if (number >= HEX_BASE)
-        i += ft_print_hex(number / HEX_BASE, type);
-    i += print_char(symbols[number % HEX_BASE]);
-    return (i);
+    {
+        i = print_d(number / DECIMAL_BASE);
+        return i + print_d(number % DECIMAL_BASE);
+    }
 }

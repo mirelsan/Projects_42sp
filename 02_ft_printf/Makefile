@@ -3,11 +3,13 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror
 
 SOURCE	= ft_printf.c\
-ft_printf_char.c\
-ft_printf_nbr.c\
-ft_printf_str.c\
-ft_printf_ptr.c\
-ft_printf_hex.cc
+ft_print_format.c\
+ft_print_hex.c\
+ft_print_str.c\
+print_char.c\
+print_f.c\
+print_p.c\
+print_u.c
 
 OBJECTS = $(SOURCE:.c=.o)
 

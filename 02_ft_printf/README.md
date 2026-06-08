@@ -56,6 +56,57 @@ gcc -Wall -Wextra -Werror your_program.c -L. -lftprintf -o your_program
 - `%p` - Pointer address
 - `%%` - Literal percent sign
 
+## Function Flow Diagram
+
+This diagram shows how all functions are connected and how the program flows:
+
+```mermaid
+graph TD
+    A["ft_printf(const char *format, ...)<br/>MAIN FUNCTION"] -->|Read character by character| B{Is it %?}
+    
+    B -->|NO| C["write 1 character<br/>directly to stdout"]
+    C --> D["count++"]
+    
+    B -->|YES| E["Call ft_print_format<br/>with the specifier"]
+    
+    E --> F{Which<br/>specifier?}
+    
+    F -->|%c| G["print_char"]
+    F -->|%s| H["ft_print_str"]
+    F -->|%d or %i| I["print_d"]
+    F -->|%u| J["print_u"]
+    F -->|%x or %X| K["print_hex"]
+    F -->|%p| L["print_p"]
+    F -->|%%| M["print_char '%'"]
+    
+    G --> G1["write 1 char<br/>return 1"]
+    H --> H1["Loop while *str<br/>call print_char<br/>return count"]
+    I --> I1["If negative print '-'<br/>Recursion: divide by 10<br/>return count"]
+    J --> J1["Recursion base 10<br/>no negative support<br/>return count"]
+    K --> K1["Recursion base 16<br/>use symbols 0-9a-f<br/>return count"]
+    L --> L1["Print '0x'<br/>call print_hex<br/>return count"]
+    M --> M1["write '%'<br/>return 1"]
+    
+    G1 --> N["count += return"]
+    H1 --> N
+    I1 --> N
+    J1 --> N
+    K1 --> N
+    L1 --> N
+    M1 --> N
+    
+    D --> O{More characters<br/>in format?}
+    N --> O
+    
+    O -->|YES| B
+    O -->|NO| P["va_end<br/>return count"]
+    
+    style A fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
+    style B fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
+    style F fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
+    style P fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+```
+
 ## Algorithm and Data Structure Analysis
 
 ### Main Approach: Variadic Functions

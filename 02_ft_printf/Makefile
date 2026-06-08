@@ -4,7 +4,7 @@ FLAGS = -Wall -Wextra -Werror
 
 SOURCE	= ft_printf.c\
 ft_print_format.c\
-ft_print_hex.c\
+print_hex.c\
 ft_print_str.c\
 print_char.c\
 print_d.c\

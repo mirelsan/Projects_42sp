@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex.c                                     :+:      :+:    :+:   */
+/*   print_hex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 18:31:09 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/06/07 23:36:48 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/08 01:23:51 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_print_hex(unsigned long int number, char type)
+int print_hex(unsigned long int number, char type)
 {
     int i;
     char *symbols;
@@ -25,7 +25,7 @@ int ft_print_hex(unsigned long int number, char type)
     symbols = "0123456789abcdef";
 
     if (number >= HEX_BASE)
-        i += ft_print_hex(number / HEX_BASE, type);
+        i += print_hex(number / HEX_BASE, type);
     i += print_char(symbols[number % HEX_BASE]);
     return (i);
 }

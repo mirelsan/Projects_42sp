@@ -21,7 +21,7 @@ int	ft_print_str(const char *str)
 		str = "(null)";
 	while (*str)
 	{
-		print_char((int) * str);
+		print_char((int) *str);
 		i++;
 		str++;
 	}

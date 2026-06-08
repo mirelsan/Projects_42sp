@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 23:30:19 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/07 23:46:00 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/07 23:52:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int ft_print_format(char specifier, va_list ap)
     else if(specifier == 'd' || specifier == 'i')
         count += print_d(va_arg(ap, int));
     else if(specifier == 'x' || specifier == 'X')
-        count += ft_print_hex(va_arg(ap, unsigned int), specifier);
+        count += print_hex(va_arg(ap, unsigned int), specifier);
     else if(specifier == 'u')
         count += print_u(va_arg(ap, unsigned int));
     else if(specifier == 'p')

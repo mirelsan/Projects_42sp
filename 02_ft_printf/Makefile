@@ -7,7 +7,7 @@ ft_print_format.c\
 ft_print_hex.c\
 ft_print_str.c\
 print_char.c\
-print_f.c\
+print_d.c\
 print_p.c\
 print_u.c
 

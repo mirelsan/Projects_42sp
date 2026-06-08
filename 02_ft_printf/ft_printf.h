@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 13:25:11 by mirelapitt        #+#    #+#             */
-/*   Updated: 2026/06/07 23:36:17 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/07 23:51:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int print_d(int number);
 int print_u(unsigned int number);
 int print_x(unsigned int number, char type);
 int print_hex(unsigned long int number, char type);
-
-size_t ft_strlen(const char *s);
+int ft_print_format(char specifier, va_list ap);
 
 #endif

@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   print_p.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/07 23:33:00 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/08 01:12:36 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   print_p.c                                         :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/07 23:33:00 by username         #+#    #+#              */
+/*   Updated: 2026/06/08 15:42:53 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int print_p(void *ptr)
+int	print_p(void *ptr)
 {
-    int count;
+	int	count;
 
-    count = 0;
-    count += ft_print_str("0x");
-    count += print_hex((unsigned long)ptr, 'x');
-    return (count);
+	if (ptr == NULL)
+		return (ft_print_str("(nil)"));
+	count = 0;
+	count += ft_print_str("0x");
+	count += print_hex((unsigned long) ptr, 'x');
+	return (count);
 }

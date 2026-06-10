@@ -21,18 +21,17 @@
 #include "get_next_line.h"
 
 int ft_verify_stash(char *stash)
-{
-    int i;
-    i = 0;
-    
-    while(*stash)
+{   
+    if(stash == NULL)
+        return(2);
+
+    while(*stash != '\n' && *stash != '\0')
     {
-        if(*stash != '\n')
-        {
-            ++stash;
-        }
+        ++stash;
     }
-    return(1);
+    if(*stash == '\n')
+        return(1);
+    return(0);
 }
 
 char *ft_append_stash(char *stash, int fd)

@@ -36,7 +36,18 @@ int ft_verify_stash(char *stash)
 
 char *ft_append_stash(char *stash, int fd)
 {
-        
+    int   bytes;
+    char *buffer;
+  
+    buffer = malloc(BUFFER_SIZE + 1);
+    bytes = read(fd, buffer, BUFFER_SIZE)
+
+    while(*stash)
+      {
+        ++bytes;  
+      }
+      if(*bytes == -1)
+          return(NULL);
 }
 
 char *ft_fetch_line(char *stash, int fd)

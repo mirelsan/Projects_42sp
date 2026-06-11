@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   get_next_line.c                                   :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/09 23:15:13 by username         #+#    #+#              */
-/*   Updated: 2026/06/11 13:10:51 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/09 23:15:13 by username          #+#    #+#             */
+/*   Updated: 2026/06/11 14:25:59 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,28 @@
 char	*get_next_line(int fd)
 {
 	static char	*stash;
+    char    *next_line;
+    size_t len_before;
+    size_t len_after;
+
+    if(fd < 0)
+        return(NULL);
+
+    while(ft_verify_stash(stash) != 1 )
+    {
+        if(stash == NULL)
+            len_before = 0;
+        else
+            len_before = ft_strlen(stash);
+        stash = ft_append_stash(stash, fd);
+
+        if(stash == NULL)
+            return(NULL);
+            
+        len_after = ft_strlen(stash);
+        if(len_before == len_after)
+            break ;    
+    }
+    next_line = ft_fetch_line(&stash, fd);
+    return(next_line);
 }

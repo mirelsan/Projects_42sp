@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/06/09 23:15:13 by username         #+#    #+#              */
-/*   Updated: 2026/06/11 14:56:57 by username        ###   ########.fr        */
+/*   Updated: 2026/06/11 16:12:27 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ char	*get_next_line(int fd)
 		len_after = ft_strlen(stash);
 		if (len_before == len_after)
 			break ;
+	}
+	if (!stash || *stash == '\0')
+	{
+		free(stash);
+		return (NULL);
 	}
 	next_line = ft_fetch_line(&stash);
 	return (next_line);
@@ -65,6 +70,7 @@ char	*ft_append_stash(char *stash, int fd)
 		if (bytes == -1)
 		{
 			free(buffer);
+			free(stash);
 			return (NULL);
 		}
 		if (bytes == 0)

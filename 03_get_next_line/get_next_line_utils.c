@@ -46,11 +46,16 @@ char *ft_append_stash(char *stash, int fd)
       {
         bytes = read(fd, buffer, BUFFER_SIZE);
         if(bytes == -1)
-        free(buffer);
+       {
+         free(buffer);
          return(NULL);
+       }
+        
       if(bytes == 0)
+       {
          free(buffer);
          return(stash);
+       }      
         result = ft_strjoin(stash, buffer);
         free(stash);
         stash = result;

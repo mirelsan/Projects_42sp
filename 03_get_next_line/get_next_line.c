@@ -6,7 +6,7 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 23:15:13 by username          #+#    #+#             */
-/*   Updated: 2026/06/11 14:25:59 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/06/11 14:34:08 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ char	*get_next_line(int fd)
         if(len_before == len_after)
             break ;    
     }
-    next_line = ft_fetch_line(&stash, fd);
+    next_line = ft_fetch_line(&stash);
     return(next_line);
 }

@@ -6,7 +6,7 @@
 /*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 23:15:11 by username          #+#    #+#             */
-/*   Updated: 2026/06/11 14:27:54 by mirelapitt       ###   ########.fr       */
+/*   Updated: 2026/06/11 14:38:20 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*ft_append_stash(char *stash, int fd)
 	while (1)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
+        buffer[bytes] = '\0';
 		if (bytes == -1)
 		{
 			free(buffer);
@@ -64,7 +65,7 @@ char	*ft_append_stash(char *stash, int fd)
 	free(buffer);
 }
 
-char	*ft_fetch_line(char **stash, int fd)
+char	*ft_fetch_line(char **stash)
 {
 	int		i;
 	char	*new_strline;
@@ -155,4 +156,18 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ft_memcpy(substr, s + start, len);
 	substr[len] = '\0';
 	return (substr);
+}
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (dest == NULL && src == NULL)
+		return (NULL);
+	while (i < n)
+	{
+		((char *) dest)[i] = ((char *) src)[i];
+		i++;
+	}
+	return (dest);
 }

@@ -60,7 +60,10 @@ char *ft_append_stash(char *stash, int fd)
         free(stash);
         stash = result;
         if (ft_strchr(stash, '\n') != NULL)
+         { 
+          free(buffer);
           return(stash);
+         }
       }
       free(buffer);
 }

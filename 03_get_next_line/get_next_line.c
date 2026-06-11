@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/09 23:15:13 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/10 13:07:42 by mirelapitt       ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   get_next_line.c                                   :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/09 23:15:13 by username         #+#    #+#              */
+/*   Updated: 2026/06/11 13:10:51 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-    static char *stash;
-    
+	static char	*stash;
 }

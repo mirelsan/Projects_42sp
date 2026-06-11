@@ -38,16 +38,23 @@ char *ft_append_stash(char *stash, int fd)
 {
     int   bytes;
     char *buffer;
+    char  *result;
   
     buffer = malloc(BUFFER_SIZE + 1);
-    bytes = read(fd, buffer, BUFFER_SIZE)
+    bytes = read(fd, buffer, BUFFER_SIZE);
 
-    while(*stash)
+    while(bytes > 0)
       {
-        ++bytes;  
+        result = ft_strjoin(stash, buffer);
+        free(stash);
+        stash = result;
+        bytes = read(fd, buffer, BUFFER_SIZE);
       }
-      if(*bytes == -1)
+      free(buffer);
+      if(bytes == -1)
           return(NULL);
+      if(bytes == 0)
+          return(stash);
 }
 
 char *ft_fetch_line(char *stash, int fd)

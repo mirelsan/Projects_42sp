@@ -68,8 +68,23 @@ char *ft_append_stash(char *stash, int fd)
       free(buffer);
 }
 
-char *ft_fetch_line(char *stash, int fd)
-{
+char *ft_fetch_line(char **stash, int fd)
+{    
+    int i;
+    char *new_strline;
+    char *the_rest;
     
+    i = 0;
+    
+    while((*stash)[i] != '\n' && (*stash)[i] != '\0')
+    {
+        ++i;
+    }
+    if((*stash)[i] == '\n')
+        ++i;
+    new_strline = ft_substr(*stash, 0, i);
+    the_rest = ft_substr(*stash, i, ft_strlen(*stash + i));
+    free(*stash);
+    *stash = the_rest;
+    return(new_strline);
 }
-

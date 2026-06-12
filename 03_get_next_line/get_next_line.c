@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       :::      ::::::::    */
@@ -17,30 +16,10 @@ char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*next_line;
-	size_t		len_before;
-	size_t		len_after;
 
 	if (fd < 0)
 		return (NULL);
-	while (ft_verify_stash(stash) != 1)
-	{
-		if (stash == NULL)
-			len_before = 0;
-		else
-			len_before = ft_strlen(stash);
-		stash = ft_append_stash(stash, fd);
-		if (stash == NULL)
-			return (NULL);
-		len_after = ft_strlen(stash);
-		if (len_before == len_after)
-			if (!stash || *stash == '\0')
-			{
-				free(stash);
-				stash = NULL;
-				return (NULL);
-			}
-		break ;
-	}
+	stash = ft_read_stash(stash, fd);
 	if (!stash || *stash == '\0')
 	{
 		free(stash);
@@ -73,18 +52,14 @@ char	*ft_append_stash(char *stash, int fd)
 	while (1)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes == -1)
+		if (bytes <= 0)
 		{
 			free(buffer);
-			free(stash); 
-			return (NULL);
-		}	
-		buffer[bytes] = '\0';
-		if (bytes == 0)
-		{
-			free(buffer);
+			if (bytes == -1)
+				return (free(stash), NULL);
 			return (stash);
 		}
+		buffer[bytes] = '\0';
 		result = ft_strjoin(stash, buffer);
 		free(stash);
 		stash = result;
@@ -94,7 +69,6 @@ char	*ft_append_stash(char *stash, int fd)
 			return (stash);
 		}
 	}
-	free(buffer);
 }
 
 char	*ft_fetch_line(char **stash)
@@ -115,4 +89,33 @@ char	*ft_fetch_line(char **stash)
 	free(*stash);
 	*stash = the_rest;
 	return (new_strline);
+}
+
+char	*ft_read_stash(char *stash, int fd)
+{
+	size_t	len_before;
+	size_t	len_after;
+
+	while (ft_verify_stash(stash) != 1)
+	{
+		if (stash == NULL)
+			len_before = 0;
+		else
+			len_before = ft_strlen(stash);
+		stash = ft_append_stash(stash, fd);
+		if (stash == NULL)
+			return (NULL);
+		len_after = ft_strlen(stash);
+		if (len_before == len_after)
+		{
+			if (!stash || *stash == '\0')
+			{
+				free(stash);
+				stash = NULL;
+				return (NULL);
+			}
+			break ;
+		}
+	}
+	return (stash);
 }

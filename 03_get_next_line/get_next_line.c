@@ -30,13 +30,16 @@ char	*get_next_line(int fd)
 			len_before = ft_strlen(stash);
 		stash = ft_append_stash(stash, fd);
 		if (stash == NULL)
-		{
-			stash = NULL;
 			return (NULL);
-		}
 		len_after = ft_strlen(stash);
 		if (len_before == len_after)
-			break ;
+			if (!stash || *stash == '\0')
+			{
+				free(stash);
+				stash = NULL;
+				return (NULL);
+			}
+		break ;
 	}
 	if (!stash || *stash == '\0')
 	{

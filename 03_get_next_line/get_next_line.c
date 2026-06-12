@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/09 23:15:13 by username          #+#    #+#             */
-/*   Updated: 2026/06/12 03:02:27 by mirelapitt       ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   get_next_line.c                                   :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/09 23:15:13 by username         #+#    #+#              */
+/*   Updated: 2026/06/12 12:39:38 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,35 @@ char	*get_next_line(int fd)
 	}
 	next_line = ft_fetch_line(&stash);
 	return (next_line);
+}
+
+char	*ft_read_stash(char *stash, int fd)
+{
+	size_t	len_before;
+	size_t	len_after;
+
+	while (ft_verify_stash(stash) != 1)
+	{
+		if (stash == NULL)
+			len_before = 0;
+		else
+			len_before = ft_strlen(stash);
+		stash = ft_append_stash(stash, fd);
+		if (stash == NULL)
+			return (NULL);
+		len_after = ft_strlen(stash);
+		if (len_before == len_after)
+		{
+			if (!stash || *stash == '\0')
+			{
+				free(stash);
+				stash = NULL;
+				return (NULL);
+			}
+			break ;
+		}
+	}
+	return (stash);
 }
 
 int	ft_verify_stash(char *stash)
@@ -89,33 +118,4 @@ char	*ft_fetch_line(char **stash)
 	free(*stash);
 	*stash = the_rest;
 	return (new_strline);
-}
-
-char	*ft_read_stash(char *stash, int fd)
-{
-	size_t	len_before;
-	size_t	len_after;
-
-	while (ft_verify_stash(stash) != 1)
-	{
-		if (stash == NULL)
-			len_before = 0;
-		else
-			len_before = ft_strlen(stash);
-		stash = ft_append_stash(stash, fd);
-		if (stash == NULL)
-			return (NULL);
-		len_after = ft_strlen(stash);
-		if (len_before == len_after)
-		{
-			if (!stash || *stash == '\0')
-			{
-				free(stash);
-				stash = NULL;
-				return (NULL);
-			}
-			break ;
-		}
-	}
-	return (stash);
 }

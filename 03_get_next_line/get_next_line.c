@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       :::      ::::::::    */
@@ -29,7 +30,10 @@ char	*get_next_line(int fd)
 			len_before = ft_strlen(stash);
 		stash = ft_append_stash(stash, fd);
 		if (stash == NULL)
+		{
+			stash = NULL;
 			return (NULL);
+		}
 		len_after = ft_strlen(stash);
 		if (len_before == len_after)
 			break ;
@@ -66,13 +70,13 @@ char	*ft_append_stash(char *stash, int fd)
 	while (1)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		buffer[bytes] = '\0';
 		if (bytes == -1)
 		{
 			free(buffer);
-			free(stash);
+			free(stash); 
 			return (NULL);
-		}
+		}	
+		buffer[bytes] = '\0';
 		if (bytes == 0)
 		{
 			free(buffer);

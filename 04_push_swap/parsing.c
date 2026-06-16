@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   parsing.c                                         :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/15 02:09:35 by username         #+#    #+#              */
-/*   Updated: 2026/06/16 15:56:47 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
+/*   Updated: 2026/06/16 22:25:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_stack	*ft_new_stack(void)
 {
 	t_stack	*ptr;
 
-	*ptr = malloc(sizeof(t_stack));
+	ptr = malloc(sizeof(t_stack));
 	if (!ptr)
 		return (NULL);
 	ptr->head = NULL;
@@ -29,13 +29,7 @@ t_stack	*ft_new_stack(void)
 	return (ptr);
 }
 
-void	ft_add_front(t_stack **stack, t_node *new)
-{
-	new->next = (*stack)->head;
-	(*stack)->head = new;
-}
-
-void	ft_add_tail(t_stack **stack, t_node *new)
+void	ft_add_head(t_stack **stack, t_node *new)
 {
 	if ((*stack)->head == NULL)
 		(*stack)->tail = new;
@@ -57,11 +51,30 @@ t_node	*ft_new_node(int data)
 	return (new_node);
 }
 
+t_stack *ft_parse_args(int argc, char **argv)
+{
+	t_stack *stack;
+	char	**str;
+	int		numbers;
+
+	stack = ft_new_stack();
+	if(!stack)
+		return(NULL);
+
+	if (ft_strchr(argv[1], ' '))
+	{
+		str = ft_split(argv[1], ' ');
+	}
+	else
+		numbers = ft_atoi(argv[1]);
+}
+
 int	main(int argc, char **argv)
 {
+	t_stack *stack_a;
+
 	if (argc < 2)
 		return (0);
-	else
-		(**argv == ' ');
-	ft_split(argv);
+	stack_a = ft_parse_args(argc, argv);
+	
 }

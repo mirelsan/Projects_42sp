@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
-/*   Updated: 2026/06/16 02:19:12 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   parsing.c                                         :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/15 02:09:35 by username         #+#    #+#              */
+/*   Updated: 2026/06/16 15:14:24 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,21 @@
 
 #include "push_swap.h"
 
-t_stack *ft_new_stack(void)
+t_stack	*ft_new_stack(void)
 {
-	t_stack *ptr = malloc(sizeof(t_stack));
+	t_stack	*ptr = malloc(sizeof(t_stack));
 
-	if(!ptr)
+	if (!ptr)
 		return (NULL);
-	
 	ptr->head = NULL;
 	ptr->tail = NULL;
 	ptr->size = 0;
-
-	return(ptr);
+	return (ptr);
 }
 
-void ft_add_front(t_stack **stack, t_node *new)
+void	ft_add_front(t_stack **stack, t_node *new)
 {
-	new->next = (*stack)->head; 
-
+	new->next = (*stack)->head;
 	(*stack)->head = new;
 }
 

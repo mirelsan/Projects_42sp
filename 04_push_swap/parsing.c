@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   parsing.c                                         :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/15 02:09:35 by username         #+#    #+#              */
-/*   Updated: 2026/06/15 15:13:01 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
+/*   Updated: 2026/06/16 02:19:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,27 @@
 //then ft_atoi to convert string to int.
 
 #include "push_swap.h"
+
+t_stack *ft_new_stack(void)
+{
+	t_stack *ptr = malloc(sizeof(t_stack));
+
+	if(!ptr)
+		return (NULL);
+	
+	ptr->head = NULL;
+	ptr->tail = NULL;
+	ptr->size = 0;
+
+	return(ptr);
+}
+
+void ft_add_front(t_stack **stack, t_node *new)
+{
+	new->next = (*stack)->head; 
+
+	(*stack)->head = new;
+}
 
 int	main(int argc, char **argv)
 {

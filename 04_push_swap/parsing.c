@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
-/*   Updated: 2026/06/16 23:56:03 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/17 21:24:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,14 @@ t_stack *ft_parse_args(int argc, char **argv)
 		str = ft_split(argv[1], ' ');
 		while(*str)
 		{
-			numbers = ft_atoi(*str);
-			node_numb = ft_new_node(numbers);
-			ft_add_head(stack, node_numb);
+			ft_create_and_append(stack, *str);
 			str++;
 		}
 	}
 	else
 		while(argv[1])
 		{
-			numbers = ft_atoi(argv[1]);
-			node_numb = ft_new_node(numbers);
-			ft_add_head(stack, node_numb);
+			ft_create_and_append(stack, argv[1]);
 			argv++;
 		}
 	return(stack);

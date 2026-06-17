@@ -6,35 +6,41 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 23:59:37 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/17 00:46:30 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/17 01:37:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//1. verify if int is valid
+//2. verify if int is in the range
+//3. verify duplicates
+
 #include "push_swap.h"
 
-int ft_int_validated(char **argv)
+int ft_int_validated(char *str)
 {
-    int signed;
+    if(*str == '\0')
+        return(0);
     
-    signed = 1;
-    
-    if(argv[1] == '-')
+    while(*str)
     {
-        signed = -1;
-        argv++;
-    }
-    else if (argv[1] == '+')
-    {
-        argv++;
-    }
-                
-
-    while(*argv)
-    {
-        if (argv[1] >= '0' && argv[1] <= '9')
-            return (1);
-        else
+        if (*str < '0' || *str > '9')
+        {
             return (0);
-        argv++;
+        }
+            str++;
     }
+    return (1);
+}
+
+int ft_int_range(char *str)
+{
+    if(*str >= '-2147483648' && *str <= '2147483647')
+        return(1);
+    else
+        return(0);    
+}
+
+int ft_int_duplicate(char *str)
+{
+    
 }

@@ -4,15 +4,23 @@ FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 SOURCE = parsing.c \
-         validation.c
+         validation.c \
+		 push.c \
+		 reverse.c \
+		 rotate \
+		 swap \
+		 main.c
 
 LIBFT = libft/libft.a
 
 OBJ = $(SOURCE:.c=.o)
 
-all: $(NAME)
+all: $(NAME) 
 
-$(NAME): $(OBJ)
+libft:
+	make -C ./libft
+
+$(NAME): $(OBJ) libft
 	$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
 
 %.o: %.c
@@ -28,4 +36,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re libft

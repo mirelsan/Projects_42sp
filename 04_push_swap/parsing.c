@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
-/*   Updated: 2026/06/17 22:58:36 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/18 02:00:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ t_stack	*ft_new_stack(void)
 	return (ptr);
 }
 
-void	ft_add_head(t_stack **stack, t_node *new)
+void	ft_add_head(t_stack *stack, t_node *new)
 {
-	if ((*stack)->head == NULL)
-		(*stack)->tail = new;
-	new->next = (*stack)->head;
-	(*stack)->head = new;
-	(*stack)->size++;
+	if ((stack)->head == NULL)
+		(stack)->tail = new;
+	new->next = (stack)->head;
+	(stack)->head = new;
+	(stack)->size++;
 }
 
 t_node	*ft_new_node(int data)
@@ -51,7 +51,7 @@ t_node	*ft_new_node(int data)
 	return (new_node);
 }
 
-t_stack *ft_parse_args(int argc, char **argv)
+t_stack *ft_parse_args(char **argv)
 {
 	t_stack *stack;
 	char	**str;
@@ -81,5 +81,11 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
-	stack_a = ft_parse_args(argc, argv);
+	stack_a = ft_parse_args(argv);
+	if(!stack_a)
+	{
+		write(2, "Error\n", 6);
+		return(1);
+	}
+	return(0);
 }

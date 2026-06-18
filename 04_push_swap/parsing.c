@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
-/*   Updated: 2026/06/18 02:00:54 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   parsing.c                                         :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/15 02:09:35 by username         #+#    #+#              */
+/*   Updated: 2026/06/18 15:11:03 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,41 +51,26 @@ t_node	*ft_new_node(int data)
 	return (new_node);
 }
 
-t_stack *ft_parse_args(char **argv)
+t_stack	*ft_parse_args(char **argv)
 {
-	t_stack *stack;
+	t_stack	*stack;
 	char	**str;
-	
+
 	stack = ft_new_stack();
-	if(!stack)
-		return(NULL);
+	if (!stack)
+		return (NULL);
 	if (ft_strchr(argv[1], ' '))
 	{
 		str = ft_split(argv[1], ' ');
-		if(!str)
-			return(NULL);
-		while(*str)
-			if(!ft_create_and_append(stack, *str++))
-				return(NULL);
+		if (!str)
+			return (NULL);
+		while (*str)
+			if (!ft_create_and_append(stack, *str++))
+			return (NULL);
 	}
 	else
-		while(argv[1])
-			if(!ft_create_and_append(stack, *argv++))
-				return(NULL);
-	return(stack);
-}
-
-int	main(int argc, char **argv)
-{
-	t_stack *stack_a;
-
-	if (argc < 2)
-		return (0);
-	stack_a = ft_parse_args(argv);
-	if(!stack_a)
-	{
-		write(2, "Error\n", 6);
-		return(1);
-	}
-	return(0);
+		while (argv[1])
+		if (!ft_create_and_append(stack, *argv++))
+		return (NULL);
+	return (stack);
 }

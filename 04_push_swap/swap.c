@@ -6,7 +6,7 @@
 /*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 15:56:24 by username          #+#    #+#             */
-/*   Updated: 2026/06/19 15:00:15 by adedias-         ###   ########.fr       */
+/*   Updated: 2026/06/22 10:43:53 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ void swap(t_stack  *stack)
 	stack->head->data = stack->head->next->data;
 	stack->head->next->data = tmp;
 }
-void sa(t_stack  *stack, t_stack *a)
+void sa(t_stack *a)
 {
 	swap(a);
 	write(1, "sa\n", 3);
 }
 
-void sb(t_stack  *stack, t_stack  *b)
+void sb(t_stack  *b)
 {
 	swap(b);
 	write(1, "sb\n", 3);
 }
-void ss(t_stack  *stack, t_stack  *a, t_stack  *b)
+void ss(t_stack  *a, t_stack  *b)
 {
 	t_node *tmp;
 

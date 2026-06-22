@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/18 15:53:51 by username          #+#    #+#             */
-/*   Updated: 2026/06/22 10:42:44 by adedias-         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   push.c                                            :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/18 15:53:51 by username         #+#    #+#              */
+/*   Updated: 2026/06/22 14:55:33 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 #include "push_swap.h"
 
-void push(t_stack *from, t_stack *to)
+void	push(t_stack *from, t_stack *to)
 {
-	t_node *node;
-	
+	t_node	*node;
+
 	if (!from || !from->head || !to)
 		return ;
 	node = from->head;
@@ -28,13 +28,13 @@ void push(t_stack *from, t_stack *to)
 	ft_add_head(to, node);
 }
 
-void pa(t_stack *a, t_stack *b)
+void	pa(t_stack *a, t_stack *b)
 {
 	push(b, a);
 	write(1, "pa\n", 3);
 }
 
-void pb(t_stack *a, t_stack *b)
+void	pb(t_stack *a, t_stack *b)
 {
 	push(a, b);
 	write(1, "pb\n", 3);

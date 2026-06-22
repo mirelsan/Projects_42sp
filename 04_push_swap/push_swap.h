@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/22 10:41:25 by adedias-         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   push_swap.h                                       :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/15 02:10:09 by username         #+#    #+#              */
+/*   Updated: 2026/06/22 14:55:51 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,20 @@ int			ft_create_and_append(t_stack *stack, char *str);
 int			ft_atoi(const char *npr);
 char		*ft_strchr(const char *s, int c);
 char		**ft_split(char const *s, char c);
-void 		swap(t_stack  *stack);
-void 		sa(t_stack *a);
-void 		sb(t_stack  *b);
-void 		ss(t_stack  *a, t_stack  *b);
-void 		push(t_stack *from, t_stack *to);
-void 		pa(t_stack *a, t_stack *b);
-void 		pb(t_stack *a, t_stack *b);
-void 		rotate(t_stack *stack);
-void 		ra(t_stack *a);
-void 		rb(t_stack *b);
-void 		rr(t_stack *a, t_stack *b);
-void 		reverse(t_stack *stack);
-void 		rra(t_stack *a);
-void 		rrb(t_stack *b);
-void 		rrr(t_stack *a, t_stack *b);
+void		swap(t_stack *stack);
+void		sa(t_stack *a);
+void		sb(t_stack *b);
+void		ss(t_stack *a, t_stack *b);
+void		push(t_stack *from, t_stack *to);
+void		pa(t_stack *a, t_stack *b);
+void		pb(t_stack *a, t_stack *b);
+void		rotate(t_stack *stack);
+void		ra(t_stack *a);
+void		rb(t_stack *b);
+void		rr(t_stack *a, t_stack *b);
+void		reverse(t_stack *stack);
+void		rra(t_stack *a);
+void		rrb(t_stack *b);
+void		rrr(t_stack *a, t_stack *b);
 
 #endif

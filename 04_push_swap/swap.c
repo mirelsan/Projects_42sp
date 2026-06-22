@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/18 15:56:24 by username          #+#    #+#             */
-/*   Updated: 2026/06/22 10:43:53 by adedias-         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   swap.c                                            :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/18 15:56:24 by username         #+#    #+#              */
+/*   Updated: 2026/06/22 14:54:41 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 #include "push_swap.h"
 
-void swap(t_stack  *stack)
+void	swap(t_stack *stack)
 {
-	int tmp;
+	int	tmp;
 
 	if (!stack || !stack->head || !stack->head->next)
 		return ;
@@ -24,20 +24,22 @@ void swap(t_stack  *stack)
 	stack->head->data = stack->head->next->data;
 	stack->head->next->data = tmp;
 }
-void sa(t_stack *a)
+
+void	sa(t_stack *a)
 {
 	swap(a);
 	write(1, "sa\n", 3);
 }
 
-void sb(t_stack  *b)
+void	sb(t_stack *b)
 {
 	swap(b);
 	write(1, "sb\n", 3);
 }
-void ss(t_stack  *a, t_stack  *b)
+
+void	ss(t_stack *a, t_stack *b)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	swap(a);
 	swap(b);

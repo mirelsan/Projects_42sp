@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/06/18 15:55:20 by username         #+#    #+#              */
-/*   Updated: 2026/06/22 14:55:26 by username        ###   ########.fr        */
+/*   Updated: 2026/06/22 15:10:26 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	reverse(t_stack *stack)
 	t_node	*last;
 	t_node	*prev;
 
+	if (!stack || !stack->head || !stack->head->next)
+		return ;
 	prev = stack->head;
 	while (prev->next->next)
 		prev = prev->next;

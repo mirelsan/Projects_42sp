@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/06/18 15:57:23 by username         #+#    #+#              */
-/*   Updated: 2026/06/22 14:55:17 by username        ###   ########.fr        */
+/*   Updated: 2026/06/22 15:06:22 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	rotate(t_stack *stack)
 	t_node	*first;
 
 	if (!stack || !stack->head || !stack->head->next)
-		return (NULL);
+		return ;
 	first = stack->head;
 	stack->head = first->next;
 	first->next = NULL;
 	if (stack->tail)
-		stack->tail->next = NULL;
+		stack->tail->next = first;
 	stack->tail = first;
 }
 
@@ -35,7 +35,7 @@ void	ra(t_stack *a)
 void	rb(t_stack *b)
 {
 	rotate(b);
-	write(1, "ra\n", 3);
+	write(1, "rb\n", 3);
 }
 
 void	rr(t_stack *a, t_stack *b)

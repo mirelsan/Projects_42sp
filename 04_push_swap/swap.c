@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/06/18 15:56:24 by username         #+#    #+#              */
-/*   Updated: 2026/06/22 14:54:41 by username        ###   ########.fr        */
+/*   Updated: 2026/06/22 15:02:03 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	sb(t_stack *b)
 
 void	ss(t_stack *a, t_stack *b)
 {
-	t_node	*tmp;
-
 	swap(a);
 	swap(b);
 	write(1, "ss\n", 3);

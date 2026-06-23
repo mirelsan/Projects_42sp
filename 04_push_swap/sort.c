@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:15:08 by adedias-          #+#    #+#             */
-/*   Updated: 2026/06/22 16:30:35 by adedias-         ###   ########.fr       */
+/*   Updated: 2026/06/23 02:10:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void sort_3(t_stack *a)
 	first = a->head->data;
 	second = a->head->next->data;
 	third = a->tail->data;
-	if (first > second && second < third && first < third)
+	if(first < second && second < third)
+		return ;
+	else if (first > second && second < third && first < third)
 		sa(a);
 	else if (first > second && second > third)
 	{
@@ -65,8 +67,11 @@ void extract_top(t_stack *a)
 	
 	while (curr)
 	{
-		if (curr->data < node->data && (target_pos = pos))
+		if (curr->data < node->data)
+		{
 			node = curr;
+			target_pos = pos;
+		}
 		pos++;
 		curr = curr->next;
 	}

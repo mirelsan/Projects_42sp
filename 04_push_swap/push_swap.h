@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   push_swap.h                                       :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/15 02:10:09 by username         #+#    #+#              */
-/*   Updated: 2026/06/22 14:55:51 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
+/*   Updated: 2026/06/23 22:25:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,10 @@ void		reverse(t_stack *stack);
 void		rra(t_stack *a);
 void		rrb(t_stack *b);
 void		rrr(t_stack *a, t_stack *b);
+int 		ft_min(t_stack *a);
+int 		ft_max(t_stack *a);
+int 		ft_sqrt(int n);
+int 		width_range(t_stack *a, int num_chunks);
+int 		ft_chunk(int min, int width_range, int value);
 
 #endif

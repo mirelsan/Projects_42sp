@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/23 22:25:54 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/24 17:35:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ int 		ft_max(t_stack *a);
 int 		ft_sqrt(int n);
 int 		width_range(t_stack *a, int num_chunks);
 int 		ft_chunk(int min, int width_range, int value);
+void 		ft_set_index(t_stack *a);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 01:54:03 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/24 02:13:06 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/24 17:36:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,19 @@ void process_bit(t_stack *a, t_stack *b, int bit)
 	while (bit_size--)
 	{
 		if (has_bit(a->head->index, bit))
-			ra(a, b);
+			ra(a);
 		else
-			pb(a);
+			pb(a, b);
 	}
 	while (b->size > 0)
 		pa(a, b);
 }
 
-
 void ft_set_index(t_stack *a)
 {
 	t_node *outer;
     t_node *inner;
-    int count;
+    int 	count;
 	
     outer = a->head;
     while (outer)
@@ -88,6 +87,10 @@ void sort_radix(t_stack *a, t_stack *b)
 
 	if (!a || a->size <= 1)
 		return ;
+	
+	if (is_sorted(a))
+		return ;
+		
 	ft_set_index(a);	
 	bits = max_bits(a);
 	i = 0;

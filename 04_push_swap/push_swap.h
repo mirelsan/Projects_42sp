@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/24 18:28:14 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/24 22:34:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct t_stack
 t_stack		*ft_new_stack(void);
 void		ft_add_head(t_stack *stack, t_node *new);
 t_node		*ft_new_node(int data);
-t_stack		*ft_parse_args(char **argv);
+t_stack	*ft_parse_args(char **argv, int start_index);
 int			main(int argc, char **argv);
 int			ft_int_validated(char *str);
 int			ft_int_range(char *str);
@@ -76,7 +76,8 @@ int 		ft_chunk(int min, int width_range, int value);
 void 		ft_set_index(t_stack *a);
 void 		sort_chunk(t_stack *a, t_stack *b);
 t_node 		*find_min_in_chunk(t_stack *a, int min, int width, int chunk_idx);
-int 		get_position(t_stack *a, t_node *target)
+int 		get_position(t_stack *a, t_node *target);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
 
 
 #endif

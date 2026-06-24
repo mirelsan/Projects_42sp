@@ -6,11 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 01:54:17 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/24 18:26:21 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/24 21:24:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h";
+#include "push_swap.h"
 
 void sort_adaptative(t_stack *a, t_stack *b)
 {

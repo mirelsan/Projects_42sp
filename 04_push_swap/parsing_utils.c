@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   parsing.c                                         :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/15 02:09:35 by username         #+#    #+#              */
-/*   Updated: 2026/06/22 14:56:01 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
+/*   Updated: 2026/06/24 22:17:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,19 @@ t_node	*ft_new_node(int data)
 	return (new_node);
 }
 
-t_stack	*ft_parse_args(char **argv)
+t_stack	*ft_parse_args(char **argv, int start_index)
 {
 	t_stack	*stack;
 	char	**str;
+	int		i;
 
+	i = start_index;
 	stack = ft_new_stack();
 	if (!stack)
 		return (NULL);
-	if (ft_strchr(argv[1], ' '))
+	if (ft_strchr(argv[i], ' '))
 	{
-		str = ft_split(argv[1], ' ');
+		str = ft_split(argv[i], ' ');
 		if (!str)
 			return (NULL);
 		while (*str)
@@ -69,8 +71,11 @@ t_stack	*ft_parse_args(char **argv)
 			return (NULL);
 	}
 	else
-		while (argv[1])
-		if (!ft_create_and_append(stack, *argv++))
-		return (NULL);
+		while (argv[i])
+		{
+			if (!ft_create_and_append(stack, argv[i]))
+				return (NULL);
+			i++;
+		}
 	return (stack);
 }

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:15:08 by adedias-          #+#    #+#             */
-/*   Updated: 2026/06/23 20:46:36 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/23 22:57:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void extract_top(t_stack *a)
 		while (a->head != node)
 			rra(a);
 }
-
 
 void sort_n2(t_stack *a, t_stack *b)
 {

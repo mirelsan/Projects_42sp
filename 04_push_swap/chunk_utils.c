@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 02:19:10 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/23 22:25:33 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/24 00:26:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int width_range(t_stack *a, int num_chunks)
     int num;
 
     range = ft_max(a) - ft_min(a);
-    num = range / num_chunks;
+    num = (range + num_chunks - 1) / num_chunks;
 
     return(num);
 }

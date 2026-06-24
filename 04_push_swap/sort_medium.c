@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 22:07:15 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/24 00:33:14 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/24 01:51:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,41 @@ void sort_medium(t_stack *a, t_stack *b)
     int num_chunks;
     int width;
     int i;
+    int pos;
+    t_node *node;
 
     min = ft_min(a);
     max = ft_max(a);
     num_chunks = ft_sqrt(a->size);
     width = width_range(a, num_chunks);
-    i = num_chunks - 1;
-
-    while(i >= 0)
+    i = 0;
+    
+    while(i < num_chunks)
     {
-        if()
+        node = find_min_in_chunk(a, min, width, i);
+        while(node != NULL)
+        {
+            pos = get_position(a, node);
+            if(pos <= a->size / 2)
+            {
+                while(a->head != node)
+                    ra(a);
+            }
+            else
+            {
+                while(a->head != node)
+                    rra(a);
+            }
+            pb(a, b);
+            node = find_min_in_chunk(a, min, width, i);
+        }
+        i++;
     }
+    while(b->size > 0)
+    pa(a, b);    
 }
 
-t_node *find_max_in_chunk(t_stack *a, int min, int width, int chunk_idx)
+t_node *find_min_in_chunk(t_stack *a, int min, int width, int chunk_idx)
 {
     t_node *curr;
     t_node *node;
@@ -47,7 +68,7 @@ t_node *find_max_in_chunk(t_stack *a, int min, int width, int chunk_idx)
 
         if(chunk_idx == found)
         {
-            if(node == NULL || curr->data > node->data)
+            if(node == NULL || curr->data < node->data)
             {
                 node = curr;
             }
@@ -56,7 +77,18 @@ t_node *find_max_in_chunk(t_stack *a, int min, int width, int chunk_idx)
     }
     return(node);
 }
-t_node get_position(t_stack *a, t_node node)
+int get_position(t_stack *a, t_node *target)
 {
+    t_node *curr;
+    int pos;
     
+    curr = a->head;
+    pos = 0;
+
+    while(curr != target)
+    {
+       ++pos; 
+       curr = curr->next;
+    }
+    return(pos);
 }

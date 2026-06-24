@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   radix.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/24 01:54:03 by codespace         #+#    #+#             */
+/*   Updated: 2026/06/24 02:13:06 by codespace        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int max_bits(t_stack *a)
@@ -47,6 +59,28 @@ void process_bit(t_stack *a, t_stack *b, int bit)
 		pa(a, b);
 }
 
+
+void ft_set_index(t_stack *a)
+{
+	t_node *outer;
+    t_node *inner;
+    int count;
+	
+    outer = a->head;
+    while (outer)
+    {
+		count = 0;
+		inner = a->head;
+		while(inner)
+		{
+			if(inner->data < outer->data)
+			count++;
+			inner = inner->next;	
+		}
+		outer->index = count;
+		outer = outer->next;
+    }
+}
 void sort_radix(t_stack *a, t_stack *b)
 {
 	int bits;
@@ -54,6 +88,7 @@ void sort_radix(t_stack *a, t_stack *b)
 
 	if (!a || a->size <= 1)
 		return ;
+	ft_set_index(a);	
 	bits = max_bits(a);
 	i = 0;
 	while (i < bits)

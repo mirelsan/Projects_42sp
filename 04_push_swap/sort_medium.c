@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 22:07:15 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/24 00:18:36 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/24 00:33:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,8 @@ t_node *find_max_in_chunk(t_stack *a, int min, int width, int chunk_idx)
         curr = curr->next;
     }
     return(node);
+}
+t_node get_position(t_stack *a, t_node node)
+{
+    
 }

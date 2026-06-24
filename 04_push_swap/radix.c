@@ -51,9 +51,9 @@ void process_bit(t_stack *a, t_stack *b, int bit)
 	while (bit_size--)
 	{
 		if (has_bit(a->head->index, bit))
-			pb(a, b);
+			ra(a, b);
 		else
-			ra(a);
+			pb(a);
 	}
 	while (b->size > 0)
 		pa(a, b);

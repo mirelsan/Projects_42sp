@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 22:07:15 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/24 17:36:00 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/24 18:25:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sort_medium(t_stack *a, t_stack *b)
+void sort_chunk(t_stack *a, t_stack *b)
 {
     int min;
     int max;

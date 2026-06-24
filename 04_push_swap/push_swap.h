@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/24 17:35:53 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/24 18:28:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ int 		ft_sqrt(int n);
 int 		width_range(t_stack *a, int num_chunks);
 int 		ft_chunk(int min, int width_range, int value);
 void 		ft_set_index(t_stack *a);
+void 		sort_chunk(t_stack *a, t_stack *b);
+t_node 		*find_min_in_chunk(t_stack *a, int min, int width, int chunk_idx);
+int 		get_position(t_stack *a, t_node *target)
 
 
 #endif

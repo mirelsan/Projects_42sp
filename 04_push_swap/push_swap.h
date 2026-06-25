@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pc2 <pc2@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/24 22:34:45 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/24 21:47:47 by pc2              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void 		sort_chunk(t_stack *a, t_stack *b);
 t_node 		*find_min_in_chunk(t_stack *a, int min, int width, int chunk_idx);
 int 		get_position(t_stack *a, t_node *target);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
+void 		sort_adaptative(t_stack *a, t_stack *b);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
-/*   Updated: 2026/06/24 22:17:09 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/25 01:49:04 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ t_stack	*ft_parse_args(char **argv, int start_index)
 	else
 		while (argv[i])
 		{
-			if (!ft_create_and_append(stack, argv[i]))
+			if(ft_strncmp(argv[i], "--", 2) == 0)
+			{
+				i++;
+			}
+			else if (!ft_create_and_append(stack, argv[i]))
 				return (NULL);
 			i++;
 		}

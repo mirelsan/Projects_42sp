@@ -3,15 +3,22 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-SOURCE = parsing.c \
-         validation.c \
-		 push.c \
-		 reverse.c \
-		 rotate \
-		 swap \
-		 main.c
+SOURCE =	parsing_utils.c \
+			validation.c \
+			push.c \
+			reverse.c \
+			rotate.c \
+			swap.c \
+			sort.c \
+			radix.c \
+			chunk_utils.c \
+			adaptive.c \
+			sort_chunk.c \
+			options.c \
+			disorder.c \
+			main.c
 
-LIBFT = libft/libft.a
+LIBFT = ./libft/libft.a
 
 OBJ = $(SOURCE:.c=.o)
 
@@ -27,13 +34,19 @@ $(NAME): $(OBJ) libft
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean: 
-	make clean -C libft
+	make clean -C ./libft
 	$(RM) $(OBJ)
 
 fclean: clean
-	make fclean -C libft
+	make fclean -C ./libft
 	$(RM) $(NAME)
 
 re: fclean all
+test: all
+		@if [ -f "tester.sh" ]; then \
+				bash tester.sh; \
+		else \
+				echo "Error: script tester.sh not found in root."; \
+		fi
 
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re libft test

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/25 01:58:04 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/25 22:06:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef enum e_mode
 typedef struct s_options
 {
 	int bench;
+	int start_index;
 	t_mode mode;
 }t_options;
 

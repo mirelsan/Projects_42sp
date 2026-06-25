@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 15:05:06 by username          #+#    #+#             */
-/*   Updated: 2026/06/25 02:04:23 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/25 22:20:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int	main(int argc, char **argv)
 t_stack *select_and_sort(char **argv, t_stack *b, t_options *opt)
 {
 	t_stack *a;
-
-	a = ft_parse_args(argv, 1);
+	
+	a = ft_parse_args(argv, opt->start_index);
+	if(!a)
+		return(NULL);
 	if(opt->mode == SIMPLE)
 	{
 		sort_n2(a, b);

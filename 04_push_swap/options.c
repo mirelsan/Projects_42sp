@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pc2 <pc2@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 16:16:55 by pc2               #+#    #+#             */
-/*   Updated: 2026/06/24 21:10:32 by pc2              ###   ########.fr       */
+/*   Updated: 2026/06/25 22:22:10 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,15 @@ int parse_options(int argc, char **argv, t_options *opt)
 		else if (ft_strncmp(argv[i],  "--adaptive", 11) == 0)
 			opt->mode = ADAPTIVE;
 		else if (ft_strncmp(argv[i],  "--", 2) == 0)
+		{
 			if (is_valid_flag(argv[i]) != 0)
 				return (-1);
+		}
+		else
+			break ;
 		i++;
 	}
+	opt->start_index = i;
 	return (0);
 }
 

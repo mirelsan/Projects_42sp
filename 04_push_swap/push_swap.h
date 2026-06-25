@@ -6,7 +6,7 @@
 /*   By: pc2 <pc2@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/24 21:47:47 by pc2              ###   ########.fr       */
+/*   Updated: 2026/06/24 22:11:45 by pc2              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ typedef struct t_stack
 	t_node	*tail;
 	int		size;
 }	t_stack;
+
+typedef enum e_mode
+{
+	SIMPLE,
+	MEDIUM, 
+	COMPLEX, 
+	ADAPTIVE
+} t_mode;
+
+typedef struct s_options
+{
+	int bench;
+	t_mode mode;
+}t_options;
 
 t_stack		*ft_new_stack(void);
 void		ft_add_head(t_stack *stack, t_node *new);

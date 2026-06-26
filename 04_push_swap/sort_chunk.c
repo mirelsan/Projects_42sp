@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_medium.c                                      :+:      :+:    :+:   */
+/*   sort_chunk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 22:07:15 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/24 18:25:42 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/25 23:51:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sort_chunk(t_stack *a, t_stack *b)
+void sort_chunk(t_stack *a, t_stack *b, t_options *opt)
 {
     int min;
     int max;
@@ -37,20 +37,20 @@ void sort_chunk(t_stack *a, t_stack *b)
             if(pos <= a->size / 2)
             {
                 while(a->head != node)
-                    ra(a);
+                    ra(a, opt);
             }
             else
             {
                 while(a->head != node)
-                    rra(a);
+                    rra(a, opt);
             }
-            pb(a, b);
+            pb(a, b, opt);
             node = find_min_in_chunk(a, min, width, i);
         }
         i++;
     }
     while(b->size > 0)
-    pa(a, b);    
+    pa(a, b, opt);    
 }
 
 t_node *find_min_in_chunk(t_stack *a, int min, int width, int chunk_idx)

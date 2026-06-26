@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   push.c                                            :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/18 15:53:51 by username         #+#    #+#              */
-/*   Updated: 2026/06/22 14:55:33 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   push.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/18 15:53:51 by username          #+#    #+#             */
+/*   Updated: 2026/06/25 23:22:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ void	push(t_stack *from, t_stack *to)
 	ft_add_head(to, node);
 }
 
-void	pa(t_stack *a, t_stack *b)
+void	pa(t_stack *a, t_stack *b, t_options *opt)
 {
 	push(b, a);
 	write(1, "pa\n", 3);
+	opt->counts[PA]++;
 }
 
-void	pb(t_stack *a, t_stack *b)
+void	pb(t_stack *a, t_stack *b, t_options *opt)
 {
 	push(a, b);
 	write(1, "pb\n", 3);
+	opt->counts[PB]++;
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   swap.c                                            :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/18 15:56:24 by username         #+#    #+#              */
-/*   Updated: 2026/06/22 15:02:03 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   swap.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/18 15:56:24 by username          #+#    #+#             */
+/*   Updated: 2026/06/25 23:18:51 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,24 @@ void	swap(t_stack *stack)
 	stack->head->next->data = tmp;
 }
 
-void	sa(t_stack *a)
+void	sa(t_stack *a, t_options *opt)
 {
 	swap(a);
 	write(1, "sa\n", 3);
+	opt->counts[SA]++;
 }
 
-void	sb(t_stack *b)
+void	sb(t_stack *b, t_options *opt)
 {
 	swap(b);
 	write(1, "sb\n", 3);
+	opt->counts[SB]++;
 }
 
-void	ss(t_stack *a, t_stack *b)
+void	ss(t_stack *a, t_stack *b, t_options *opt)
 {
 	swap(a);
 	swap(b);
 	write(1, "ss\n", 3);
+	opt->counts[SS]++;
 }

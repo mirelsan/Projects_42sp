@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/25 22:06:38 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/25 23:55:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,27 @@ typedef enum e_mode
 	ADAPTIVE
 } t_mode;
 
+typedef enum e_operations
+{
+	SA,
+	SB,
+	SS,
+	PA,
+	PB,
+	RA,
+	RB,
+	RR,
+	RRA,
+	RRB,
+	RRR
+}t_operations;
+
 typedef struct s_options
 {
 	int bench;
 	int start_index;
+	int counts[11];
+	double disorder_value;
 	t_mode mode;
 }t_options;
 
@@ -60,28 +77,28 @@ int			ft_atoi(const char *npr);
 char		*ft_strchr(const char *s, int c);
 char		**ft_split(char const *s, char c);
 void		swap(t_stack *stack);
-void		sa(t_stack *a);
-void		sb(t_stack *b);
-void		ss(t_stack *a, t_stack *b);
-void		push(t_stack *from, t_stack *to);
-void		pa(t_stack *a, t_stack *b);
-void		pb(t_stack *a, t_stack *b);
+void		sa(t_stack *a, t_options *opt);
+void		sb(t_stack *b, t_options *opt);
+void		ss(t_stack *a, t_stack *b, t_options *opt);
+void		push(t_stack *from, t_stack *to, t_options *opt);
+void		pa(t_stack *a, t_stack *b, t_options *opt);
+void		pb(t_stack *a, t_stack *b, t_options *opt);
 void		rotate(t_stack *stack);
-void		ra(t_stack *a);
-void		rb(t_stack *b);
-void		rr(t_stack *a, t_stack *b);
+void		ra(t_stack *a, t_options *opt);
+void		rb(t_stack *b, t_options *opt);
+void		rr(t_stack *a, t_stack *b, t_options *opt);
 void		reverse(t_stack *stack);
-void		rra(t_stack *a);
-void		rrb(t_stack *b);
-void		rrr(t_stack *a, t_stack *b);
-void 		sort_radix(t_stack *a, t_stack *b);
-void 		process_bit(t_stack *a, t_stack *b, int bit);
+void		rra(t_stack *a, t_options *opt);
+void		rrb(t_stack *b, t_options *opt);
+void		rrr(t_stack *a, t_stack *b, t_options *opt);
+void 		sort_radix(t_stack *a, t_stack *b, t_options *opt);
+void 		process_bit(t_stack *a, t_stack *b, int bit, t_options *opt);
 int 		has_bit(int n, int bit);
 int 		max_bits(t_stack *a);
 int 		is_sorted(t_stack *stack);
-void 		sort_3(t_stack *a);
-void 		extract_top(t_stack *a);
-void 		sort_n2(t_stack *a, t_stack *b);
+void 		sort_3(t_stack *a, t_options *opt);
+void 		extract_top(t_stack *a, t_options *opt);
+void 		sort_n2(t_stack *a, t_stack *b, t_options *opt);
 double		disorder(t_stack *stack);
 int 		ft_min(t_stack *a);
 int 		ft_max(t_stack *a);
@@ -89,11 +106,11 @@ int 		ft_sqrt(int n);
 int 		width_range(t_stack *a, int num_chunks);
 int 		ft_chunk(int min, int width_range, int value);
 void 		ft_set_index(t_stack *a);
-void 		sort_chunk(t_stack *a, t_stack *b);
+void 		sort_chunk(t_stack *a, t_stack *b, t_options *opt);
 t_node 		*find_min_in_chunk(t_stack *a, int min, int width, int chunk_idx);
 int 		get_position(t_stack *a, t_node *target);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
-void 		sort_adaptative(t_stack *a, t_stack *b);
+void 		sort_adaptative(t_stack *a, t_stack *b, t_options *opt);
 int 		parse_options(int argc, char **argv, t_options *opt);
 int			is_valid_flag(char *arg);
 t_stack 	*select_and_sort(char **argv, t_stack *b, t_options *opt);

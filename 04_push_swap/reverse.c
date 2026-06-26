@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   reverse.c                                         :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/18 15:55:20 by username         #+#    #+#              */
-/*   Updated: 2026/06/22 15:10:26 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   reverse.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/18 15:55:20 by username          #+#    #+#             */
+/*   Updated: 2026/06/25 23:23:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,24 @@ void	reverse(t_stack *stack)
 	stack->tail = prev;
 }
 
-void	rra(t_stack *a)
+void	rra(t_stack *a, t_options *opt)
 {
 	reverse(a);
 	write(1, "rra\n", 4);
+	opt->counts[RRA]++;
 }
 
-void	rrb(t_stack *b)
+void	rrb(t_stack *b, t_options *opt)
 {
 	reverse(b);
 	write(1, "rrb\n", 4);
+	opt->counts[RRB]++;
 }
 
-void	rrr(t_stack *a, t_stack *b)
+void	rrr(t_stack *a, t_stack *b, t_options *opt)
 {
 	reverse(a);
 	reverse(b);
 	write(1, "rrr\n", 4);
+	opt->counts[RRR]++;
 }

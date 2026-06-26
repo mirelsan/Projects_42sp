@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   rotate.c                                          :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/18 15:57:23 by username         #+#    #+#              */
-/*   Updated: 2026/06/22 15:06:22 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/18 15:57:23 by username          #+#    #+#             */
+/*   Updated: 2026/06/25 23:21:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,24 @@ void	rotate(t_stack *stack)
 	stack->tail = first;
 }
 
-void	ra(t_stack *a)
+void	ra(t_stack *a, t_options *opt)
 {
 	rotate(a);
 	write(1, "ra\n", 3);
+	opt->counts[RA]++;
 }
 
-void	rb(t_stack *b)
+void	rb(t_stack *b, t_options *opt)
 {
 	rotate(b);
 	write(1, "rb\n", 3);
+	opt->counts[RB]++;
 }
 
-void	rr(t_stack *a, t_stack *b)
+void	rr(t_stack *a, t_stack *b, t_options *opt)
 {
 	rotate(a);
 	rotate(b);
 	write(1, "rr\n", 3);
+	opt->counts[RR]++;
 }

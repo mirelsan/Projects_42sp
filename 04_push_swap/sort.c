@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:15:08 by adedias-          #+#    #+#             */
-/*   Updated: 2026/06/24 18:00:45 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/25 23:44:22 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int is_sorted(t_stack *stack)
 	}
 	return (1);
 }
-void sort_3(t_stack *a)
+void sort_3(t_stack *a, t_options *opt)
 {
 	int first;
 	int second;
@@ -37,23 +37,23 @@ void sort_3(t_stack *a)
 	if(first < second && second < third)
 		return ;
 	else if (first > second && second < third && first < third)
-		sa(a);
+		sa(a, opt);
 	else if (first > second && second > third)
 	{
-		sa(a);
-		rra(a);
+		sa(a, opt);
+		rra(a, opt);
 	}
 	else if (first > second && second < third && first > third)
-		ra(a);
+		ra(a, opt);
 	else if (first < second && second > third && first < third)
 	{
-		sa(a);
-		ra(a);
+		sa(a, opt);
+		ra(a, opt);
 	}
 	else if (first < second && second > third && first > third)
-		rra(a);
+		rra(a, opt);
 }
-void extract_top(t_stack *a)
+void extract_top(t_stack *a, t_options *opt)
 {
 	t_node *curr;
 	t_node *node;
@@ -80,22 +80,22 @@ void extract_top(t_stack *a)
 	}
 	if (target_pos <= a->size / 2)
 		while (a->head != node)
-			ra(a);
+			ra(a, opt);
 	else		
 		while (a->head != node)
-			rra(a);
+			rra(a, opt);
 }
 
-void sort_n2(t_stack *a, t_stack *b)
+void sort_n2(t_stack *a, t_stack *b, t_options *opt)
 {
 	if (is_sorted(a))
 		return ;
 	while (a->size > 3)
 	{
-		extract_top(a);
-		pb(a, b);
+		extract_top(a, opt);
+		pb(a, b, opt);
 	}
-	sort_3(a);
+	sort_3(a, opt);
 	while (b->size > 0)
-		pa(a, b);
+		pa(a, b, opt);
 }

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/25 23:55:26 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/26 02:16:35 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void 		sort_adaptative(t_stack *a, t_stack *b, t_options *opt);
 int 		parse_options(int argc, char **argv, t_options *opt);
 int			is_valid_flag(char *arg);
-t_stack 	*select_and_sort(char **argv, t_stack *b, t_options *opt);
+t_stack 	*select_and_sort(t_stack *a, t_stack *b, t_options *opt);
+char		*ft_itoa(int n);
 
 
 #endif

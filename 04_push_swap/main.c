@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 15:05:06 by username          #+#    #+#             */
-/*   Updated: 2026/06/25 23:52:52 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/26 02:26:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,24 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	stack_a = select_and_sort(argv, stack_b, &opt);
+	stack_a = ft_parse_args(argv, 1);
+	opt.disorder_value = disorder(stack_a);
+	stack_a = select_and_sort(stack_a, stack_b, &opt);
 	if (!stack_a)
 	{
 		write(2, "Error\n", 6);
 		return (1);
 	}
+	if(opt.bench == 1)
+	{
+		print_bench(&opt);
+	}
 	return (0);
 }
 
-t_stack *select_and_sort(char **argv, t_stack *b, t_options *opt)
+t_stack *select_and_sort(t_stack *a, t_stack *b, t_options *opt)
 {
-	t_stack *a;
-	
-	a = ft_parse_args(argv, opt->start_index);
-	if(!a)
-		return(NULL);
+
 	if(opt->mode == SIMPLE)
 		sort_n2(a, b, opt);
 	else if(opt->mode == MEDIUM)
@@ -51,4 +53,24 @@ t_stack *select_and_sort(char **argv, t_stack *b, t_options *opt)
 	else if(opt->mode == ADAPTIVE)
 		sort_adaptative(a, b, opt);
 	return(a);
+}
+void print_bench(t_options *opt)
+{
+	int total;
+	int part1;
+	int part2;
+	char *str;
+
+	total = opt->disorder_value * 10000;
+	part1 = total / 100;
+	part2 = total % 100;
+	str = ft_itoa(part1);
+	write(2, "[bench] disorder: ", 18);
+	write(2, str, ft_strlen(str));
+	write(2, ".", 1);
+	free(str);
+	str = ft_itoa(part2);
+	write(2, str, ft_strlen(str));
+	write(2, "%\n", 2);
+	free(str);
 }

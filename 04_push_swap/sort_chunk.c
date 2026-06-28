@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 22:07:15 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/25 23:51:14 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/28 20:49:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void sort_chunk(t_stack *a, t_stack *b, t_options *opt)
 {
     int min;
-    int max;
     int num_chunks;
     int width;
     int i;
@@ -23,7 +22,6 @@ void sort_chunk(t_stack *a, t_stack *b, t_options *opt)
     t_node *node;
 
     min = ft_min(a);
-    max = ft_max(a);
     num_chunks = ft_sqrt(a->size);
     width = width_range(a, num_chunks);
     i = 0;

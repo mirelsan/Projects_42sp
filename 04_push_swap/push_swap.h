@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/27 00:49:38 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/28 20:52:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		swap(t_stack *stack);
 void		sa(t_stack *a, t_options *opt);
 void		sb(t_stack *b, t_options *opt);
 void		ss(t_stack *a, t_stack *b, t_options *opt);
-void		push(t_stack *from, t_stack *to, t_options *opt);
+void		push(t_stack *from, t_stack *to);
 void		pa(t_stack *a, t_stack *b, t_options *opt);
 void		pb(t_stack *a, t_stack *b, t_options *opt);
 void		rotate(t_stack *stack);
@@ -116,6 +116,10 @@ int			is_valid_flag(char *arg);
 t_stack 	*select_and_sort(t_stack *a, t_stack *b, t_options *opt);
 char		*ft_itoa(int n);
 size_t		ft_strlen(const char *s);
+void 		print_bench(t_options *opt);
+void 		print_total_ops(t_options *opt);
+void 		print_opt_counts(t_options *opt);
+void		print_opt_counts2(t_options *opt);
 
 
 #endif

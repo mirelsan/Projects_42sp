@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/28 20:52:09 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/28 22:33:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void 		print_bench(t_options *opt);
 void 		print_total_ops(t_options *opt);
 void 		print_opt_counts(t_options *opt);
 void		print_opt_counts2(t_options *opt);
+void 		rotate_direction(t_stack *a, t_options *opt, int target_pos, t_node *node);
+void  		sort_rotate_push_b(t_stack *a, t_stack *b, t_options *opt, t_node *node);
 
 
 #endif

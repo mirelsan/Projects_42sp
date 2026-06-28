@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 02:19:10 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/24 00:26:38 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/28 22:32:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,6 @@ int ft_min(t_stack *a)
     return(node->data);
 }
 
-int ft_max(t_stack *a)
-{
-    t_node *curr;
-    t_node *node;
-
-    curr = a->head;
-    node = curr;
-
-    while(curr != NULL)
-    {
-        if(curr->data > node->data)
-        {
-            node = curr;
-        }
-        curr = curr->next;
-    }
-    return(node->data);
-}
 int ft_sqrt(int n)
 {
     int i;

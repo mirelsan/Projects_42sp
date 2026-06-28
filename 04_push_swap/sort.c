@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:15:08 by adedias-          #+#    #+#             */
-/*   Updated: 2026/06/25 23:44:22 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/28 21:50:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,15 @@ void extract_top(t_stack *a, t_options *opt)
 	t_node *node;
 	int pos;
 	int target_pos;
-
-	curr = a->head;
-	node = curr;
+	
 	pos = 0;
 	target_pos = 0;
-
-	if (!a || !a->head)
-		return ;
 	
+	if (!a || !a->head)
+	return ;
+	
+	curr = a->head;
+	node = curr;
 	while (curr)
 	{
 		if (curr->data < node->data)
@@ -78,13 +78,8 @@ void extract_top(t_stack *a, t_options *opt)
 		pos++;
 		curr = curr->next;
 	}
-	if (target_pos <= a->size / 2)
-		while (a->head != node)
-			ra(a, opt);
-	else		
-		while (a->head != node)
-			rra(a, opt);
-}
+	rotate_direction(a, opt, target_pos, node);
+}	
 
 void sort_n2(t_stack *a, t_stack *b, t_options *opt)
 {
@@ -98,4 +93,13 @@ void sort_n2(t_stack *a, t_stack *b, t_options *opt)
 	sort_3(a, opt);
 	while (b->size > 0)
 		pa(a, b, opt);
+}
+void rotate_direction(t_stack *a, t_options *opt, int target_pos, t_node *node)
+{	
+	if (target_pos <= a->size / 2)
+		while (a->head != node)
+			ra(a, opt);
+	else		
+		while (a->head != node)
+			rra(a, opt);
 }

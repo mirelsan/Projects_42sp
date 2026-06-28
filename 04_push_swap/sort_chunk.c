@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 22:07:15 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/28 20:49:25 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/28 22:29:36 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ void sort_chunk(t_stack *a, t_stack *b, t_options *opt)
     int num_chunks;
     int width;
     int i;
-    int pos;
     t_node *node;
-
+    
     min = ft_min(a);
     num_chunks = ft_sqrt(a->size);
     width = width_range(a, num_chunks);
@@ -31,19 +30,8 @@ void sort_chunk(t_stack *a, t_stack *b, t_options *opt)
         node = find_min_in_chunk(a, min, width, i);
         while(node != NULL)
         {
-            pos = get_position(a, node);
-            if(pos <= a->size / 2)
-            {
-                while(a->head != node)
-                    ra(a, opt);
-            }
-            else
-            {
-                while(a->head != node)
-                    rra(a, opt);
-            }
-            pb(a, b, opt);
-            node = find_min_in_chunk(a, min, width, i);
+        sort_rotate_push_b(a, b, opt, node);
+        node = find_min_in_chunk(a, min, width, i);
         }
         i++;
     }
@@ -89,4 +77,21 @@ int get_position(t_stack *a, t_node *target)
        curr = curr->next;
     }
     return(pos);
+}
+void  sort_rotate_push_b(t_stack *a, t_stack *b, t_options *opt, t_node *node)
+{
+    int pos;
+    
+        pos = get_position(a, node);
+        if(pos <= a->size / 2)
+        {
+            while(a->head != node)
+                ra(a, opt);
+        }
+        else
+        {
+            while(a->head != node)
+                rra(a, opt);
+        }
+        pb(a, b, opt);
 }

@@ -16,6 +16,8 @@ SOURCE =	parsing_utils.c \
 			sort_chunk.c \
 			options.c \
 			disorder.c \
+			print_bench.c\
+			parsing_utils2.c\
 			main.c
 
 LIBFT = ./libft/libft.a

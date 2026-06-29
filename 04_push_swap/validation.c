@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/16 23:59:37 by username          #+#    #+#             */
-/*   Updated: 2026/06/24 21:36:10 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   validation.c                                      :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/16 23:59:37 by username         #+#    #+#              */
+/*   Updated: 2026/06/29 01:28:27 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ int	ft_create_and_append(t_stack *stack, char *str)
 	node_numb = ft_new_node(numbers);
 	if (!node_numb)
 		return (0);
-	ft_add_head(stack, node_numb);
+	ft_add_tail(stack, node_numb);
 	return (1);
 }

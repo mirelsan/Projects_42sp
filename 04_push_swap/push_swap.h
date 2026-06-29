@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/06/15 02:10:09 by username         #+#    #+#              */
-/*   Updated: 2026/06/29 01:06:28 by username        ###   ########.fr        */
+/*   Updated: 2026/06/29 01:45:51 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,12 @@ void		rotate_direction(t_stack *a, t_options *opt, int target_pos, t_node *node)
 void		sort_rotate_push_b(t_stack *a, t_stack *b, t_options *opt, t_node *node);
 int			apply_flag(char **argv, t_options *opt, int i);
 void		ft_putnbr_fd(int n, int fd);
-static void	print_disorder(double disorder_value);
-static void	print_strategy(int mode);
+void		print_disorder(double disorder_value);
+void		print_strategy(int mode);
 void		print_bench(t_options *opt);
+void		ft_add_tail(t_stack *stack, t_node *new);
+t_stack		*ignore_flags(char **argv, int start_index, t_stack *stack);
+int			execution(t_options *opt, t_stack *stack_a, t_stack *stack_b);
+int			ft_max(t_stack *a);
 
 #endif

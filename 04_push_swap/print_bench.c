@@ -6,13 +6,13 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/06/29 00:08:31 by username         #+#    #+#              */
-/*   Updated: 2026/06/29 01:06:38 by username        ###   ########.fr        */
+/*   Updated: 2026/06/29 01:51:11 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	print_strategy(int mode)
+void	print_strategy(int mode)
 {
 	if (mode == SIMPLE)
 		write(2, "[bench] strategy: Simple /O(n^2)\n", 33);
@@ -37,9 +37,8 @@ void	print_bench(t_options *opt)
 
 void	print_total_ops(t_options *opt)
 {
-	int		total_opt;
-	int		i;
-	char	*str;
+	int	total_opt;
+	int	i;
 
 	i = 0;
 	total_opt = 0;
@@ -48,11 +47,9 @@ void	print_total_ops(t_options *opt)
 		total_opt += opt->counts[i];
 		i++;
 	}
-	str = ft_itoa(total_opt);
-	write(2, "[bench] total_ops: ", ft_strlen("[bench] total_ops: "));
-	write(2, str, ft_strlen(str));
+	write(2, "[bench] total_ops: ", 19);
+	ft_putnbr_fd(total_opt, 2);
 	write(2, "\n", 1);
-	free(str);
 }
 
 void	print_opt_counts(t_options *opt)

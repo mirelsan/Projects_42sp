@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/06/23 02:19:10 by username         #+#    #+#              */
-/*   Updated: 2026/06/29 01:07:25 by username        ###   ########.fr        */
+/*   Updated: 2026/06/29 01:45:07 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,22 @@ int	ft_chunk(int min, int width_range, int value)
 
 	index = (value - min) / width_range;
 	return (index);
+}
+
+int	ft_max(t_stack *a)
+{
+	t_node	*curr;
+	t_node	*node;
+
+	curr = a->head;
+	node = curr;
+	while (curr != NULL)
+	{
+		if (curr->data > node->data)
+		{
+			node = curr;
+		}
+		curr = curr->next;
+	}
+	return (node->data);
 }

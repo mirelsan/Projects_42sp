@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/06/22 15:14:11 by username         #+#    #+#              */
-/*   Updated: 2026/06/29 01:07:18 by username        ###   ########.fr        */
+/*   Updated: 2026/06/29 01:35:30 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double	disorder(t_stack *stack)
 	return (mistakes / total);
 }
 
-static void	print_disorder(double disorder_value)
+void	print_disorder(double disorder_value)
 {
 	int	total;
 	int	part1;

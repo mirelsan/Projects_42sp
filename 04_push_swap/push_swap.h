@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/29 02:18:32 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/29 02:19:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int 		apply_flag(char **argv, t_options *opt, int i);
 void		ft_putnbr_fd(int n, int fd);
 static void print_disorder(double disorder_value);
 static void print_strategy(int mode);
-void print_bench(t_options *opt)
+void print_bench(t_options *opt);
 
 
 #endif

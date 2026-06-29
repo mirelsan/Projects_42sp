@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
-/*   Updated: 2026/06/28 23:15:10 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   parsing_utils.c                                   :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/15 02:09:35 by username         #+#    #+#              */
+/*   Updated: 2026/06/29 01:08:57 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,23 @@ t_stack	*ft_parse_args(char **argv, int start_index)
 	}
 	else
 		stack = ignore_flags(argv, start_index, stack);
-	return(stack);	
+	return (stack);
 }
-t_stack *ignore_flags(char **argv, int start_index, t_stack *stack)
-{
-	int i;
-	i = start_index;
 
-		while (argv[i])
-		{
-		if(ft_strncmp(argv[i], "--", 2) == 0)
+t_stack	*ignore_flags(char **argv, int start_index, t_stack *stack)
+{
+	int	i;
+
+	i = start_index;
+	while (argv[i])
+	{
+		if (ft_strncmp(argv[i], "--", 2) == 0)
 		{
 			i++;
 		}
 		else if (!ft_create_and_append(stack, argv[i]))
 			return (NULL);
 		i++;
-		}
+	}
 	return (stack);
 }

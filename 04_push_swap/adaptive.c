@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   adaptive.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/24 01:54:17 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/25 23:52:05 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   adaptive.c                                        :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/24 01:54:17 by username         #+#    #+#              */
+/*   Updated: 2026/06/29 01:07:35 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sort_adaptative(t_stack *a, t_stack *b, t_options *opt)
+void	sort_adaptative(t_stack *a, t_stack *b, t_options *opt)
 {
-	double d;
+	double	d;
 
 	if (!a || !b)
 		return ;

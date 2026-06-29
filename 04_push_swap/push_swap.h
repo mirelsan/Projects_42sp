@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/29 02:19:41 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   push_swap.h                                       :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/15 02:10:09 by username         #+#    #+#              */
+/*   Updated: 2026/06/29 01:06:28 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ typedef struct t_stack
 typedef enum e_mode
 {
 	SIMPLE,
-	MEDIUM, 
-	COMPLEX, 
+	MEDIUM,
+	COMPLEX,
 	ADAPTIVE
-} t_mode;
+}	t_mode;
 
 typedef enum e_operations
 {
@@ -52,16 +52,16 @@ typedef enum e_operations
 	RRA,
 	RRB,
 	RRR
-}t_operations;
+}	t_operations;
 
 typedef struct s_options
 {
-	int bench;
-	int start_index;
-	int counts[11];
-	double disorder_value;
-	t_mode mode;
-}t_options;
+	int		bench;
+	int		start_index;
+	int		counts[11];
+	double	disorder_value;
+	t_mode	mode;
+}	t_options;
 
 t_stack		*ft_new_stack(void);
 void		ft_add_head(t_stack *stack, t_node *new);
@@ -91,40 +91,39 @@ void		reverse(t_stack *stack);
 void		rra(t_stack *a, t_options *opt);
 void		rrb(t_stack *b, t_options *opt);
 void		rrr(t_stack *a, t_stack *b, t_options *opt);
-void 		sort_radix(t_stack *a, t_stack *b, t_options *opt);
-void 		process_bit(t_stack *a, t_stack *b, int bit, t_options *opt);
-int 		has_bit(int n, int bit);
-int 		max_bits(t_stack *a);
-int 		is_sorted(t_stack *stack);
-void 		sort_3(t_stack *a, t_options *opt);
-void 		extract_top(t_stack *a, t_options *opt);
-void 		sort_n2(t_stack *a, t_stack *b, t_options *opt);
+void		sort_radix(t_stack *a, t_stack *b, t_options *opt);
+void		process_bit(t_stack *a, t_stack *b, int bit, t_options *opt);
+int			has_bit(int n, int bit);
+int			max_bits(t_stack *a);
+int			is_sorted(t_stack *stack);
+void		sort_3(t_stack *a, t_options *opt);
+void		extract_top(t_stack *a, t_options *opt);
+void		sort_n2(t_stack *a, t_stack *b, t_options *opt);
 double		disorder(t_stack *stack);
-int 		ft_min(t_stack *a);
-int 		ft_max(t_stack *a);
-int 		ft_sqrt(int n);
-int 		width_range(t_stack *a, int num_chunks);
-int 		ft_chunk(int min, int width_range, int value);
-void 		ft_set_index(t_stack *a);
-void 		sort_chunk(t_stack *a, t_stack *b, t_options *opt);
-t_node 		*find_min_in_chunk(t_stack *a, int min, int width, int chunk_idx);
-int 		get_position(t_stack *a, t_node *target);
+int			ft_min(t_stack *a);
+int			ft_max(t_stack *a);
+int			ft_sqrt(int n);
+int			width_range(t_stack *a, int num_chunks);
+int			ft_chunk(int min, int width_range, int value);
+void		ft_set_index(t_stack *a);
+void		sort_chunk(t_stack *a, t_stack *b, t_options *opt);
+t_node		*find_min_in_chunk(t_stack *a, int min, int width, int chunk_idx);
+int			get_position(t_stack *a, t_node *target);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
-void 		sort_adaptative(t_stack *a, t_stack *b, t_options *opt);
-int 		parse_options(int argc, char **argv, t_options *opt);
+void		sort_adaptative(t_stack *a, t_stack *b, t_options *opt);
+int			parse_options(int argc, char **argv, t_options *opt);
 int			is_valid_flag(char *arg);
-t_stack 	*select_and_sort(t_stack *a, t_stack *b, t_options *opt);
+t_stack		*select_and_sort(t_stack *a, t_stack *b, t_options *opt);
 size_t		ft_strlen(const char *s);
-void 		print_total_ops(t_options *opt);
-void 		print_opt_counts(t_options *opt);
+void		print_total_ops(t_options *opt);
+void		print_opt_counts(t_options *opt);
 void		print_opt_counts2(t_options *opt);
-void 		rotate_direction(t_stack *a, t_options *opt, int target_pos, t_node *node);
-void  		sort_rotate_push_b(t_stack *a, t_stack *b, t_options *opt, t_node *node);
-int 		apply_flag(char **argv, t_options *opt, int i);
+void		rotate_direction(t_stack *a, t_options *opt, int target_pos, t_node *node);
+void		sort_rotate_push_b(t_stack *a, t_stack *b, t_options *opt, t_node *node);
+int			apply_flag(char **argv, t_options *opt, int i);
 void		ft_putnbr_fd(int n, int fd);
-static void print_disorder(double disorder_value);
-static void print_strategy(int mode);
-void print_bench(t_options *opt);
-
+static void	print_disorder(double disorder_value);
+static void	print_strategy(int mode);
+void		print_bench(t_options *opt);
 
 #endif

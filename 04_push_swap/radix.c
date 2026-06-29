@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   radix.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/24 01:54:03 by codespace         #+#    #+#             */
-/*   Updated: 2026/06/25 23:48:20 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   radix.c                                           :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/24 01:54:03 by username         #+#    #+#              */
+/*   Updated: 2026/06/29 01:06:07 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int max_bits(t_stack *a)
+int	max_bits(t_stack *a)
 {
-	t_node *curr;
-	int max;
-	int i;
+	t_node	*curr;
+	int		max;
+	int		i;
 
 	if (!a || !a->head)
 		return (0);
@@ -28,24 +28,23 @@ int max_bits(t_stack *a)
 			max = curr->index;
 		curr = curr->next;
 	}
-	
 	i = 0;
 	while ((1 << i) <= max)
 		i++;
 	return (i);
 }
 
-int has_bit(int n, int bit)
+int	has_bit(int n, int bit)
 {
-	int shifed;
-	
+	int	shifed;
+
 	shifed = (n >> bit);
-	return ( shifed & 1);
+	return (shifed & 1);
 }
 
-void process_bit(t_stack *a, t_stack *b, int bit, t_options *opt)
+void	process_bit(t_stack *a, t_stack *b, int bit, t_options *opt)
 {
-	int bit_size;
+	int	bit_size;
 
 	bit_size = a->size;
 	while (bit_size--)
@@ -59,39 +58,38 @@ void process_bit(t_stack *a, t_stack *b, int bit, t_options *opt)
 		pa(a, b, opt);
 }
 
-void ft_set_index(t_stack *a)
+void	ft_set_index(t_stack *a)
 {
-	t_node *outer;
-    t_node *inner;
-    int 	count;
-	
-    outer = a->head;
-    while (outer)
-    {
+	t_node	*outer;
+	t_node	*inner;
+	int		count;
+
+	outer = a->head;
+	while (outer)
+	{
 		count = 0;
 		inner = a->head;
-		while(inner)
+		while (inner)
 		{
-			if(inner->data < outer->data)
-			count++;
-			inner = inner->next;	
+			if (inner->data < outer->data)
+				count++;
+			inner = inner->next;
 		}
 		outer->index = count;
 		outer = outer->next;
-    }
+	}
 }
-void sort_radix(t_stack *a, t_stack *b, t_options *opt)
+
+void	sort_radix(t_stack *a, t_stack *b, t_options *opt)
 {
-	int bits;
-	int i;
+	int	bits;
+	int	i;
 
 	if (!a || a->size <= 1)
 		return ;
-	
 	if (is_sorted(a))
 		return ;
-		
-	ft_set_index(a);	
+	ft_set_index(a);
 	bits = max_bits(a);
 	i = 0;
 	while (i < bits)

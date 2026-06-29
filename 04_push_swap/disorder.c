@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   disorder.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/22 15:14:11 by username          #+#    #+#             */
-/*   Updated: 2026/06/28 21:18:21 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   disorder.c                                        :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/22 15:14:11 by username         #+#    #+#              */
+/*   Updated: 2026/06/29 01:07:18 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,9 @@ double	disorder(t_stack *stack)
 	mistakes = 0;
 	total = 0;
 	outer = stack->head;
-
 	while (outer != NULL && outer->next != NULL)
 	{
 		inner = outer->next;
-
 		while (inner != NULL)
 		{
 			total += 1;
@@ -36,7 +34,25 @@ double	disorder(t_stack *stack)
 			}
 			inner = inner->next;
 		}
-		outer = outer->next;			
+		outer = outer->next;
 	}
 	return (mistakes / total);
+}
+
+static void	print_disorder(double disorder_value)
+{
+	int	total;
+	int	part1;
+	int	part2;
+
+	total = disorder_value * 10000 + 0.5;
+	part1 = total / 100;
+	part2 = total % 100;
+	write(2, "[bench] disorder: ", 18);
+	ft_putnbr_fd(part1, 2);
+	write(2, ".", 1);
+	if (part2 < 10)
+		write(2, "0", 1);
+	ft_putnbr_fd(part2, 2);
+	write(2, "%\n", 2);
 }

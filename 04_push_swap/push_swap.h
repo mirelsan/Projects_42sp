@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/28 22:33:43 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/29 02:18:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,17 @@ void 		sort_adaptative(t_stack *a, t_stack *b, t_options *opt);
 int 		parse_options(int argc, char **argv, t_options *opt);
 int			is_valid_flag(char *arg);
 t_stack 	*select_and_sort(t_stack *a, t_stack *b, t_options *opt);
-char		*ft_itoa(int n);
 size_t		ft_strlen(const char *s);
-void 		print_bench(t_options *opt);
 void 		print_total_ops(t_options *opt);
 void 		print_opt_counts(t_options *opt);
 void		print_opt_counts2(t_options *opt);
 void 		rotate_direction(t_stack *a, t_options *opt, int target_pos, t_node *node);
 void  		sort_rotate_push_b(t_stack *a, t_stack *b, t_options *opt, t_node *node);
+int 		apply_flag(char **argv, t_options *opt, int i);
+void		ft_putnbr_fd(int n, int fd);
+static void print_disorder(double disorder_value);
+static void print_strategy(int mode);
+void print_bench(t_options *opt)
 
 
 #endif

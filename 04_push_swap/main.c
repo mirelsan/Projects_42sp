@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   main.c                                            :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/18 15:05:06 by username         #+#    #+#              */
-/*   Updated: 2026/06/29 01:07:11 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/18 15:05:06 by username          #+#    #+#             */
+/*   Updated: 2026/06/29 09:38:22 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+#include "./libft/libft.h"
 int	main(int argc, char **argv)
 {
 	t_stack		*stack_a;
 	t_stack		*stack_b;
 	t_options	opt;
-
+	
 	if (argc < 2)
 		return (0);
 	stack_b = ft_new_stack();
+	ft_bzero(&opt, sizeof(t_options));
 	if (parse_options(argc, argv, &opt) == -1)
 	{
 		write(2, "Error\n", 6);

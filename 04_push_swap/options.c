@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   options.c                                         :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/24 16:16:55 by username         #+#    #+#              */
-/*   Updated: 2026/06/30 15:00:52 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   options.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/24 16:16:55 by username          #+#    #+#             */
+/*   Updated: 2026/06/30 15:35:00 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int	apply_flag(char **argv, t_options *opt, int i)
 int	is_valid_flag(char *arg)
 {
 	if (ft_strncmp(arg, "--", 2) == 0)
-		if (ft_strncmp(arg, "--simple", 9) == 0 ||
-			(ft_strncmp(arg, "--medium", 9) == 0) ||
-	(ft_strncmp(arg, "--complex", 10) == 0) ||
-	(ft_strncmp(arg, "--adaptive", 11) == 0) ||
-	(ft_strncmp(arg, "--bench", 8) == 0))
-	return (0);
+		if (ft_strncmp(arg, "--simple", 9) == 0
+			|| (ft_strncmp(arg, "--medium", 9) == 0)
+			|| (ft_strncmp(arg, "--complex", 10) == 0)
+			|| (ft_strncmp(arg, "--adaptive", 11) == 0)
+			|| (ft_strncmp(arg, "--bench", 8) == 0))
+			return (0);
 	return (-1);
 }

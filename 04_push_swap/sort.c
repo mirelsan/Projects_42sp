@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   sort.c                                            :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/22 11:15:08 by username         #+#    #+#              */
-/*   Updated: 2026/06/30 14:59:33 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/22 11:15:08 by username          #+#    #+#             */
+/*   Updated: 2026/06/30 15:30:36 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	extract_top(t_stack *a, t_options *opt)
 		pos++;
 		curr = curr->next;
 	}
-	rotate_direction(a, opt, target_pos, node);
+	direct(a, opt, target_pos, node);
 }
 
 void	sort_n2(t_stack *a, t_stack *b, t_options *opt)
@@ -100,12 +100,12 @@ void	sort_n2(t_stack *a, t_stack *b, t_options *opt)
 		pa(a, b, opt);
 }
 
-void	rotate_direction(t_stack *a, t_options *opt, int target_pos, t_node *node)
+void	direct(t_stack *a, t_options *opt, int target_pos, t_node *node)
 {
 	if (target_pos <= a->size / 2)
 		while (a->head != node)
-		ra(a, opt);
+			ra(a, opt);
 	else
 		while (a->head != node)
-		rra(a, opt);
+			rra(a, opt);
 }

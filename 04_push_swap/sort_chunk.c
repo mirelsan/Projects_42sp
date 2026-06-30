@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   sort_chunk.c                                      :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/23 22:07:15 by username         #+#    #+#              */
-/*   Updated: 2026/06/30 14:59:29 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   sort_chunk.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/23 22:07:15 by username          #+#    #+#             */
+/*   Updated: 2026/06/30 15:20:56 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	sort_chunk(t_stack *a, t_stack *b, t_options *opt)
 	i = 0;
 	while (i < num_chunks)
 	{
-		process_chunk(a, b, i, opt);
+		proc_chunk(a, b, i, opt);
 		i++;
 	}
 	while (b->size > 0)
@@ -37,7 +37,7 @@ void	sort_chunk(t_stack *a, t_stack *b, t_options *opt)
 	}
 }
 
-void	process_chunk(t_stack *a, t_stack *b, int chunk_idx, t_options *opt)
+void	proc_chunk(t_stack *a, t_stack *b, int chunk_idx, t_options *opt)
 {
 	int	target_pos;
 	int	chunk_mid;
@@ -124,8 +124,9 @@ int	find_closest_in_chunk(t_stack *a, int chunk_idx, t_options *opt)
 	top_pos = -1;
 	while (curr != NULL)
 	{
-		if ((curr->index / opt->width) == chunk_idx ||
-				(chunk_idx == (max_chunks - 1) && (curr->index / opt->width) >= chunk_idx))
+		if ((curr->index / opt->width) == chunk_idx
+			|| (chunk_idx == (max_chunks - 1)
+				&& (curr->index / opt->width) >= chunk_idx))
 		{
 			if (top_pos == -1)
 				top_pos = curr_pos;

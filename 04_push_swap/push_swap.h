@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   push_swap.h                                       :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/15 02:10:09 by username         #+#    #+#              */
-/*   Updated: 2026/06/30 14:59:07 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
+/*   Updated: 2026/06/30 15:09:30 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ size_t		ft_strlen(const char *s);
 void		print_total_ops(t_options *opt);
 void		print_opt_counts(t_options *opt);
 void		print_opt_counts2(t_options *opt);
-void		rotate_direction(t_stack *a, t_options *opt, int target_pos, t_node *node);
+void		direct(t_stack *a, t_options *opt, int target_pos, t_node *node);
 int			apply_flag(char **argv, t_options *opt, int i);
 void		ft_putnbr_fd(int n, int fd);
 void		print_disorder(double disorder_value);
@@ -128,7 +128,7 @@ void		ft_add_tail(t_stack *stack, t_node *new);
 t_stack		*ignore_flags(char **argv, int start_index, t_stack *stack);
 int			execution(t_options *opt, t_stack *stack_a, t_stack *stack_b);
 int			ft_max(t_stack *a);
-void		process_chunk(t_stack *a, t_stack *b, int chunk_idx, t_options *opt);
+void		proc_chunk(t_stack *a, t_stack *b, int chunk_idx, t_options *opt);
 void		extract_max_to_top_b(t_stack *b, t_options *opt);
 int			find_max_pos_b(t_stack *b);
 int			find_closest_in_chunk(t_stack *a, int chunk_idx, t_options *opt);

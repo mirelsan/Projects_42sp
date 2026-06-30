@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   parsing_utils.c                                   :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/15 02:09:35 by username         #+#    #+#              */
-/*   Updated: 2026/06/30 14:58:54 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
+/*   Updated: 2026/06/30 15:38:09 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_stack	*ft_parse_args(char **argv, int start_index)
 			return (NULL);
 		while (*str)
 			if (!ft_create_and_append(stack, *str++))
-			return (NULL);
+				return (NULL);
 	}
 	else
 		stack = ignore_flags(argv, start_index, stack);

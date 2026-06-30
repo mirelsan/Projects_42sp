@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/18 15:05:06 by username          #+#    #+#             */
-/*   Updated: 2026/06/30 14:53:36 by adedias-         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   main.c                                            :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/18 15:05:06 by username         #+#    #+#              */
+/*   Updated: 2026/06/30 14:58:29 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "./libft/libft.h"
+
 int	main(int argc, char **argv)
 {
 	t_stack		*stack_a;
 	t_stack		*stack_b;
 	t_options	opt;
-	
+
 	if (argc < 2)
 		return (0);
 	stack_b = ft_new_stack();
@@ -67,4 +68,3 @@ t_stack	*select_and_sort(t_stack *a, t_stack *b, t_options *opt)
 		sort_adaptative(a, b, opt);
 	return (a);
 }
-

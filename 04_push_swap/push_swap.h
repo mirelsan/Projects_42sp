@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/06/29 23:16:33 by codespace        ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   push_swap.h                                       :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/15 02:10:09 by username         #+#    #+#              */
+/*   Updated: 2026/06/30 14:59:07 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,8 @@ t_stack		*ignore_flags(char **argv, int start_index, t_stack *stack);
 int			execution(t_options *opt, t_stack *stack_a, t_stack *stack_b);
 int			ft_max(t_stack *a);
 void		process_chunk(t_stack *a, t_stack *b, int chunk_idx, t_options *opt);
-void 		extract_max_to_top_b(t_stack *b, t_options *opt);
-int 		find_max_pos_b(t_stack *b);
-int 		find_closest_in_chunk(t_stack *a, int chunk_idx, t_options *opt);
+void		extract_max_to_top_b(t_stack *b, t_options *opt);
+int			find_max_pos_b(t_stack *b);
+int			find_closest_in_chunk(t_stack *a, int chunk_idx, t_options *opt);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   push_swap.h                                       :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/15 02:10:09 by username         #+#    #+#              */
-/*   Updated: 2026/06/29 01:45:51 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
+/*   Updated: 2026/06/29 23:16:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_options
 	int		bench;
 	int		start_index;
 	int		counts[11];
+	int		min;
+	int		width;
 	double	disorder_value;
 	t_mode	mode;
 }	t_options;
@@ -107,8 +109,6 @@ int			width_range(t_stack *a, int num_chunks);
 int			ft_chunk(int min, int width_range, int value);
 void		ft_set_index(t_stack *a);
 void		sort_chunk(t_stack *a, t_stack *b, t_options *opt);
-t_node		*find_min_in_chunk(t_stack *a, int min, int width, int chunk_idx);
-int			get_position(t_stack *a, t_node *target);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		sort_adaptative(t_stack *a, t_stack *b, t_options *opt);
 int			parse_options(int argc, char **argv, t_options *opt);
@@ -119,7 +119,6 @@ void		print_total_ops(t_options *opt);
 void		print_opt_counts(t_options *opt);
 void		print_opt_counts2(t_options *opt);
 void		rotate_direction(t_stack *a, t_options *opt, int target_pos, t_node *node);
-void		sort_rotate_push_b(t_stack *a, t_stack *b, t_options *opt, t_node *node);
 int			apply_flag(char **argv, t_options *opt, int i);
 void		ft_putnbr_fd(int n, int fd);
 void		print_disorder(double disorder_value);
@@ -129,5 +128,9 @@ void		ft_add_tail(t_stack *stack, t_node *new);
 t_stack		*ignore_flags(char **argv, int start_index, t_stack *stack);
 int			execution(t_options *opt, t_stack *stack_a, t_stack *stack_b);
 int			ft_max(t_stack *a);
+void		process_chunk(t_stack *a, t_stack *b, int chunk_idx, t_options *opt);
+void 		extract_max_to_top_b(t_stack *b, t_options *opt);
+int 		find_max_pos_b(t_stack *b);
+int 		find_closest_in_chunk(t_stack *a, int chunk_idx, t_options *opt);
 
 #endif

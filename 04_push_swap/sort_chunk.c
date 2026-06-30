@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   sort_chunk.c                                      :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/23 22:07:15 by username         #+#    #+#              */
-/*   Updated: 2026/06/29 01:05:42 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   sort_chunk.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/23 22:07:15 by username          #+#    #+#             */
+/*   Updated: 2026/06/30 01:23:28 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,82 +14,126 @@
 
 void	sort_chunk(t_stack *a, t_stack *b, t_options *opt)
 {
-	int		min;
 	int		num_chunks;
-	int		width;
 	int		i;
-	t_node	*node;
 
-	min = ft_min(a);
-	num_chunks = ft_sqrt(a->size);
-	width = width_range(a, num_chunks);
+	if(is_sorted(a))
+		return ;
+	ft_set_index(a);
+	num_chunks = 5;
+	if(a->size > 100)
+		num_chunks = 11;
+	opt->width = a->size / num_chunks;
 	i = 0;
 	while (i < num_chunks)
 	{
-		node = find_min_in_chunk(a, min, width, i);
-		while (node != NULL)
-		{
-			sort_rotate_push_b(a, b, opt, node);
-			node = find_min_in_chunk(a, min, width, i);
-		}
+		process_chunk(a, b, i, opt);
 		i++;
 	}
 	while (b->size > 0)
+	{
+		extract_max_to_top_b(b, opt);
 		pa(a, b, opt);
+	}
 }
-
-t_node	*find_min_in_chunk(t_stack *a, int min, int width, int chunk_idx)
+void	process_chunk(t_stack *a, t_stack *b, int chunk_idx, t_options *opt)
 {
-	t_node	*curr;
-	t_node	*node;
-	int		found;
+	int target_pos;
+	int chunk_mid;
 
-	node = NULL;
-	curr = a->head;
-	while (curr != NULL)
+	chunk_mid = (chunk_idx * opt->width) + (opt->width / 2);
+	while(1)
 	{
-		found = ft_chunk(min, width, curr->data);
-		if (chunk_idx == found)
+		target_pos = find_closest_in_chunk(a, chunk_idx, opt);
+		if(target_pos == -1)
+			break ;
+		if(target_pos <= a->size / 2)
 		{
-			if (node == NULL || curr->data < node->data)
-			{
-				node = curr;
-			}
+			while(target_pos--)
+				ra(a, opt);
 		}
-		curr = curr->next;
+		else
+		{
+			target_pos = a->size - target_pos;
+			while(target_pos--)
+				rra(a, opt);
+		}
+		pb(a, b, opt);
+		if(b->size > 1 && b->head->index < chunk_mid)
+			rb(b, opt);
 	}
-	return (node);
 }
-
-int	get_position(t_stack *a, t_node *target)
+void extract_max_to_top_b(t_stack *b, t_options *opt)
 {
-	t_node	*curr;
-	int		pos;
+	int max_pos;
 
-	curr = a->head;
-	pos = 0;
-	while (curr != target)
+	max_pos = find_max_pos_b(b);
+	if(max_pos <= b->size / 2)
 	{
-		++pos;
-		curr = curr->next;
-	}
-	return (pos);
-}
-
-void	sort_rotate_push_b(t_stack *a, t_stack *b, t_options *opt, t_node *node)
-{
-	int	pos;
-
-	pos = get_position(a, node);
-	if (pos <= a->size / 2)
-	{
-		while (a->head != node)
-			ra(a, opt);
+		while(max_pos--)
+			rb(b, opt);
 	}
 	else
 	{
-		while (a->head != node)
-			rra(a, opt);
+		max_pos = b->size - max_pos;
+		while(max_pos--)
+		rrb(b, opt);
 	}
-	pb(a, b, opt);
+}
+int find_max_pos_b(t_stack *b)
+{
+	t_node *current;
+	t_node *max_node;
+	int max_pos;
+	int curr_pos;
+	
+	current = b->head;
+	max_node = current;
+	max_pos = 0;
+	curr_pos = 0;
+	while(current != NULL)
+	{
+		if(current->data > max_node->data)
+		{
+			max_node = current;
+			max_pos = curr_pos;
+		}
+		current = current->next;
+		curr_pos++;
+	}
+	return (max_pos);
+}
+
+int find_closest_in_chunk(t_stack *a, int chunk_idx, t_options *opt)
+{
+	t_node *curr;
+	int		curr_pos;
+	int		bot_pos;
+	int		top_pos;
+	int		max_chunks;
+
+	max_chunks = 5;
+	if(a->size > 100)
+		max_chunks = 11;
+	curr = a->head;
+	curr_pos = 0;
+	bot_pos = -1;
+	top_pos = -1;
+	while(curr != NULL)
+	{
+		if((curr->index / opt->width) == chunk_idx || 
+				(chunk_idx == (max_chunks -1) && (curr->index / opt->width) >= chunk_idx))
+		{
+			if(top_pos == -1)
+				top_pos = curr_pos;
+			bot_pos = curr_pos;
+		}
+		curr = curr->next;
+		curr_pos++;
+	}
+	if(top_pos == -1)
+		return(-1);
+	if(top_pos <= (a->size - bot_pos))
+		return(top_pos);
+	return(bot_pos);
 }

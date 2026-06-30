@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 15:05:06 by username          #+#    #+#             */
-/*   Updated: 2026/06/30 01:03:25 by codespace        ###   ########.fr       */
+/*   Updated: 2026/06/30 14:53:36 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,14 @@ int	execution(t_options *opt, t_stack *stack_a, t_stack *stack_b)
 
 t_stack	*select_and_sort(t_stack *a, t_stack *b, t_options *opt)
 {
-	if(a->size <= 5)
+	if (opt->mode == SIMPLE)
 		sort_n2(a, b, opt);
-	else
-		sort_chunk(a, b, opt);		
+	else if (opt->mode == MEDIUM)
+		sort_chunk(a, b, opt);
+	else if (opt->mode == COMPLEX)
+		sort_radix(a, b, opt);
+	else if (opt->mode == ADAPTIVE)
+		sort_adaptative(a, b, opt);
 	return (a);
 }
 
-	//if (opt->mode == SIMPLE)
-	//	sort_n2(a, b, opt);
-	//else if (opt->mode == MEDIUM)
-	//	sort_chunk(a, b, opt);
-	//else if (opt->mode == COMPLEX)
-	//	sort_radix(a, b, opt);
-	//else if (opt->mode == ADAPTIVE)
-	//	sort_adaptative(a, b, opt);

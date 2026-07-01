@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_chunk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 22:07:15 by username          #+#    #+#             */
-/*   Updated: 2026/06/30 15:20:56 by adedias-         ###   ########.fr       */
+/*   Updated: 2026/07/01 01:46:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,7 @@ int	find_closest_in_chunk(t_stack *a, int chunk_idx, t_options *opt)
 	int		top_pos;
 	int		max_chunks;
 
-	max_chunks = 5;
-	if (a->size > 100)
-		max_chunks = 11;
+	max_chunks = configure_max_chunks(a);
 	curr = a->head;
 	curr_pos = 0;
 	bot_pos = -1;
@@ -135,9 +133,5 @@ int	find_closest_in_chunk(t_stack *a, int chunk_idx, t_options *opt)
 		curr = curr->next;
 		curr_pos++;
 	}
-	if (top_pos == -1)
-		return (-1);
-	if (top_pos <= (a->size - bot_pos))
-		return (top_pos);
-	return (bot_pos);
+	return (decide_position(top_pos, bot_pos, a->size));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   options.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/24 16:16:55 by username          #+#    #+#             */
-/*   Updated: 2026/06/30 15:35:00 by adedias-         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   options.c                                         :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/24 16:16:55 by username         #+#    #+#              */
+/*   Updated: 2026/07/01 13:53:07 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	parse_options(int argc, char **argv, t_options *opt)
 	while (i < argc)
 	{
 		success = apply_flag(argv, opt, i);
-		if (success == 0)
+		if (success == 1)
 			i++;
 		else if (success == -1)
 			return (-1);
-		else
+		else if (success == 0)
 			break ;
 	}
 	opt->start_index = i;
@@ -48,22 +48,11 @@ int	apply_flag(char **argv, t_options *opt, int i)
 		opt->mode = ADAPTIVE;
 	else if (ft_strncmp(argv[i], "--", 2) == 0)
 	{
-		if (is_valid_flag(argv[i]) != 0)
-			return (-1);
-		else
-			return (0);
+		return (-1);
 	}
-	return (2);
-}
-
-int	is_valid_flag(char *arg)
-{
-	if (ft_strncmp(arg, "--", 2) == 0)
-		if (ft_strncmp(arg, "--simple", 9) == 0
-			|| (ft_strncmp(arg, "--medium", 9) == 0)
-			|| (ft_strncmp(arg, "--complex", 10) == 0)
-			|| (ft_strncmp(arg, "--adaptive", 11) == 0)
-			|| (ft_strncmp(arg, "--bench", 8) == 0))
-			return (0);
-	return (-1);
+	else
+	{
+		return (0);
+	}
+	return (1);
 }

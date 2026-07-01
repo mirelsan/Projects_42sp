@@ -6,7 +6,7 @@
 /*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/06/18 15:05:06 by username         #+#    #+#              */
-/*   Updated: 2026/06/30 14:58:29 by username        ###   ########.fr        */
+/*   Updated: 2026/07/01 13:40:59 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 		return (0);
 	stack_b = ft_new_stack();
 	ft_bzero(&opt, sizeof(t_options));
+	opt.mode = ADAPTIVE;
 	if (parse_options(argc, argv, &opt) == -1)
 	{
 		write(2, "Error\n", 6);
@@ -65,6 +66,8 @@ t_stack	*select_and_sort(t_stack *a, t_stack *b, t_options *opt)
 	else if (opt->mode == COMPLEX)
 		sort_radix(a, b, opt);
 	else if (opt->mode == ADAPTIVE)
+		sort_adaptative(a, b, opt);
+	else
 		sort_adaptative(a, b, opt);
 	return (a);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   main.c                                            :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/18 15:05:06 by username         #+#    #+#              */
-/*   Updated: 2026/07/01 13:40:59 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/18 15:05:06 by username          #+#    #+#             */
+/*   Updated: 2026/07/02 13:57:46 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv)
 	t_stack		*stack_a;
 	t_stack		*stack_b;
 	t_options	opt;
+	int			retur;
 
 	if (argc < 2)
 		return (0);
@@ -25,20 +26,14 @@ int	main(int argc, char **argv)
 	ft_bzero(&opt, sizeof(t_options));
 	opt.mode = ADAPTIVE;
 	if (parse_options(argc, argv, &opt) == -1)
-	{
-		write(2, "Error\n", 6);
-		return (1);
-	}
+		return (error_free(stack_b));
 	stack_a = ft_parse_args(argv, opt.start_index);
 	if (!stack_a)
-	{
-		write(2, "Error\n", 6);
-		return (1);
-	}
-	if (execution(&opt, stack_a, stack_b) == 0)
-		return (0);
-	else
-		return (1);
+		return (error_free(stack_b));
+	retur = execution(&opt, stack_a, stack_b);
+	ft_free_stack(stack_a);
+	ft_free_stack(stack_b);
+	return (retur);
 }
 
 int	execution(t_options *opt, t_stack *stack_a, t_stack *stack_b)
@@ -70,4 +65,10 @@ t_stack	*select_and_sort(t_stack *a, t_stack *b, t_options *opt)
 	else
 		sort_adaptative(a, b, opt);
 	return (a);
+}
+
+ssize_t	error_free(t_stack *stack_b)
+{
+	ft_free_stack(stack_b);
+	return (write(2, "Error\n", 6));
 }

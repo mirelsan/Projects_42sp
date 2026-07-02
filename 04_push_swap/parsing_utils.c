@@ -6,7 +6,7 @@
 /*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
-/*   Updated: 2026/06/30 15:38:09 by adedias-         ###   ########.fr       */
+/*   Updated: 2026/07/02 13:59:54 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,18 @@ t_stack	*ft_parse_args(char **argv, int start_index)
 	{
 		str = ft_split(argv[i], ' ');
 		if (!str)
+		{
+			free(stack);
 			return (NULL);
-		while (*str)
-			if (!ft_create_and_append(stack, *str++))
-				return (NULL);
+		}
+		free_append(stack, str);
 	}
 	else
+	{
 		stack = ignore_flags(argv, start_index, stack);
+		if (!stack)
+			return (NULL);
+	}	
 	return (stack);
 }
 
@@ -87,7 +92,10 @@ t_stack	*ignore_flags(char **argv, int start_index, t_stack *stack)
 			i++;
 		}
 		else if (!ft_create_and_append(stack, argv[i]))
+		{
+			ft_free_stack(stack);
 			return (NULL);
+		}
 		i++;
 	}
 	return (stack);

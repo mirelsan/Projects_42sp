@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/07/01 01:52:53 by codespace        ###   ########.fr       */
+/*   Updated: 2026/07/02 13:58:56 by adedias-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void		sort_chunk(t_stack *a, t_stack *b, t_options *opt);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		sort_adaptative(t_stack *a, t_stack *b, t_options *opt);
 int			parse_options(int argc, char **argv, t_options *opt);
-int			is_valid_flag(char *arg);
 t_stack		*select_and_sort(t_stack *a, t_stack *b, t_options *opt);
 size_t		ft_strlen(const char *s);
 void		print_total_ops(t_options *opt);
@@ -134,5 +133,9 @@ int			find_max_pos_b(t_stack *b);
 int			find_closest_in_chunk(t_stack *a, int chunk_idx, t_options *opt);
 int			decide_position(int top_pos, int bot_pos, int size);
 int			configure_max_chunks(t_stack *a);
+void		ft_free_stack(t_stack *stack);
+void		ft_free_split(char **split);
+ssize_t		error_free(t_stack *stack_b);
+void		free_append(t_stack *stack, char **str);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
-/*   Updated: 2026/07/02 13:59:54 by adedias-         ###   ########.fr       */
+/*   Updated: 2026/07/03 03:21:33 by mirelapitt       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_stack	*ft_parse_args(char **argv, int start_index)
 		stack = ignore_flags(argv, start_index, stack);
 		if (!stack)
 			return (NULL);
-	}	
+	}
 	return (stack);
 }
 

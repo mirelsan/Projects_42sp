@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker_bonus_main.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/03 02:35:33 by username          #+#    #+#             */
+/*   Updated: 2026/07/03 02:43:33 by mirelapitt       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 #include "checker_bonus.h"
 
@@ -34,8 +46,12 @@ int	main(int argc, char **argv)
 		free_stack(a);
 		return (print_error_message());
 	}
-	success = read_and_apply(a, b);
-	if (!success)
+	return (run_checker(a, b));
+}
+
+int	run_checker(t_stack *a, t_stack *b)
+{
+	if (!read_and_apply(a, b))
 	{
 		free_stack(a);
 		free_stack(b);

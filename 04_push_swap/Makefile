@@ -23,7 +23,8 @@ SOURCE =	parsing_utils.c \
 			main.c
 
 BONUS_SOURCE = bonus/checker_bonus.c \
-			bonus/checker_bonus_main.c
+			bonus/checker_bonus_main.c \
+			bonus/parsing_utils_bonus.c
 
 LIBFT = ./libft/libft.a
 

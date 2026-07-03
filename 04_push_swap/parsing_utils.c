@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   parsing_utils.c                                   :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/06/15 02:09:35 by username         #+#    #+#              */
-/*   Updated: 2026/07/03 12:12:05 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mirelsan <mirelsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
+/*   Updated: 2026/07/03 13:50:21 by mirelsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,11 @@ t_stack	*ft_parse_args(char **argv, int start_index)
 	if (ft_strchr(argv[i], ' '))
 	{
 		str = ft_split(argv[i], ' ');
-		if (!str)
+		if (!str || !free_append(stack, str))
 		{
 			free(stack);
 			return (NULL);
 		}
-		if (!free_append(stack, str))
-			return (NULL);
 	}
 	else
 	{

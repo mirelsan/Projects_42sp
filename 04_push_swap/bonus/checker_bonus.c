@@ -16,7 +16,7 @@
 
 int	is_valid_instruction(const char *instr)
 {
-	return (!ft_strncmp(instr, "sa", 2) && instr[2] == '\0');
+	return (!ft_strncmp(instr, "sa", 2) && instr[2] == '\0')
 	|| (!ft_strncmp(instr, "sb", 2) && instr[2] == '\0')
 	|| (!ft_strncmp(instr, "ss", 2) && instr[2] == '\0')
 	|| (!ft_strncmp(instr, "pa", 2) && instr[2] == '\0')

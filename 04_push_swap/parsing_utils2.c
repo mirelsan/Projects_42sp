@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_utils2.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/29 00:08:31 by username          #+#    #+#             */
-/*   Updated: 2026/07/02 14:00:55 by adedias-         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   parsing_utils2.c                                  :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/29 00:08:31 by username         #+#    #+#              */
+/*   Updated: 2026/07/03 12:13:11 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_free_split(char **split)
 	free(split);
 }
 
-void	free_append(t_stack *stack, char **str)
+int	free_append(t_stack *stack, char **str)
 {
 	int	i;
 
@@ -64,8 +64,9 @@ void	free_append(t_stack *stack, char **str)
 		{
 			ft_free_split(str);
 			ft_free_stack(stack);
-			return ;
+			return (0);
 		}
 		i++;
 	}
+	return (1);
 }

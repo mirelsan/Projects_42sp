@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adedias- <adedias-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/15 02:10:09 by username          #+#    #+#             */
-/*   Updated: 2026/07/02 13:58:56 by adedias-         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   push_swap.h                                       :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/15 02:10:09 by username         #+#    #+#              */
+/*   Updated: 2026/07/03 12:08:46 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,6 @@ int			configure_max_chunks(t_stack *a);
 void		ft_free_stack(t_stack *stack);
 void		ft_free_split(char **split);
 ssize_t		error_free(t_stack *stack_b);
-void		free_append(t_stack *stack, char **str);
+int			free_append(t_stack *stack, char **str);
 
 #endif

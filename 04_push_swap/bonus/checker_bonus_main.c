@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   checker_bonus_main.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/03 02:35:33 by username          #+#    #+#             */
-/*   Updated: 2026/07/03 02:43:33 by mirelapitt       ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   checker_bonus_main.c                              :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/07/03 02:35:33 by username         #+#    #+#              */
+/*   Updated: 2026/07/03 11:43:34 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	main(int argc, char **argv)
 {
 	t_stack	*a;
 	t_stack	*b;
-	int		success;
 
 	if (argc < 2)
 		return (0);

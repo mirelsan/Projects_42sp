@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   checker_bonus.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/03 02:51:48 by username          #+#    #+#             */
-/*   Updated: 2026/07/03 03:20:31 by mirelapitt       ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   checker_bonus.c                                   :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/07/03 02:51:48 by username         #+#    #+#              */
+/*   Updated: 2026/07/03 11:57:55 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@
 
 int	is_valid_instruction(const char *instr)
 {
-	return (!ft_strncmp(instr, "sa", 2) && instr[2] == '\0')
-	|| (!ft_strncmp(instr, "sb", 2) && instr[2] == '\0')
-	|| (!ft_strncmp(instr, "ss", 2) && instr[2] == '\0')
-	|| (!ft_strncmp(instr, "pa", 2) && instr[2] == '\0')
-	|| (!ft_strncmp(instr, "pb", 2) && instr[2] == '\0')
-	|| (!ft_strncmp(instr, "ra", 2) && instr[2] == '\0')
-	|| (!ft_strncmp(instr, "rb", 2) && instr[2] == '\0')
-	|| (!ft_strncmp(instr, "rr", 2) && instr[2] == '\0')
-	|| (!ft_strncmp(instr, "rra", 3) && instr[3] == '\0')
-	|| (!ft_strncmp(instr, "rrb", 3) && instr[3] == '\0')
-	|| (!ft_strncmp(instr, "rrr", 3) && instr[3] == '\0');
+	if (!ft_strncmp(instr, "sa", 3) || !ft_strncmp(instr, "sb\0", 3))
+		return (1);
+	if (!ft_strncmp(instr, "ss", 3) || !ft_strncmp(instr, "pa\0", 3))
+		return (1);
+	if (!ft_strncmp(instr, "pb", 3) || !ft_strncmp(instr, "ra\0", 3))
+		return (1);
+	if (!ft_strncmp(instr, "rb", 3) || !ft_strncmp(instr, "rr\0", 3))
+		return (1);
+	if (!ft_strncmp(instr, "rra", 4) || !ft_strncmp(instr, "rrb\0", 4))
+		return (1);
+	if (!ft_strncmp(instr, "rrr", 4))
+		return (1);
+	return (0);
 }
 
 void	execute_double(const char *instr, t_stack *a, t_stack *b)
@@ -78,6 +80,7 @@ int	read_line(char *buffer, int max_len)
 
 	index = 0;
 	too_long = 0;
+	c = '\0';
 	while (read(0, &c, 1) > 0)
 	{
 		if (c == '\n')

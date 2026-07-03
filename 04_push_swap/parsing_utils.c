@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/15 02:09:35 by username          #+#    #+#             */
-/*   Updated: 2026/07/03 03:21:33 by mirelapitt       ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   parsing_utils.c                                   :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/06/15 02:09:35 by username         #+#    #+#              */
+/*   Updated: 2026/07/03 12:12:05 by username        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ t_stack	*ft_parse_args(char **argv, int start_index)
 			free(stack);
 			return (NULL);
 		}
-		free_append(stack, str);
+		if (!free_append(stack, str))
+			return (NULL);
 	}
 	else
 	{

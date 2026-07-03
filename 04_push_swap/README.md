@@ -35,7 +35,35 @@ cd 04_push_swap
 make
 ```
 
-This will generate the executable named push_swap.
+This will generate the executable named `push_swap`.
+
+### Bonus Checker
+The bonus includes a checker program that reads instructions from standard input and verifies whether they sort the stack correctly.
+
+Compile the bonus checker with:
+
+```bash
+cd 04_push_swap
+make bonus
+```
+
+This will generate the executable named `checker`.
+
+Run the checker like this:
+
+```bash
+./checker 2 1 3 6 5 8
+```
+
+Then provide operations on standard input, for example:
+
+```bash
+sa
+pb
+ra
+```
+
+The checker prints `OK` if the stack is sorted and stack B is empty, or `KO` otherwise.
 
 ### Execution
 Run the program with a list of integers:

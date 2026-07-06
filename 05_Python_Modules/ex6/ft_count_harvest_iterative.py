@@ -1,16 +1,19 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    ft_garden_name.py                                  :+:      :+:    :+:    #
+#    ft_count_harvest_iterative.py                      :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/07/04 00:01:16 by codespace         #+#    #+#              #
-#    Updated: 2026/07/06 00:32:49 by codespace        ###   ########.fr        #
+#    Created: 2026/07/06 01:09:06 by codespace         #+#    #+#              #
+#    Updated: 2026/07/06 01:25:33 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-def ft_garden_name():
-    x = input("Enter garden name: ")
-    print(x)
-    print("Status: Growing well!")
+def ft_count_harvest_iterative():
+    x = int(input("Days until harvest: "))
+    i = 1
+    while i <= x:
+        print("Day", i)
+        i += 1
+    print("Harvest time!") 

@@ -1,16 +1,18 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    ft_garden_name.py                                  :+:      :+:    :+:    #
+#    ft_plant_age.py                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/07/04 00:01:16 by codespace         #+#    #+#              #
-#    Updated: 2026/07/06 00:32:49 by codespace        ###   ########.fr        #
+#    Created: 2026/07/06 00:48:40 by codespace         #+#    #+#              #
+#    Updated: 2026/07/06 00:53:32 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-def ft_garden_name():
-    x = input("Enter garden name: ")
-    print(x)
-    print("Status: Growing well!")
+def ft_plant_age():
+    x = int(input("Enter plant age in days: "))
+    if x > 60:
+        print("Plant is ready to harvest!")
+    else:
+        print("Plant needs more time to grow")

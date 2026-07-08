@@ -4,4 +4,4 @@ def ft_count_harvest_iterative():
     while i <= x:
         print("Day", i)
         i += 1
-    print("Harvest time!") 
+    print("Harvest time!")

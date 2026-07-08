@@ -2,7 +2,8 @@ def ft_count_harvest_recursive():
     x = int(input("Days until harvest: "))
     helper(1, x)
 
-def helper(i, x):    
+
+def helper(i, x):
     if i > x:
         print("Harvest time!")
         return

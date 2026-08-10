@@ -104,6 +104,9 @@ class LogProcessor(DataProcessor):
             self._data.append(f"{item['log_level']}: {item['log_message']}")
             self._total += 1
 
+class ExportPlugin(Protocol):
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        ...    
 
 class DataStream:
     def __init__(self) -> None:
@@ -139,15 +142,11 @@ class DataStream:
 
     def output_pipeline(self, nb: int, plugin: ExportPlugin) -> None:
         for proc in self._processors:
-                    batch = []
-                for _ in range(min(nb, proc.remaining())):
-                    batch.append(proc.output())
-                if  batch:
-                    plugin.process_output(batch)
-
-class ExportPlugin(Protocol):
-    def process_output(self, data: list[tuple[int, str]]) -> None:
-        ...    
+            batch = []
+        for _ in range(min(nb, proc.remaining())):
+            batch.append(proc.output())
+        if  batch:
+            plugin.process_output(batch)
                     
 
 class CSVExportPlugin:

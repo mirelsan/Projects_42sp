@@ -137,6 +137,19 @@ class DataStream:
                 f"remaining {proc. remaining()} on processor"
             )
 
+    def output_pipeline(self, nb: int, plugin: ExportPlugin) -> None:
+        for proc in self._processors:
+                    batch = []
+                for _ in range(min(nb, proc.remaining())):
+                    batch.append(proc.output())
+                if  batch:
+                    plugin.process_output(batch)
+
+class ExportPlugin(Protocol):
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        ...    
+                    
+
 class CSVExportPlugin:
     def process_output(self, data: list[tuple[int, str]]) -> None:
         values = [value for _, value in data]
@@ -149,14 +162,6 @@ class JSONExportPlugin:
         pairs = [f'"item_{rank}": "{value}"' for rank, value in data]
         print("JSON Output:")
         print("{" + ", ".join(pairs) + "}")
-
-    def output_pipeline(self, nb: int, plugin: ExportPlugin) -> None:
-    for proc in self._processors:
-        batch = []
-        for _ in range(min(nb, proc.remaining())):
-            batch.append(proc.output())
-        if batch:
-            plugin.process_output(batch)
 
 
 

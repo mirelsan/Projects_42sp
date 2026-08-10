@@ -104,13 +104,6 @@ class LogProcessor(DataProcessor):
             self._data.append(f"{item['log_level']}: {item['log_message']}")
             self._total += 1
 
-class ExportPlugin(DataProcessor):
-    def __init__(self) -> None:
-        super().__init__("ExportPlugin")
-
-    def process_output(self, data: list[tuple[int, str]]) -> None:
-
-
 
 class DataStream:
     def __init__(self) -> None:
@@ -143,6 +136,19 @@ class DataStream:
                 f"{proc.name}: total {proc.total()} items processed, "
                 f"remaining {proc. remaining()} on processor"
             )
+
+class CSVExportPlugin:
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        values = [value for _, value in data]
+        print("CSV Output:")
+        print(",".join(values))
+
+
+class JSONExportPlugin:
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        pairs = [f'"item_{rank}": "{value}"' for rank, value in data]
+        print("JSON Output:")
+        print("{" + ", ".join(pairs) + "}")
 
     def output_pipeline(self, nb: int, plugin: ExportPlugin) -> None:
     for proc in self._processors:

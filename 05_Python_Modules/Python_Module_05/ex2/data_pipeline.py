@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 import typing
+from typing import Protocol
 
 
 class DataProcessor(ABC):
@@ -144,6 +145,13 @@ class DataStream:
             )
 
     def output_pipeline(self, nb: int, plugin: ExportPlugin) -> None:
+    for proc in self._processors:
+        batch = []
+        for _ in range(min(nb, proc.remaining())):
+            batch.append(proc.output())
+        if batch:
+            plugin.process_output(batch)
+
 
 
 def main() -> None:

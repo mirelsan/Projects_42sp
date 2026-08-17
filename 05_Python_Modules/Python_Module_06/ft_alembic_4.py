@@ -1,5 +1,6 @@
 import alchemy
 
+
 def main() -> None:
     print("=== Alembic 4 ===")
     print("Accessing the alchemy module using 'import alchemy'")
@@ -14,5 +15,5 @@ def main() -> None:
     print(earth)
 
 
-if __name__ "__main__":
+if __name__ == "__main__":
     main()

@@ -1,9 +1,11 @@
 import alchemy.transmutation
 
+
 def main() -> None:
     print("=== Transmutation 1 ===")
     print("Import transmutation module directly")
-    print(f"Testing lead to gold: {alchemy.transmutation.recipes.lead_to_gold()}")
+    result = alchemy.transmutation.recipes.lead_to_gold()
+    print(f"Testing lead to gold: {result}")
 
 
 if __name__ == "__main__":

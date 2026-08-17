@@ -4,4 +4,10 @@ from ..potions import strength_potion
 
 
 def lead_to_gold() -> str:
-    return f"Recipe transmuting Lead to Gold: brew ’{create_air()}’ and ’{strength_potion()}’ mixed with ’{create_fire()}’"
+    air = create_air()
+    strength = strength_potion()
+    fire = create_fire()
+    return (
+        f"Recipe transmuting Lead to Gold: brew ’{air}’ and ’{strength}’"
+        f"mixed with ’{fire}’"
+    )

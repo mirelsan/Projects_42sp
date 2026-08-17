@@ -1,5 +1,6 @@
 import alchemy
 
+
 def main() -> None:
     print("=== Transmutation 2 ===")
     print("Import alchemy module only")

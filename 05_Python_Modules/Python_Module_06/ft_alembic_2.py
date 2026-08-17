@@ -1,5 +1,6 @@
 import alchemy.elements
 
+
 def main() -> None:
     print("=== Alembic 2 ===")
     print("Accessing alchemy/elements.py using 'import ...' structure")

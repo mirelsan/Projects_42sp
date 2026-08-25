@@ -1,10 +1,9 @@
 import os
 import sys
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 
 
 def load_environment() -> dict[str, str]:
-    """Load and validate environment variables."""
     load_dotenv()
 
     raw_config = {
@@ -27,7 +26,6 @@ def load_environment() -> dict[str, str]:
 
 
 def run_matrix_simulation(config: dict[str, str]) -> None:
-    """Execute the simulation and print the final Oracle Status."""
     print("ORACLE STATUS: Reading the Matrix...")
     print("Configuration loaded:")
 

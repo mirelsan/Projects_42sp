@@ -12,7 +12,6 @@ from typing import Any
 
 
 def check_dependencies() -> dict[str, Any]:
-    """Dynamically load and verify required packages."""
     print("LOADING STATUS: Loading programs...")
     print("Checking dependencies:")
 
@@ -63,14 +62,14 @@ def analyze_matrix_surge(modules: dict[str, Any]) -> None:
     power_levels = base_wave + noise
 
     df = pd.DataFrame({"Time": time, "Raw_Surge": power_levels})
-    df["Smoothed_Surge"] = df["Raw_Surge"].rolling(windows=50).mean()
+    df["Smoothed_Surge"] = df["Raw_Surge"].rolling(window=50).mean()
 
     print("Generating visualization...")
-    plt.figure(figszie=(10, 5))
+    plt.figure(figsize=(10, 5))
 
     plt.plot(
         df["Time"], df["Raw_Surge"],
-        color='lightgreen', aplha=0.5, label='Raw Zion Power'
+        color='lightgreen', alpha=0.5, label='Raw Zion Power'
         )
     plt.plot(
         df["Time"], df["Smoothed_Surge"],

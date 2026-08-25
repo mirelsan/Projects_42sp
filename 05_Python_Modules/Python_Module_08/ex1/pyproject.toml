@@ -1,4 +1,5 @@
 [tool.poetry]
+package-mode = false
 name = "matrix-loading"
 version = "0.1.0"
 description = "Loading programs for the Matrix"

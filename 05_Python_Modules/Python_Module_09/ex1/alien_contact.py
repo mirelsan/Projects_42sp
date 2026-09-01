@@ -3,13 +3,13 @@ from typing import Optional
 from datetime import datetime
 from pydantic import BaseModel, Field, model_validator
 
-class ContactType(str, Enum)
+class ContactType(str, Enum):
   radio = "radio"
   visual = "visual"
   physical = "physical"
   telepathic = "telepathic"
 
-class AlienContact(BaseModel)
+class AlienContact(BaseModel):
   contact_id: str = Field(min_length=5, max_length=15)
   timestamp: datetime
   location: str = Field(min_length=3, max_length=100)

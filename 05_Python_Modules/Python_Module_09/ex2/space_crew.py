@@ -1,7 +1,8 @@
 from enum import Enum
 from typing import List
 from datetime import datetime
-from pydantic import BaseModel, Fiel, ValidationError, model_validator
+from pydantic import BaseModel, Field, ValidationError, model_validator
+
 
 class Rank(str, Enum):
   cadet = "cadet"
@@ -19,6 +20,7 @@ class CrewMember(BaseModel):
   years_experience: int = Field(ge=0, le=50)
   is_active: bool = Field(default=True)
 
+
 class SpaceMission(BaseModel):
   mission_id: str = Field(min_length=5, max_length=15)
   mission_name: str = Field(min_length=3, max_length=100)
@@ -29,8 +31,9 @@ class SpaceMission(BaseModel):
   mission_status: str = Field(default="planned")
   budget_millions: float = Field(ge=1.0, leg=10000.0)
 
+
 @model_validator(mode='after')
-  def validate_mission_requirements(self) -> 'SpaceMisson':
+def validate_mission_requirements(self) -> 'SpaceMisson':
 
     if not self.mission_id.startswith('M'):
       raise ValueError("Mission ID must start with 'M'")
@@ -98,6 +101,7 @@ def main() -> None:
     print("Expected validation error:")
     for error in e.errors():
       print(error.get("msg").replace("Value error, ", ""))
+
 
 if __name__ == "__main__":
   main()

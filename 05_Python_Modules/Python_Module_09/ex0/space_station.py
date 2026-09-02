@@ -20,40 +20,41 @@ def main() -> None:
     print("===============================")
 
     try:
-     valid_station = SpaceStation(
-     station_id="ISS001",
-     name="International Space Station",
-     crew_size=6,
-     power_level=85.5,
-     oxygen_level=92.3,
-     last_maintenance=datetime.now(),
-     is_operational=True
-     )
-     print("Valid station created:")
-     print(f"ID: {valid_station.station_id}")
-     print(f"Name: {valid_station.name}")
-     print(f"Crew: {valid_station.crew_size}")
-     print(f"Power: {valid_station.power_level}%")
-     print(f"Oxygen: {valid_station.oxygen_level}%")
-     print(f"Status: {'Operational' if valid_station.is_operational else 'Offline'}\n")
+        valid_station = SpaceStation(
+            station_id="ISS001",
+            name="International Space Station",
+            crew_size=6,
+            power_level=85.5,
+            oxygen_level=92.3,
+            last_maintenance=datetime.now(),
+            is_operational=True
+        )
+        print("Valid station created:")
+        print(f"ID: {valid_station.station_id}")
+        print(f"Name: {valid_station.name}")
+        print(f"Crew: {valid_station.crew_size}")
+        print(f"Power: {valid_station.power_level}%")
+        print(f"Oxygen: {valid_station.oxygen_level}%")
+        status = 'Operational' if valid_station.is_operational else 'Offline'
+        print(f"Status: {status}\n")
 
-    except ValidationError as e:                   
-      print(f"Unexpected validation error: {e}")
-  
+    except ValidationError as e:
+        print(f"Unexpected validation error: {e}")
+
     try:
         valid_station = SpaceStation(
-        station_id="ISS001",
-        name="International Space Station",
-        crew_size=25,
-        power_level=100.0,
-        oxygen_level=95.0,
-        last_maintenance=datetime.now()
+            station_id="ISS001",
+            name="International Space Station",
+            crew_size=25,
+            power_level=100.0,
+            oxygen_level=95.0,
+            last_maintenance=datetime.now()
         )
     except ValidationError as e:
-      print("Expected validation error:")
+        print(f"Expected validation error: {e}")
 
-    for error in e.errors():
-        print(error.get("msg"))
+        for error in e.errors():
+            print(error.get("msg"))
 
 
 if __name__ == "__main__":

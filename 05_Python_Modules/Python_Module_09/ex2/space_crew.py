@@ -33,34 +33,34 @@ class SpaceMission(BaseModel):
     budget_millions: float = Field(ge=1.0, le=10000.0)
 
 
-@model_validator(mode='after')
-def validate_mission_requirements(self: 'SpaceMission') -> 'SpaceMission':
+    @model_validator(mode='after')
+    def validate_mission_requirements(self: 'SpaceMission') -> 'SpaceMission':
 
-    if not self.mission_id.startswith('M'):
-        raise ValueError("Mission ID must start with 'M'")
+        if not self.mission_id.startswith('M'):
+            raise ValueError("Mission ID must start with 'M'")
 
-    for member in self.crew:
-        if not member.is_active:
-            raise ValueError("All crew members must be active")
+        for member in self.crew:
+            if not member.is_active:
+                raise ValueError("All crew members must be active")
 
-    has_leadership = any(
-        member.rank in [Rank.commander, Rank.captain]
-        for member in self.crew
-    )
-    if not has_leadership:
-        raise ValueError("Mission must have at least one Commander or Captain")
-
-    if self.duration_days > 365:
-        experienced_members = sum(
-            1 for member in self.crew
-            if member.years_experience >= 5
+        has_leadership = any(
+            member.rank in [Rank.commander, Rank.captain]
+            for member in self.crew
         )
-        if experienced_members < (len(self.crew) / 2):
-            raise ValueError(
-                "Long missions require 50% experienced crew (5+ years)"
-            )
+        if not has_leadership:
+            raise ValueError("Mission must have at least one Commander or Captain")
 
-    return self
+        if self.duration_days > 365:
+            experienced_members = sum(
+                1 for member in self.crew
+                if member.years_experience >= 5
+            )
+            if experienced_members < (len(self.crew) / 2):
+                raise ValueError(
+                    "Long missions require 50% experienced crew (5+ years)"
+                )
+
+        return self
 
 
 def main() -> None:
@@ -107,7 +107,7 @@ def main() -> None:
             print("\n")
 
     except ValidationError as e:
-        print("Expected validation error:")
+        print(f"Expected validation error: {e}")
         for error in e.errors():
             print(error.get("msg").replace("Value error, ", ""))
 

@@ -16,7 +16,7 @@ class AlienContact(BaseModel):
     timestamp: datetime
     location: str = Field(min_length=3, max_length=100)
     contact_type: ContactType
-    signal_strenght: float = Field(ge=0.0, le=10.0)
+    signal_strength: float = Field(ge=0.0, le=10.0)
     duration_minutes: int = Field(ge=1, le=1440)
     witness_count: int = Field(ge=1, le=100)
     message_received: Optional[str] = Field(default=None, max_length=500)
@@ -37,7 +37,7 @@ class AlienContact(BaseModel):
             raise ValueError(
                 "Telepathic contact requires at least 3 witnesses"
             )
-        if self.signal_strenght > 7.0 and not self.message_received:
+        if self.signal_strength > 7.0 and not self.message_received:
             raise ValueError(
                 "Strong signals (>7.0) should include "
                 "received messages"
@@ -55,7 +55,7 @@ def main() -> None:
             timestamp=datetime.now(),
             location="Area 51, Nevada",
             contact_type=ContactType.radio,
-            signal_strenght=8.5,
+            signal_strength=8.5,
             duration_minutes=45,
             witness_count=5,
             message_received="'Greetings from Zeta Reticuli'"
@@ -64,7 +64,7 @@ def main() -> None:
         print(f"ID: {valid_contact.contact_id}")
         print(f"Type: {valid_contact.contact_type}")
         print(f"Location: {valid_contact.location}")
-        print(f"Signal: {valid_contact.signal_strenght}/10")
+        print(f"Signal: {valid_contact.signal_strength}/10")
         print(f"Duration: {valid_contact.duration_minutes} minutes")
         print(f"Witness: {valid_contact.witness_count}")
 

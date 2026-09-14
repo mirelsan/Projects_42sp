@@ -3,8 +3,8 @@ from ex0 import CreatureFactory, FlameFactory, AquaFactory
 
 def test_factory(factory: CreatureFactory) -> None:
     print("Testing factory")
-    base_creature = factory.creature_base()
-    evolved_creature = factory.creature_evolved()
+    base_creature = factory.create_base()
+    evolved_creature = factory.create_evolved()
 
     print(base_creature.describe())
     print(base_creature.attack())
@@ -15,8 +15,8 @@ def test_factory(factory: CreatureFactory) -> None:
 
 def test_battle(factory1: CreatureFactory, factory2: CreatureFactory) -> None:
     print("Testing battle")
-    fighter1 = factory1.creature_base()
-    fighter2 = factory2.creature_base()
+    fighter1 = factory1.create_base()
+    fighter2 = factory2.create_base()
 
     print(fighter1.describe())
     print("vs.")

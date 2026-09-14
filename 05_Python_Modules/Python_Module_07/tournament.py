@@ -38,5 +38,36 @@ def battle(opponents: list[tuple[CreatureFactory, BattleStrategy]]) -> None:
 def main() -> None:
     try:
         flame = FlameFactory()
-        aqua = AquaFactory()
+        aquabub = AquaFactory()
         healing = HealingCreatureFactory()
+        transform = TransformCreatureFactory()
+
+        normal = NormalStrategy()
+        aggressive = AggressiveStrategy()
+        defensive = DefensiveStrategy()
+
+        print("Tournament 0 (basic)")
+        print("[ (Flameling+Normal), (Healing+Defensive) ]")
+
+        battle([(flame, normal), (healing, defensive)])
+        print()
+
+        print("Tournament 1 (error)")
+        print("[ (Flameling+Aggressive), (Healing+Defensive) ]")
+        battle([(flame, aggressive), (healing, defensive)])
+        print()
+
+        print("Tournament 2 (multiple)")
+        print("[ (Aquabub+Normal), (Healing+Defensive),"
+              "(Transform+Aggressive) ]")
+        battle([(
+            aquabub, normal),
+            (healing, defensive),
+            (transform, aggressive)
+        ])
+    except Exception as e:
+        print(f"An unexpected error occurred in the setup: {e}")
+
+
+if __name__ == "__main__":
+    main()

@@ -9,19 +9,20 @@ class BattleStrategy(ABC):
     def is_valid(self, creature: Creature) -> bool:
         pass
 
-
     @abstractmethod
     def act(self, creature: Creature) -> None:
         pass
 
 
 class NormalStrategy(BattleStrategy):
-    def is_valid(self, creature: Creature) -> None:
+    def is_valid(self, creature: Creature) -> bool:
         return isinstance(creature, Creature)
 
-    def act(self, creature: Creature) -> bool:
+    def act(self, creature: Creature) -> None:
         if not self.is_valid(creature):
-            raise InvalidStrategyError(f"Invalid Creature '{creature.name}' for this normal strategy")
+            raise InvalidStrategyError(
+                f"Invalid Creature '{creature.name}' for this normal strategy"
+            )
 
         print(creature.attack())
 
@@ -30,16 +31,17 @@ class AggressiveStrategy(BattleStrategy):
     def is_valid(self, creature: Creature) -> bool:
         return isinstance(creature, TransformCapability)
 
-
     def act(self, creature: Creature) -> None:
         if not self.is_valid(creature):
-            raise InvalidStrategyError(f"Invalid Creature '{creature.name}' for this aggressive strategy")
-
+            raise InvalidStrategyError(
+                f"Invalid Creature '{creature.name}' "
+                "for this aggressive strategy"
+            )
 
         if isinstance(creature, TransformCapability):
             print(creature.transform())
             print(creature.attack())
-            print(creature.rever())
+            print(creature.revert())
 
 
 class DefensiveStrategy(BattleStrategy):
@@ -48,7 +50,9 @@ class DefensiveStrategy(BattleStrategy):
 
     def act(self, creature: Creature) -> None:
         if not self.is_valid(creature):
-            raise InvalidStrategyError(f"Invalid Creature '{creature.name}' for this defensive strategy")
+            raise InvalidStrategyError(
+                f"Invalid Creature '{creature.name}' "
+                "for this defensive strategy")
 
         if isinstance(creature, HealCapability):
             print(creature.attack())

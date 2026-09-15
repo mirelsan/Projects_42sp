@@ -1,8 +1,9 @@
 import functools
 import inspect
 import time
-from colections.abc import Callable
+from collections.abc import Callable
 from typing import Any
+
 
 def spell_timer(func: Callable[..., Any]) -> Callable[..., Any]:
     @functools.wraps(func)
@@ -15,6 +16,7 @@ def spell_timer(func: Callable[..., Any]) -> Callable[..., Any]:
         print(f"Spell completed in {duration:.3f} seconds")
         return result
     return wrapper
+
 
 def power_validator(min_power: int) -> Callable[..., Any]:
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -45,16 +47,19 @@ def retry_spell(max_attempts: int) -> Callable:
                     if attempt < max_attempts:
                         print(
                             f"Spell failed, retrying..."
-                            f"(attempt {attempt}/{max_attempt})"
+                            f"(attempt {attempt}/{max_attempts})"
                         )
                     else:
                         return (
                             f"Spell casting failed after"
                             f"{max_attempts} attemps"
                         )
-                    return f"Spell casting failed after {max_attemps} attempts"
-                return wrapper
-            return decorator
+                    return (
+                            f"Spell casting failed after "
+                            f"{max_attempts} attempts"
+                    )
+        return wrapper
+    return decorator
 
 
 class MageGuild:
@@ -63,8 +68,39 @@ class MageGuild:
         if len(name) < 3:
             return False
         return all(c.isalpha() or c.isspace() for c in name)
-    
+
     @power_validator(min_power=10)
     def cast_spell(self, spell_name: str, power: int) -> str:
         return f"Successfully cast {spell_name} with {power} power"
 
+
+def main() -> None:
+    print("Testing spell timer...")
+
+    @spell_timer
+    def fireball(target: str) -> str:
+        time.sleep(0.1)
+        return f"Result: {target} cast!"
+
+    print(fireball("Fireball"))
+    print("\nTesting retrying spell")
+
+    @retry_spell(max_attempts=3)
+    def unstable_spell() -> str:
+        raise ValueError("Boom!")
+
+    print(unstable_spell())
+    print("Waaaaaaagh spelled !")
+
+    print("\nTesting MageGuild...")
+
+    print(MageGuild.validate_mage_name("Mage Alpha"))
+    print(MageGuild.validate_mage_name("Ab"))
+
+    guild = MageGuild()
+    print(guild.cast_spell("Lightning", 15))
+    print(guild.cast_spell("Lightning", 5))
+
+
+if __name__ == "__main__":
+    main()

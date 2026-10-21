@@ -69,3 +69,6 @@ typedef struct s_workspace
     t_dongle    *dongles; // attay dongles
     t_coder     *coders; // array
 }               t_workspace;
+
+// parsing
+void parse_input(t_workspace *workspace, char **av);

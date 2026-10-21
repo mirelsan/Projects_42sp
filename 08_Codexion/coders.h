@@ -6,7 +6,7 @@
                     // threads: create join detach
 #include <sys/time.h> //gettimeofday
 #include <limits.h> // INT_MAX
-
+#include <string.h> // FOR strcmp
 // Reset code
 #define RST "\033[0m"
 
@@ -19,6 +19,11 @@
 #define BOLD_MAGENTA "\033[1;35m"
 #define BOLD_CYAN    "\033[1;36m"
 #define BOLD_WHITE   "\033[1;37m"
+
+// define scheduler types
+
+#define SCHEDULER_FIFO 0
+#define SCHEDULER_EDF 1
 
 // *** structures ***
 
@@ -47,7 +52,7 @@ typedef struct s_coder
     t_dongle *left_dongle;
     t_dongle *right_dongle; // coder is a thread
     pthread_t thread_id;
-    t_workspace *workspace
+    t_workspace *workspace;
 }             t_coder;
 
 
@@ -64,11 +69,16 @@ typedef struct s_workspace
     long    time_to_refactor;
     long    number_of_compiles_required; // [5] | FLAG if -1
     long    dongle_cooldown;
+    long    scheduler; // SCHED_FIFO (0) or SCHED_EDF (1)
     long    start_simulation; //
     bool    end_simulation; // a coder boutnout
+    t_mtx   log_mutex; // Protection for the logs (printf/write)
     t_dongle    *dongles; // attay dongles
     t_coder     *coders; // array
 }               t_workspace;
 
 // parsing
 void parse_input(t_workspace *workspace, char **av);
+
+// utils
+void error_exit(const char *error);

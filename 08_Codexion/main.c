@@ -1,26 +1,28 @@
 #include "coders.h"
 
-int main (int ac, char av)
+int main(int ac, char **av)
 {
-    if (av == 5 || av == 6)
-    {
-        // correct input
-        // 1) errors checking, filling 
-        parse_input(&workspace, av);
+    t_workspace workspace;
 
-        // 2) creating the actual thing
-        data_init(&workspace);
-        
-        // 3)
-        work_start(&workspace);
-
-        // 4) No leaks || coder burnout
-        clan(&workspace);
-    }
-    else
+    if (ac != 9)
     {
-        // incorrect input
-        error_exit("Wrong input:\n"
-                G"Correct is ./coder 5 800 200 200 [5]"RST);
+        printf("Uso: ./test_parsing <coders> <burnout_ms> <compile_ms> <debug_ms> <refactor_ms> <compiles_req> <cooldown_ms> <fifo|edf>\n");
+        return (1);
     }
+
+    printf("Iniciando o parsing em modo de teste...\n");
+    parse_input(&workspace, av);
+
+    printf("\n" BOLD_GREEN "--- Resultado do Parsing ---" RST "\n");
+    printf("Coders: %ld\n", workspace.number_of_coders);
+    printf("Time to Burnout (us): %ld\n", workspace.time_to_burnout);
+    printf("Time to Compile (us): %ld\n", workspace.time_to_compile);
+    printf("Time to Debug (us): %ld\n", workspace.time_to_debug);
+    printf("Time to Refactor (us): %ld\n", workspace.time_to_refactor);
+    printf("Compiles Required: %ld\n", workspace.number_of_compiles_required);
+    printf("Dongle Cooldown (us): %ld\n", workspace.dongle_cooldown);
+    printf("Scheduler: %s\n", workspace.scheduler == SCHEDULER_FIFO ? "FIFO" : "EDF");
+    printf(BOLD_GREEN "----------------------------" RST "\n");
+
+    return (0);
 }

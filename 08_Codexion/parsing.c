@@ -45,7 +45,15 @@ static long ft_atoi(const char *str)
     num = 0;
     str = valid_input(str);
     while (is_digit(*str))
-        num = (num * 10) + (*str+ - 48);
+    {
+        num = (num * 10) + (*str - '0');
+        str++;
+    }
+    while (is_space(*str))
+        str++;
+    if (*str != '\0')
+        error_exit("Input contains invalid non-digit characters!");
+    
     if (num > INT_MAX)
         error_exit("The value is too big, INT_MAX is the limit");
     return (num);
@@ -57,21 +65,41 @@ static long ft_atoi(const char *str)
 //2)not > INT_MAX
 //3) TIMESTAMPS > 60ms
 
+static long parse_scheduler(const char *str)
+{
+    if (strcmp(str, "fifo") == 0)
+        return (SCHEDULER_FIFO);
+    if (strcmp(str, "edf") == 0)
+        return (SCHEDULER_EDF);
+    error_exit("Invalid scheduler! Choose 'fifo' or 'edf'.");
+    return (-1);
+}
+
 void parse_input(t_workspace *workspace, char **av)
 {
     workspace->number_of_coders = ft_atoi(av[1]);
-    workspace->time_to_burnout = ft_atoi(av[2]) * 1e3;
-    workspace->time_to_compile = ft_atoi(av[3]) * 1e3;
-    workspace->time_to_debug = ft_atoi(av[4]) * 1e3;
-    if (workspace->time_to_burnout < 6e4
-        || workspace->time_to_compile < 6e4
-        || workspace->time_to_debug < 6e4
-        error_exit("Use timestamps major than 60ms");    
-    )
-    if (av[5])
-        workspace->number_of_compiles_required = ft_atoi(av[5]);
-    else
-        workspace->number_of_compiles_required = -1;
+    if (workspace->number_of_coders <= 0)
+        error_exit("Number of coders must be greater than 0");
+    
+    // Converting milis to microsecs (* 1000)
+    workspace->time_to_burnout = ft_atoi(av[2]) * 1000;
+    workspace->time_to_compile = ft_atoi(av[3]) * 1000;
+    workspace->time_to_debug = ft_atoi(av[4]) * 1000;
+    workspace->time_to_refactor = ft_atoi(av[5]) * 1000;
+    workspace->dongle_cooldown = ft_atoi(av[7]) * 1000;
 
+    // Min time validation (60ms = 60000us)
+    if (workspace->time_to_burnout < 60000
+        || workspace->time_to_compile < 60000
+        || workspace->time_to_debug < 60000
+        || workspace->time_to_refactor < 60000)
+    {
+        error_exit("Use timestamps major than 60ms");    
+    }
+    workspace->number_of_compiles_required = ft_atoi(av[6]);
+    if (workspace->number_of_compiles_required <= 0)
+        error_exit("Number of compiles required must be greater than 0");
+    
+    workspace->scheduler = parse_scheduler(av[8]);
 
 }

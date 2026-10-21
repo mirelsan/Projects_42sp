@@ -1,0 +1,167 @@
+O seu **parsing está 100% validado** e cobriu todos os cenários de erro exigidos pelas regras da 42.
+
+O próximo passo na arquitetura do projeto é criar a função de **inicialização da simulação** (`init_workspace`), responsável por:
+
+1. Alocar memória para os arrays de `coders` e `dongles`.
+
+
+2. Inicializar o mutex de log (`log_mutex`).
+
+
+3. Inicializar o mutex de cada dongle (`pthread_mutex_init`).
+
+
+4. Atribuir a mesa circular aos coders (posicionando o dongle esquerdo e direito para cada um).
+
+
+
+---
+
+### 1. Atualização no `coders.h`
+
+Adicione a declaração da nova função no seu cabeçalho:
+
+```c
+// init
+void    init_workspace(t_workspace *workspace);
+void    cleanup_workspace(t_workspace *workspace);
+
+```
+
+---
+
+### 2. Implementação do `init.c` (ou no `utils.c`)
+
+Crie a lógica para alocação, amarração circular dos dongles e limpeza de memória:
+
+```c
+#include "coders.h"
+
+static void init_dongles(t_workspace *ws)
+{
+    long    i;
+
+    ws->dongles = malloc(sizeof(t_dongle) * ws->number_of_coders);
+    if (!ws->dongles)
+        error_exit("Memory allocation failed for dongles!");
+    
+    i = 0;
+    while (i < ws->number_of_coders)
+    {
+        ws->dongles[i].dongle_id = i + 1;
+        if (pthread_mutex_init(&ws->dongles[i].dongle, NULL) != 0)
+            error_exit("Failed to initialize dongle mutex!");
+        i++;
+    }
+}
+
+static void init_coders(t_workspace *ws)
+{
+    long    i;
+
+    ws->coders = malloc(sizeof(t_coder) * ws->number_of_coders);
+    if (!ws->coders)
+        error_exit("Memory allocation failed for coders!");
+
+    i = 0;
+    while (i < ws->number_of_coders)
+    {
+        ws->coders[i].id = i + 1;
+        ws->coders[i].number_compiles = 0;
+        ws->coders[i].bournout = false;
+        ws->coders[i].last_compile_time = 0;
+        ws->coders[i].workspace = ws;
+
+        // Distribuição circular dos dongles na mesa:
+        // Coder i pega o dongle i na esquerda e o dongle (i + 1) % total na direita
+        ws->coders[i].left_dongle = &ws->dongles[i];
+        ws->coders[i].right_dongle = &ws->dongles[(i + 1) % ws->number_of_coders];
+
+        i++;
+    }
+}
+
+void init_workspace(t_workspace *ws)
+{
+    ws->start_simulation = 0;
+    ws->end_simulation = false;
+
+    if (pthread_mutex_init(&ws->log_mutex, NULL) != 0)
+        error_exit("Failed to initialize log mutex!");
+
+    init_dongles(ws);
+    init_coders(ws);
+}
+
+// Função para destruir mutexes e liberar memória ao final da execução
+void cleanup_workspace(t_workspace *ws)
+{
+    long    i;
+
+    if (ws->dongles)
+    {
+        i = 0;
+        while (i < ws->number_of_coders)
+        {
+            pthread_mutex_destroy(&ws->dongles[i].dongle);
+            i++;
+        }
+        free(ws->dongles);
+    }
+    pthread_mutex_destroy(&ws->log_mutex);
+    if (ws->coders)
+        free(ws->coders);
+}
+
+```
+
+---
+
+### 3. Teste da Alocação no `main.c`
+
+Atualize seu `main.c` para testar se a alocação e amarração das structs ocorrem sem erros:
+
+```c
+#include "coders.h"
+
+int main(int ac, char **av)
+{
+    t_workspace workspace;
+    long        i;
+
+    if (ac != 9)
+    {
+        printf("Uso: ./test_parsing <coders> <burnout> <compile> <debug> <refactor> <compiles> <cooldown> <fifo|edf>\n");
+        return (1);
+    }
+
+    parse_input(&workspace, av);
+    init_workspace(&workspace);
+
+    printf(BOLD_GREEN "--- Inicialização Concluída com Sucesso ---" RST "\n");
+    printf("Total de Coders e Dongles: %ld\n\n", workspace.number_of_coders);
+
+    // Mapeamento circular dos dongles por coder
+    i = 0;
+    while (i < workspace.number_of_coders)
+    {
+        printf("Coder %d: Left Dongle ID = %d | Right Dongle ID = %d\n",
+            workspace.coders[i].id,
+            workspace.coders[i].left_dongle->dongle_id,
+            workspace.coders[i].right_dongle->dongle_id);
+        i++;
+    }
+
+    cleanup_workspace(&workspace);
+    return (0);
+}
+
+```
+
+### Comando para Compilar e Testar:
+
+```bash
+cc -Wall -Wextra -Werror main.c parsing.c utils.c init.c -o test_init
+./test_init 5 80 200 200 200 7 10 fifo
+
+```

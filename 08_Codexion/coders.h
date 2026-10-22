@@ -7,6 +7,7 @@
 #include <sys/time.h> //gettimeofday
 #include <limits.h> // INT_MAX
 #include <string.h> // FOR strcmp
+#include <errno.h>
 // Reset code
 #define RST "\033[0m"
 
@@ -24,6 +25,20 @@
 
 #define SCHEDULER_FIFO 0
 #define SCHEDULER_EDF 1
+
+// OPCODE for mutex | thread functions
+
+typedef enum e_opcode
+{
+    LOCK,
+    UNLOCK,
+    INIT,
+    DESTROY,
+    CREATE,
+    JOIN,
+    DETACH,
+}            t_opcode;
+
 
 // *** structures ***
 
@@ -49,8 +64,8 @@ typedef struct s_coder
     long number_compiles;
     bool bournout;
     long last_compile_time; // time passed from last compile
-    t_dongle *left_dongle;
-    t_dongle *right_dongle; // coder is a thread
+    t_dongle *first_dongle;
+    t_dongle *second_dongle; // coder is a thread
     pthread_t thread_id;
     t_workspace *workspace;
 }             t_coder;
@@ -82,3 +97,13 @@ void parse_input(t_workspace *workspace, char **av);
 
 // utils
 void error_exit(const char *error);
+
+
+// safe functions
+void    *safe_malloc(size_t bytes);
+void    safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
+        void *data, t_opcode opcode);
+void    safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
+void    *safe_malloc(size_t bytes);
+void    data_init(t_workspace *workspace);
+

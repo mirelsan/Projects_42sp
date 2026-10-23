@@ -52,18 +52,21 @@ typedef struct s_workspace t_workspace;
 
 typedef struct s_dongle
 {
-    t_mtx dongle;
-    int dongle_id;
-}       t_dongle;
+    t_mtx   dongle;
+    int     dongle_id;
+    int     flag;                    // "someone is with this dongle now?"
+    long    waiting;                // "when does the dongle can be taken now?"
+                        // "where does who is waiting for the dongle sleeps?"
+}              t_dongle;
 
 // CODER
 
 typedef struct s_coder
 {
-    int id;
-    long number_compiles;
-    bool bournout;
-    long last_compile_time; // time passed from last compile
+    int     id;
+    long    number_compiles;
+    bool    bournout;
+    long    last_compile_time; // time passed from last compile
     t_dongle *first_dongle;
     t_dongle *second_dongle; // coder is a thread
     pthread_t thread_id;
@@ -93,10 +96,10 @@ typedef struct s_workspace
 }               t_workspace;
 
 // parsing
-void parse_input(t_workspace *workspace, char **av);
+void    parse_input(t_workspace *workspace, char **av);
 
 // utils
-void error_exit(const char *error);
+void    error_exit(const char *error);
 
 
 // safe functions
@@ -106,4 +109,8 @@ void    safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
 void    safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
 void    *safe_malloc(size_t bytes);
 void    data_init(t_workspace *workspace);
+
+// time functions
+long    get_time_ms(void);
+long    get_elapsed_time(long start_simulation);
 

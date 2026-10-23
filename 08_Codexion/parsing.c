@@ -82,20 +82,12 @@ void parse_input(t_workspace *workspace, char **av)
         error_exit("Number of coders must be greater than 0");
     
     // Converting milis to microsecs (* 1000)
-    workspace->time_to_burnout = ft_atoi(av[2]) * 1000;
-    workspace->time_to_compile = ft_atoi(av[3]) * 1000;
-    workspace->time_to_debug = ft_atoi(av[4]) * 1000;
-    workspace->time_to_refactor = ft_atoi(av[5]) * 1000;
-    workspace->dongle_cooldown = ft_atoi(av[7]) * 1000;
+    workspace->time_to_burnout = ft_atoi(av[2]);
+    workspace->time_to_compile = ft_atoi(av[3]);
+    workspace->time_to_debug = ft_atoi(av[4]);
+    workspace->time_to_refactor = ft_atoi(av[5]);
+    workspace->dongle_cooldown = ft_atoi(av[7]);
 
-    // Min time validation (60ms = 60000us)
-    if (workspace->time_to_burnout < 60000
-        || workspace->time_to_compile < 60000
-        || workspace->time_to_debug < 60000
-        || workspace->time_to_refactor < 60000)
-    {
-        error_exit("Use timestamps major than 60ms");    
-    }
     workspace->number_of_compiles_required = ft_atoi(av[6]);
     if (workspace->number_of_compiles_required <= 0)
         error_exit("Number of compiles required must be greater than 0");

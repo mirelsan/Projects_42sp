@@ -9,7 +9,8 @@ SRCS = main.c \
 		parsing.c \
 		utils.c \
 		safe_functions.c \
-		init.c
+		init.c \
+		time.c
 
 
 OBJS = $(SRCS:.c=.o)

@@ -7,11 +7,14 @@ RM = rm -f
 
 SRCS = main.c \
 		parsing.c \
-		utils.c
+		utils.c \
+		safe_functions.c \
+		init.c
+
 
 OBJS = $(SRCS:.c=.o)
 
-HEADER = coder.h
+HEADER = coders.h
 
 all: $(NAME)
 

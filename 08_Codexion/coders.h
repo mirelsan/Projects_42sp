@@ -54,9 +54,9 @@ typedef struct s_dongle
 {
     t_mtx   dongle;
     int     dongle_id;
-    int     flag;                    // "someone is with this dongle now?"
-    long    waiting;                // "when does the dongle can be taken now?"
-                        // "where does who is waiting for the dongle sleeps?"
+    bool    in_use;
+    long    available_at;
+    pthread_cond_t cond;
 }              t_dongle;
 
 // CODER
@@ -113,4 +113,4 @@ void    data_init(t_workspace *workspace);
 // time functions
 long    get_time_ms(void);
 long    get_elapsed_time(long start_simulation);
-
+void    safe_cond_handle(pthread_cond_t *cond, t_opcode opcode);

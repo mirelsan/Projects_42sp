@@ -50,6 +50,9 @@ void data_init(t_workspace *workspace)
     {
         safe_mutex_handle(&workspace->dongles[i].dongle, INIT);
         workspace->dongles[i].dongle_id = i; // super for debug
+        workspace->dongles[i].in_use = false;
+        workspace->dongles[i].available_at = 0;
+        safe_cond_handle(dongles->cond);
     }
     coder_init(workspace);//TODO
 }

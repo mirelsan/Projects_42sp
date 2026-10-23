@@ -91,3 +91,8 @@ void    safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
         error_exit("Wrong opcode for thread_handle:"
             " use <CREATE> <JOIN> <DETACH>");
 }
+
+void    safe_cond_handle(pthread_cond_t *cond, t_opcode opcode)
+{
+
+}

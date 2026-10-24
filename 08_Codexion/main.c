@@ -11,6 +11,7 @@ void cleanup_data(t_workspace *ws)
         while (i < ws->number_of_coders)
         {
             safe_mutex_handle(&ws->dongles[i].dongle, DESTROY);
+            safe_cond_handle(&ws->dongles[i].cond, DESTROY);
             i++;
         }
         free(ws->dongles);

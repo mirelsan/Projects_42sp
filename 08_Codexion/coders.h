@@ -114,3 +114,4 @@ void    data_init(t_workspace *workspace);
 long    get_time_ms(void);
 long    get_elapsed_time(long start_simulation);
 void    safe_cond_handle(pthread_cond_t *cond, t_opcode opcode);
+

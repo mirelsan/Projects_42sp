@@ -52,7 +52,7 @@ void data_init(t_workspace *workspace)
         workspace->dongles[i].dongle_id = i; // super for debug
         workspace->dongles[i].in_use = false;
         workspace->dongles[i].available_at = 0;
-        safe_cond_handle(dongles->cond);
+        safe_cond_handle(&workspace->dongles[i].cond, INIT);
     }
     coder_init(workspace);//TODO
 }

@@ -44,6 +44,7 @@ typedef enum e_opcode
 
 //code more readable
 typedef pthread_mutex_t t_mtx;
+//
 
 //IOU for compiler
 typedef struct s_workspace t_workspace;
@@ -57,6 +58,7 @@ typedef struct s_dongle
     bool    in_use;
     long    available_at;
     pthread_cond_t cond;
+    pthread_mutex_t lock;
 }              t_dongle;
 
 // CODER
@@ -115,3 +117,16 @@ long    get_time_ms(void);
 long    get_elapsed_time(long start_simulation);
 void    safe_cond_handle(pthread_cond_t *cond, t_opcode opcode);
 
+// LOGGER
+
+typedef enum e_log_event
+{
+    TAKE_DONGLE,
+    COMPILING,
+    DEBUGGING,
+    REFACTORING,
+    BURNOUT,
+}   t_log_event;
+
+void    *coder_routine(void *arg);
+void    log_event(t_coder *coder, t_log_event event);

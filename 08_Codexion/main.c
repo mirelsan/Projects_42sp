@@ -38,20 +38,20 @@ int main(int ac, char **av)
     // 2. Inicialização dos Dados e Mutexes
     data_init(&ws);
 
-    printf(BOLD_GREEN "\n--- TESTE DE INICIALIZAÇÃO DE DONGLES E PREVENÇÃO DE DEADLOCK ---" RST "\n");
-    printf("Total de Coders / Dongles: %ld\n\n", ws.number_of_coders);
-
+    
+    ws.start_simulation = get_time_ms();
     i = 0;
     while (i < ws.number_of_coders)
     {
-        t_coder *c = &ws.coders[i];
-        printf(BOLD_CYAN "Coder ID %d" RST " (Par/Ímpar: %s):\n", 
-               c->id, (c->id % 2 == 0) ? "PAR" : "ÍMPAR");
-        printf("  -> Primeiro Dongle a pegar: ID %d\n", c->first_dongle->dongle_id);
-        printf("  -> Segundo Dongle a pegar:  ID %d\n\n", c->second_dongle->dongle_id);
+        safe_thread_handle(&ws.coders[i].thread_id, coder_routine, &ws.coders[i], CREATE);
         i++;
     }
-
+    i = 0;
+    while (i < ws.number_of_coders)
+    {
+        safe_thread_handle(&ws.coders[i].thread_id, NULL, NULL, JOIN);
+        i++;
+    }
     // 3. Destruição e Liberação de Memória
     cleanup_data(&ws);
     printf(BOLD_GREEN "Limpeza de memória e mutexes executada com sucesso!" RST "\n\n");

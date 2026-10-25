@@ -1,25 +1,5 @@
 #include "coders.h"
 
-// Função de liberação para podermos testar vazamentos no Valgrind
-void cleanup_data(t_workspace *ws)
-{
-    int i;
-
-    if (ws->dongles)
-    {
-        i = 0;
-        while (i < ws->number_of_coders)
-        {
-            safe_mutex_handle(&ws->dongles[i].dongle, DESTROY);
-            safe_cond_handle(&ws->dongles[i].cond, DESTROY);
-            i++;
-        }
-        free(ws->dongles);
-    }
-    safe_mutex_handle(&ws->log_mutex, DESTROY);
-    if (ws->coders)
-        free(ws->coders);
-}
 
 int main(int ac, char **av)
 {

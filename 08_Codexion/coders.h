@@ -130,3 +130,4 @@ typedef enum e_log_event
 
 void    *coder_routine(void *arg);
 void    log_event(t_coder *coder, t_log_event event);
+void    cleanup_data(t_workspace *ws);

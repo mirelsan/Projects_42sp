@@ -19,5 +19,10 @@ static const char    *event_text(t_log_event event)
 
 void    log_event(t_coder *coder, t_log_event event)
 {
-    printf("%ld %d %s\n", get_elapsed_time(coder->workspace->start_simulation), coder->id, event_text(event));
+    long    elapsed;
+
+    safe_mutex_handle(&coder->workspace->log_mutex, LOCK);
+    elapsed = get_elapsed_time(coder->workspace->start_simulation);
+    printf("%ld %d %s\n", elapsed, coder->id, event_text(event));
+    safe_mutex_handle(&coder->workspace->log_mutex, UNLOCK);
 }

@@ -1,3 +1,6 @@
+#ifndef CODERS_H
+#define CODERS_H
+
 #include <stdio.h> // printf
 #include <stdlib.h> // malloc free
 #include <unistd.h> // write, usleep
@@ -26,10 +29,6 @@
 #define SCHEDULER_FIFO 0
 #define SCHEDULER_EDF 1
 
-#ifndef CODERS_H
-#define CODERS_H
-#endif
-
 // OPCODE for mutex | thread functions
 
 typedef enum e_opcode
@@ -40,9 +39,7 @@ typedef enum e_opcode
     DESTROY,
     CREATE,
     JOIN,
-    DETACH,
 }            t_opcode;
-
 
 // *** structures ***
 
@@ -146,5 +143,15 @@ bool    take_dongle(t_dongle *dongle, t_workspace *ws);
 
 void    *monitor_routine(void *arg);
 bool    simulation_over(t_workspace *ws);
-void    stop_simulation(t_workspace);
+bool    simulation_over(t_workspace *ws);
 
+// SCHEDULER FIFO AND EDF
+
+typedef struct s_request
+{
+    t_coder *coder;
+    long    key;
+}   t_request;
+
+
+#endif

@@ -12,7 +12,7 @@ static long read_last_start(t_coder *coder)
 static bool coder_done(t_workspace *ws, t_coder *coder)
 {
     bool    done;
-    safe_cond_handle(&coder->progress_mutex, LOCK);
+    safe_mutex_handle(&coder->progress_mutex, LOCK);
     done = coder->number_compiles >= ws->number_of_compiles_required;
     safe_mutex_handle(&coder->progress_mutex, UNLOCK);
     return (done);
@@ -64,8 +64,8 @@ void    *monitor_routine(void *arg)
                 if (get_time_ms() - read_last_start(&ws->coders[i])
                     > ws->time_to_burnout)
                 {
-                    log_event(&ws->coders[i], BURNOUT);
                     stop_simulation(ws);
+                    log_event(&ws->coders[i], BURNOUT);
                     return (NULL);
                 }
             }

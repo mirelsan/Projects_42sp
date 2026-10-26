@@ -16,7 +16,7 @@ bool   take_dongle(t_dongle *dongle, t_workspace *ws)
 
     safe_mutex_handle(&dongle->dongle, LOCK);
     now = get_time_ms();
-    while (!simulation(ws)
+    while (!simulation_over(ws)
         && (dongle->in_use || now < dongle->available_at))
     {
         if (dongle->in_use)
@@ -37,5 +37,5 @@ bool   take_dongle(t_dongle *dongle, t_workspace *ws)
     }
     dongle->in_use = true;
     safe_mutex_handle(&dongle->dongle, UNLOCK);
-    return (true)
+    return (true);
 }

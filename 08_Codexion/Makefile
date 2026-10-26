@@ -12,7 +12,10 @@ SRCS = main.c \
 		init.c \
 		time.c \
 		safe_cond.c \
-		dongle.c
+		dongle.c \
+		monitor.c \
+		log.c \
+		routine.c
 
 
 OBJS = $(SRCS:.c=.o)

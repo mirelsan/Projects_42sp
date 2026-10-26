@@ -65,7 +65,7 @@ static void handle_thread_error(int status, t_opcode opcode)
         error_exit("The caller does not have appropriate permission\n");
     else if (EINVAL == status && CREATE == opcode)
         error_exit("The value specified by attr is invalid.");
-    else if (EINVAL == status && (JOIN == opcode || DETACH == opcode))
+    else if (EINVAL == status && (JOIN == opcode))
         error_exit("The value specified by thread is not joinable\n");
     else if (ESRCH == status)
         error_exit("No thread could be found corresponding to that"
@@ -85,8 +85,6 @@ void    safe_thread_handle(pthread_t *thread, void *(*foo)(void *),
         handle_thread_error(pthread_create(thread, NULL, foo, data), opcode);
     else if (JOIN == opcode)
         handle_thread_error(pthread_join(*thread, NULL), opcode);
-    else if (DETACH == opcode)
-        handle_thread_error(pthread_detach(*thread), opcode);
     else
         error_exit("Wrong opcode for thread_handle:"
             " use <CREATE> <JOIN> <DETACH>");

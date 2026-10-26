@@ -11,7 +11,8 @@ SRCS = main.c \
 		safe_functions.c \
 		init.c \
 		time.c \
-		safe_cond.c
+		safe_cond.c \
+		dongle.c
 
 
 OBJS = $(SRCS:.c=.o)

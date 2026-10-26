@@ -6,7 +6,7 @@ int	main(void)
 {
 	t_workspace	ws;
     char *av[] = {"./test_routine", "2", "800", "200", "200",
-        "200", "2", "0", "fifo"};
+        "200", "2", "50", "fifo"};
 	int			i;
 	long		expected;
 	long		elapsed;
@@ -25,6 +25,13 @@ int	main(void)
 	while (i < ws.number_of_coders)
 	{
 		safe_thread_handle(&ws.coders[i].thread_id, NULL, NULL, JOIN);
+		i++;
+	}
+    i = 0;
+	while (i < ws.number_of_coders)
+	{
+		printf("coder %d: %ld\n", ws.coders[i].id,
+			ws.coders[i].last_compile_time - ws.start_simulation);
 		i++;
 	}
 	elapsed = get_elapsed_time(ws.start_simulation);

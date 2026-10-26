@@ -32,6 +32,7 @@ static void coder_init(t_workspace *workspace)
         coder->bournout = false;
         coder->number_compiles = 0;
         coder->workspace = workspace;
+        safe_mutex_handle(&coder->progress_mutex, INIT);
         assign_dongles(coder, workspace->dongles, i);
     }
 }
@@ -74,5 +75,13 @@ void cleanup_data(t_workspace *ws)
     }
     safe_mutex_handle(&ws->log_mutex, DESTROY);
     if (ws->coders)
+    {
+        i = 0;
+        while (i < ws->number_of_coders)
+        {
+            safe_mutex_handle(&ws->coders[i].progress_mutex, DESTROY);
+            i++;
+        }
         free(ws->coders);
+    }
 }

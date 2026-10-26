@@ -23,6 +23,7 @@ int main(int ac, char **av)
     i = 0;
     while (i < ws.number_of_coders)
     {
+        ws.coders[i].last_compile_time - ws.start_simulation;
         safe_thread_handle(&ws.coders[i].thread_id, coder_routine, &ws.coders[i], CREATE);
         i++;
     }

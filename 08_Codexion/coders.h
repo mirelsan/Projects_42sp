@@ -69,6 +69,7 @@ typedef struct s_coder
     long    number_compiles;
     bool    bournout;
     long    last_compile_time; // time passed from last compile
+    t_mtx   progress_mutex;
     t_dongle *first_dongle;
     t_dongle *second_dongle; // coder is a thread
     pthread_t thread_id;
@@ -131,3 +132,10 @@ typedef enum e_log_event
 void    *coder_routine(void *arg);
 void    log_event(t_coder *coder, t_log_event event);
 void    cleanup_data(t_workspace *ws);
+
+// DONGLE FUNCTIONS
+
+void    release_dongle(t_dongle *dongle, long cooldown);
+void    take_dongle(t_dongle *dongle);
+void    *monitor_routine(void *arg);
+

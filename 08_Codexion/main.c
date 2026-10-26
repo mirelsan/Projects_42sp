@@ -4,29 +4,30 @@
 int main(int ac, char **av)
 {
     t_workspace ws;
+    pthread_t monitor;
     int         i;
 
     if (ac != 9)
     {
-        printf("Uso: ./test_init <coders> <burnout> <compile> <debug> <refactor> <compiles> <cooldown> <fifo|edf>\n");
+        printf("Usage: ./codexion <coders> <burnout> <compile> <debug> "
+            "<refactor> <compiles> <cooldown> <fifo|edf>\n");
         return (1);
     }
 
     // 1. Parsing
     parse_input(&ws, av);
+    ws.start_simulation = get_time_ms();
 
     // 2. Inicialização dos Dados e Mutexes
     data_init(&ws);
-
-    
-    ws.start_simulation = get_time_ms();
     i = 0;
     while (i < ws.number_of_coders)
     {
-        ws.coders[i].last_compile_time - ws.start_simulation;
-        safe_thread_handle(&ws.coders[i].thread_id, coder_routine, &ws.coders[i], CREATE);
+        safe_thread_handle(&ws.coders[i].thread_id, coder_routine, 
+            &ws.coders[i], CREATE);
         i++;
     }
+    safe_thread_handle(&monitor, monitor_routine, &ws, CREATE);
     i = 0;
     while (i < ws.number_of_coders)
     {
@@ -34,8 +35,7 @@ int main(int ac, char **av)
         i++;
     }
     // 3. Destruição e Liberação de Memória
+    safe_thread_handle(&monitor, NULL, NULL, JOIN);
     cleanup_data(&ws);
-    printf(BOLD_GREEN "Limpeza de memória e mutexes executada com sucesso!" RST "\n\n");
-
     return (0);
 }

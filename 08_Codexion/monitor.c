@@ -1,28 +1,83 @@
 #include "coders.h"
 
+static long read_last_start(t_coder *coder)
+{
+    long    last;
+    safe_mutex_handle(&coder->progress_mutex, LOCK);
+    last = coder->last_compile_time;
+    safe_mutex_handle(&coder->progress_mutex, UNLOCK);
+    return (last);
+}
+
+static bool coder_done(t_workspace *ws, t_coder *coder)
+{
+    bool    done;
+    safe_cond_handle(&coder->progress_mutex, LOCK);
+    done = coder->number_compiles >= ws->number_of_compiles_required;
+    safe_mutex_handle(&coder->progress_mutex, UNLOCK);
+    return (done);
+}
+
+bool    simulation_over(t_workspace *ws)
+{
+    bool    over;
+
+    safe_mutex_handle(&ws->end_mutex, LOCK);
+    over = ws->end_simulation;
+    safe_mutex_handle(&ws->end_mutex, UNLOCK);
+    return (over);
+}
+void   stop_simulation(t_workspace *ws)
+{
+    int i;
+
+    safe_mutex_handle(&ws->end_mutex, LOCK);
+    ws->end_simulation = true;
+    safe_mutex_handle(&ws->end_mutex, UNLOCK);
+    i = 0;
+    while (i < ws->number_of_coders)
+    {
+        safe_mutex_handle(&ws->dongles[i].dongle, LOCK);
+        pthread_cond_broadcast(&ws->dongles[i].cond);
+        safe_mutex_handle(&ws->dongles[i].dongle, UNLOCK);
+        i++;
+    }
+}
+
 void    *monitor_routine(void *arg)
 {
-    t_coder     *coder;
     t_workspace *ws;
+    int         i;
+    bool        all_finished;
 
-    coder = (t_coder *)arg;
-    ws = coder->workspace;
+    ws = (t_workspace *)arg;
 
-    int     i;
-    long    last;
-    while(1)
+    while(!simulation_over(ws))
     {
+        all_finished = true;
         i = 0;
         while (i < ws->number_of_coders)
         {
-            last = read_last_start(&ws->coders[i]);
-            if (get_time_ms() - last > ws->dongle_cooldown)
+            if (!coder_done(ws, &ws->coders[i]))
             {
-                log_event(&ws->coders[i], LATE);
-                return (NULL);
+                all_finished = false;
+                if (get_time_ms() - read_last_start(&ws->coders[i])
+                    > ws->time_to_burnout)
+                {
+                    log_event(&ws->coders[i], BURNOUT);
+                    stop_simulation(ws);
+                    return (NULL);
+                }
             }
             i++;
         }
+        if (all_finished)
+        {
+            stop_simulation(ws);
+            return (NULL);
+        }
         usleep(1000);
     }
+    return (NULL);
 }
+

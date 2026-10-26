@@ -32,6 +32,7 @@ static void coder_init(t_workspace *workspace)
         coder->bournout = false;
         coder->number_compiles = 0;
         coder->workspace = workspace;
+        coder->last_compile_time = workspace->start_simulation;
         safe_mutex_handle(&coder->progress_mutex, INIT);
         assign_dongles(coder, workspace->dongles, i);
     }
@@ -45,6 +46,7 @@ void data_init(t_workspace *workspace)
     i = -1;
     workspace->end_simulation = false;
     safe_mutex_handle(&workspace->log_mutex, INIT);
+    safe_mutex_handle(&workspace->end_mutex, INIT);
     workspace->coders = safe_malloc(sizeof(t_coder) * workspace->number_of_coders);
     workspace->dongles = safe_malloc(sizeof(t_dongle) * workspace->number_of_coders);
     while (++i < workspace->number_of_coders)
@@ -74,6 +76,7 @@ void cleanup_data(t_workspace *ws)
         free(ws->dongles);
     }
     safe_mutex_handle(&ws->log_mutex, DESTROY);
+    safe_mutex_handle(&ws->end_mutex, DESTROY);
     if (ws->coders)
     {
         i = 0;

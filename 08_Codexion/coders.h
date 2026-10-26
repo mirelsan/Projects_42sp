@@ -26,6 +26,10 @@
 #define SCHEDULER_FIFO 0
 #define SCHEDULER_EDF 1
 
+#ifndef CODERS_H
+#define CODERS_H
+#endif
+
 // OPCODE for mutex | thread functions
 
 typedef enum e_opcode
@@ -58,7 +62,6 @@ typedef struct s_dongle
     bool    in_use;
     long    available_at;
     pthread_cond_t cond;
-    pthread_mutex_t lock;
 }              t_dongle;
 
 // CODER
@@ -96,6 +99,7 @@ typedef struct s_workspace
     t_mtx   log_mutex; // Protection for the logs (printf/write)
     t_dongle    *dongles; // attay dongles
     t_coder     *coders; // array
+    t_mtx   end_mutex;
 }               t_workspace;
 
 // parsing
@@ -136,6 +140,11 @@ void    cleanup_data(t_workspace *ws);
 // DONGLE FUNCTIONS
 
 void    release_dongle(t_dongle *dongle, long cooldown);
-void    take_dongle(t_dongle *dongle);
+bool    take_dongle(t_dongle *dongle, t_workspace *ws);
+
+// MONITOR FUNCTIONS
+
 void    *monitor_routine(void *arg);
+bool    simulation_over(t_workspace *ws);
+void    stop_simulation(t_workspace);
 

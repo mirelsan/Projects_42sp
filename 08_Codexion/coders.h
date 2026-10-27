@@ -180,6 +180,7 @@ void		wait_for_turn(t_coder *coder, t_dongle *dongle, t_workspace *ws);
 // MONITOR FUNCTIONS
 
 void		*monitor_routine(void *arg);
+bool		compile_target_reached(t_coder *coder);
 bool		simulation_over(t_workspace *ws);
 void		stop_simulation(t_workspace *ws);
 

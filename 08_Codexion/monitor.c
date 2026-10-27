@@ -22,12 +22,13 @@ static long	read_last_start(t_coder *coder)
 	return (last);
 }
 
-static bool	coder_done(t_workspace *ws, t_coder *coder)
+bool	compile_target_reached(t_coder *coder)
 {
 	bool	done;
 
 	safe_mutex_handle(&coder->progress_mutex, LOCK);
-	done = coder->number_compiles >= ws->number_of_compiles_required;
+	done = coder->number_compiles
+		>= coder->workspace->number_of_compiles_required;
 	safe_mutex_handle(&coder->progress_mutex, UNLOCK);
 	return (done);
 }
@@ -40,7 +41,7 @@ static int	find_burnout(t_workspace *ws, bool *all_finished)
 	i = 0;
 	while (i < ws->number_of_coders)
 	{
-		if (!coder_done(ws, &ws->coders[i]))
+		if (!compile_target_reached(&ws->coders[i]))
 		{
 			*all_finished = false;
 			if (get_time_ms() - read_last_start(&ws->coders[i])

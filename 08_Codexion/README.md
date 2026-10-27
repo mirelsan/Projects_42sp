@@ -148,20 +148,3 @@ scheduler logic, identify an unsynchronized compilation-counter read, and
 prepare the README, teaching guide, and tests. The changes were compiled and
 checked against the scenarios below. The author should understand and review
 the code and results before the evaluation.
-
-### Validation
-
-The following scenarios were run:
-
-- A single coder with an 800 ms burnout deadline burned out without compiling.
-- The 5-coder FIFO and EDF reference cases completed the requested 10 and 7
-  compilations respectively.
-- The 5-coder, 500 ms deadline case burned out near its deadline.
-- The 400 ms FIFO cooldown case completed all requested compilations.
-- With a 3000 ms burnout deadline and an 800 ms cooldown, the FIFO, EDF, and
-  LIFO runs observed here burned out before every coder completed 10
-  compilations. This is a tight workload/deadline combination, not a guarantee
-  of completion.
-- An invalid scheduler name was rejected.
-- Helgrind and Valgrind completed the smaller LIFO and FIFO runs without
-  reporting errors or memory leaks.

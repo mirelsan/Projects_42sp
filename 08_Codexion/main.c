@@ -45,7 +45,7 @@ int	main(int ac, char **av)
 	if (ac != 9)
 	{
 		printf("Usage: ./codexion <coders> <burnout> <compile> <debug> "
-			"<refactor> <compiles> <cooldown> <fifo|edf>\n");
+			"<refactor> <compiles> <cooldown> <fifo|edf|lifo>\n");
 		return (1);
 	}
 	parse_input(&ws, av);

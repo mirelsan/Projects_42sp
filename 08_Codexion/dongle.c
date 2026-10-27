@@ -30,6 +30,8 @@ static t_request	make_request(t_coder *coder, t_dongle *dongle,
 		req.key = coder->last_compile_time + ws->time_to_burnout;
 		safe_mutex_handle(&coder->progress_mutex, UNLOCK);
 	}
+	else if (ws->scheduler == SCHEDULER_LIFO)
+		req.key = -req.seq;
 	return (req);
 }
 

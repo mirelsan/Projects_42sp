@@ -40,6 +40,7 @@
 
 # define SCHEDULER_FIFO 0
 # define SCHEDULER_EDF 1
+# define SCHEDULER_LIFO 2
 
 // *** structures ***
 

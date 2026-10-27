@@ -24,7 +24,9 @@ static long	parse_scheduler(const char *str)
 		return (SCHEDULER_FIFO);
 	if (strcmp(str, "edf") == 0)
 		return (SCHEDULER_EDF);
-	error_exit("Invalid scheduler! Choose 'fifo' or 'edf'.");
+	if (strcmp(str, "lifo") == 0)
+		return (SCHEDULER_LIFO);
+	error_exit("Invalid scheduler! Choose 'fifo', 'edf' or 'lifo'.");
 	return (-1);
 }
 

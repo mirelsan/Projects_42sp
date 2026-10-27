@@ -27,6 +27,17 @@ static void	count_compile(t_coder *coder)
 	safe_mutex_handle(&coder->progress_mutex, UNLOCK);
 }
 
+static bool	compile_target_reached(t_coder *coder)
+{
+	bool	reached;
+
+	safe_mutex_handle(&coder->progress_mutex, LOCK);
+	reached = coder->number_compiles
+		>= coder->workspace->number_of_compiles_required;
+	safe_mutex_handle(&coder->progress_mutex, UNLOCK);
+	return (reached);
+}
+
 static bool	get_both_dongles(t_coder *coder)
 {
 	if (!take_dongle(coder, coder->first_dongle))
@@ -62,7 +73,7 @@ void	*coder_routine(void *arg)
 	coder = (t_coder *) arg;
 	ws = coder->workspace;
 	while (!simulation_over(ws)
-		&& coder->number_compiles < ws->number_of_compiles_required)
+		&& !compile_target_reached(coder))
 	{
 		if (!get_both_dongles(coder))
 			break ;

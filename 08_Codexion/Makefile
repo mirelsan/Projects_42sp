@@ -16,7 +16,11 @@ SRCS = main.c \
 		monitor.c \
 		log.c \
 		routine.c \
-		scheduler.c
+		scheduler.c \
+		dongle_wait.c \
+		parse_number.c \
+		simulation.c
+
 
 
 OBJS = $(SRCS:.c=.o)

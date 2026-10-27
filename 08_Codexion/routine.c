@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/26 21:25:56 by mirelsan          #+#    #+#             */
+/*   Updated: 2026/10/26 21:25:57 by mirelapitt       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "coders.h"
 // Aqui vão o ciclo de pegar, compilar, soltar, depurar e refatorar.
 
@@ -17,13 +30,11 @@ static void count_compile(t_coder *coder)
 
 static bool get_both_dongles(t_coder *coder)
 {
-    t_workspace *ws;
 
-    ws = coder->workspace;
-    if (!take_dongle(coder->first_dongle, ws))
+    if (!take_dongle(coder, coder->first_dongle))
         return (false);
     log_event(coder, TAKE_DONGLE);
-    if (!take_dongle(coder->second_dongle, ws))
+    if (!take_dongle(coder, coder->second_dongle))
     {
         release_dongle(coder->first_dongle, 0);
         return (false);

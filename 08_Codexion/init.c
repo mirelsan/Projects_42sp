@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mirelapitt <mirelapitt@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/26 21:24:35 by mirelsan          #+#    #+#             */
+/*   Updated: 2026/10/26 21:24:36 by mirelapitt       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "coders.h"
 
 //EVEN ODD dongle assigment
@@ -55,6 +68,10 @@ void data_init(t_workspace *workspace)
         workspace->dongles[i].dongle_id = i; // super for debug
         workspace->dongles[i].in_use = false;
         workspace->dongles[i].available_at = 0;
+        workspace->dongles[i].next_seq = 0;
+        workspace->dongles[i].queue.size = 0;
+        workspace->dongles[i].queue.items = safe_malloc(
+            sizeof(t_request) * workspace->number_of_coders);
         safe_cond_handle(&workspace->dongles[i].cond, INIT);
     }
     coder_init(workspace);//TODO
@@ -71,6 +88,7 @@ void cleanup_data(t_workspace *ws)
         {
             safe_mutex_handle(&ws->dongles[i].dongle, DESTROY);
             safe_cond_handle(&ws->dongles[i].cond, DESTROY);
+            free(ws->dongles[i].queue.items);
             i++;
         }
         free(ws->dongles);

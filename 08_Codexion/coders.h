@@ -29,29 +29,32 @@
 #define SCHEDULER_FIFO 0
 #define SCHEDULER_EDF 1
 
-// OPCODE for mutex | thread functions
-
-typedef enum e_opcode
-{
-    LOCK,
-    UNLOCK,
-    INIT,
-    DESTROY,
-    CREATE,
-    JOIN,
-}            t_opcode;
-
 // *** structures ***
 
 //code more readable
 typedef pthread_mutex_t t_mtx;
-//
-
 //IOU for compiler
 typedef struct s_workspace t_workspace;
+typedef struct s_coder      t_coder;
+typedef struct s_dongle     t_dongle;
+
+// SCHEDULER FIFO AND EDF
+
+typedef struct s_request
+{
+    t_coder *coder;
+    long    key;
+    long    seq;
+}   t_request;
+
+// HEAP
+typedef struct s_heap
+{
+    t_request *items;
+    int        size;
+}   t_heap;
 
 // DONGLE
-
 typedef struct s_dongle
 {
     t_mtx   dongle;
@@ -59,6 +62,8 @@ typedef struct s_dongle
     bool    in_use;
     long    available_at;
     pthread_cond_t cond;
+    t_heap  queue;
+    long    next_seq;
 }              t_dongle;
 
 // CODER
@@ -76,9 +81,6 @@ typedef struct s_coder
     t_workspace *workspace;
 }             t_coder;
 
-
-// Container of the data
-// ./coder 5 800 200 200 [5]
 // WORKSPACE
 
 typedef struct s_workspace
@@ -98,6 +100,22 @@ typedef struct s_workspace
     t_coder     *coders; // array
     t_mtx   end_mutex;
 }               t_workspace;
+
+// OPCODE for mutex | thread functions
+
+typedef enum e_opcode
+{
+    LOCK,
+    UNLOCK,
+    INIT,
+    DESTROY,
+    CREATE,
+    JOIN,
+}            t_opcode;
+
+// Container of the data
+// ./coder 5 800 200 200 [5]
+
 
 // parsing
 void    parse_input(t_workspace *workspace, char **av);
@@ -137,21 +155,16 @@ void    cleanup_data(t_workspace *ws);
 // DONGLE FUNCTIONS
 
 void    release_dongle(t_dongle *dongle, long cooldown);
-bool    take_dongle(t_dongle *dongle, t_workspace *ws);
-
+bool        take_dongle(t_coder *coder, t_dongle *dongle);
 // MONITOR FUNCTIONS
 
 void    *monitor_routine(void *arg);
 bool    simulation_over(t_workspace *ws);
 bool    simulation_over(t_workspace *ws);
 
-// SCHEDULER FIFO AND EDF
 
-typedef struct s_request
-{
-    t_coder *coder;
-    long    key;
-}   t_request;
-
+void        heap_push(t_heap *heap, t_request request);
+t_request   heap_pop(t_heap *heap);
+t_request   heap_peek(t_heap *heap);
 
 #endif

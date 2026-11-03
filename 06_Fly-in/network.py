@@ -200,7 +200,7 @@ class Network:
         self._adj_list[zone.name] = []
 
     def add_connection(self, connection: Connection) -> None:
-        #tratar zona inexistente / conexão duplicada
+        #tratar zona inexistente / conexão duplicadhttps://github.com/mirelsan/Projects_42sp.gita
         name_a = connection.zone_a.name
         name_b = connection.zone_b.name
 

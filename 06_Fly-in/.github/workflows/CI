@@ -1,0 +1,44 @@
+name: CI - Fly-in
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "06_Fly-in/**"
+      - ".github/workflows/ci-fly-in.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "06_Fly-in/**"
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 06_Fly-in
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 mypy pytest
+
+      - name: flake8
+        run: flake8 .
+
+      - name: mypy (flags obrigatórios do subject do Fly-in)
+        run: |
+          mypy . --warn-return-any --warn-unused-ignores \
+                 --ignore-missing-imports --disallow-untyped-defs \
+                 --check-untyped-defs
+
+      - name: pytest
+        run: pytest -v

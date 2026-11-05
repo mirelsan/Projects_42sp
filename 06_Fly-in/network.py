@@ -2,9 +2,7 @@
 from __future__ import annotations
 
 
-# ---------------------------------------------------------------------------
 # Erros
-# ---------------------------------------------------------------------------
 
 class NetworkError(Exception):
     """Base de todos os erros da rede."""
@@ -18,9 +16,7 @@ class DisconnectedNetworkError(NetworkError):
     """Mapa com zonas inalcançáveis."""
 
 
-# ---------------------------------------------------------------------------
 # Nó (zona)
-# ---------------------------------------------------------------------------
 
 class Zone:
     """Representa um nó do grafo."""
@@ -35,9 +31,7 @@ class Zone:
         return f"Zone({self.name}, {self.zone_type})"
 
 
-# ---------------------------------------------------------------------------
 # Aresta (conexão)
-# ---------------------------------------------------------------------------
 
 class Connection:
     """Representa uma aresta entre duas zonas."""
@@ -51,10 +45,7 @@ class Connection:
     def __repr__(self) -> str:
         return f"Connection({self.zone_a.name} <-> {self.zone_b.name})"
 
-
-# ---------------------------------------------------------------------------
 # Parser do mapa
-# ---------------------------------------------------------------------------
 
 class MapParser:
     """Lê o arquivo do mapa e valida a sintaxe."""
@@ -196,9 +187,8 @@ class MapParser:
 
         else:
             raise MapSyntaxError(f"Error: line {line_number}: Unknown prefix '{prefix}.")
-# ---------------------------------------------------------------------------
+
 # O Tabuleiro
-# ---------------------------------------------------------------------------
 
 class Network:
     """Armazena zonas e conexões e garante a consistência do mapa."""
@@ -209,8 +199,7 @@ class Network:
         self._adj_list: dict[str, list[Connection]] = {}
         self._parser = parser
 
-    # --- acesso (somente leitura) ---
-
+    #acesso (somente leitura)
     @property
     def zones(self) -> list[Zone]:
         return list(self._zones.values())

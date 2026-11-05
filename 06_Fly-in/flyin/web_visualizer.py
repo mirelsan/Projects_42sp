@@ -43,6 +43,7 @@ class WebVisualizer:
                 "color": zone.color or "#8fa7bf",
                 "start": zone.is_start,
                 "end": zone.is_end,
+                "capacity": flight_map.capacity(name),
             })
 
         connections = []
@@ -105,14 +106,31 @@ class WebVisualizer:
                 "trails": trails.copy(),
             })
 
+        routes = {}
+        for trajectory in schedule.trajectories:
+            route = [flight_map.start]
+            for move in trajectory.moves:
+                destination = (
+                    move.target_zone
+                    if move.is_transit and move.target_zone
+                    else move.destination
+                )
+                if destination != route[-1]:
+                    route.append(destination)
+            routes[trajectory.drone_id] = route
+
         data = {
             "title": html.escape(f"Fly-in - {flight_map.nb_drones} drones"),
+            "mapName": html.escape(output_path.rsplit("/", 1)[-1]),
+            "droneCount": flight_map.nb_drones,
+            "totalTurns": schedule.total_turns,
             "nodes": nodes,
             "connections": connections,
             "turns": turns,
+            "routes": routes,
         }
         payload = json.dumps(data, ensure_ascii=True).replace("</", "<\\/")
-        Path(output_path).write_text(self._template(payload), encoding="utf-8")
+        Path(output_path).write_text(self.template(payload), encoding="utf-8")
 
     def _template(self, payload: str) -> str:
         return """<!doctype html>
@@ -187,3 +205,77 @@ drawBase(); render();
 </body>
 </html>
 """.replace("__DATA__", payload)
+
+    def template(self, payload: str) -> str:
+        """Return the single-file dark replay interface."""
+        return """<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fly-in replay</title>
+<style>
+:root{color-scheme:dark;--bg:#090b12;--panel:#111521;--line:#293047;--ink:#f6f8ff;--muted:#9ca8c0;--purple:#a855f7}
+*{box-sizing:border-box}body{margin:0;height:100vh;overflow:hidden;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",sans-serif}
+header{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid var(--line)}
+h1{margin:0;font-size:22px}.map-name{color:var(--muted);font-size:14px}
+.controls{display:flex;align-items:center;gap:9px}button{width:40px;height:40px;border:1px solid var(--line);border-radius:6px;background:#171c28;color:white;cursor:pointer;font-size:16px}button:hover{background:#242b3d}
+#turn-label{min-width:96px;text-align:center;font-weight:700;font-size:14px}
+main{height:calc(100vh - 76px);display:grid;grid-template-columns:minmax(0,1fr) 300px}section{position:relative;overflow:hidden}
+#map{width:100%;height:100%;background:radial-gradient(circle at 50% 45%,#111827 0,#090b12 70%)}
+aside{padding:18px 22px;border-left:1px solid var(--line);background:var(--panel);overflow:auto}h2{margin:0 0 18px;color:var(--muted);font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.12em}
+.legend{display:grid;gap:13px;font-size:14px;margin-bottom:28px}.item{display:flex;align-items:center;gap:12px;color:#d9deeb}
+.dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--ink)}.dot.start{border-color:#67d5ff;box-shadow:0 0 14px #67d5ff66}.dot.end{border-color:#25d7a0;box-shadow:0 0 14px #25d7a066}.dot.priority{background:#ffad32}.dot.restricted{border-style:dashed}.dot.blocked{background:#2d3448;border-color:#8993aa}
+.trail-key{width:30px;height:4px;background:var(--purple)}.trail-key.future{background:repeating-linear-gradient(90deg,var(--purple) 0 7px,transparent 7px 12px)}
+.selected{min-height:150px;padding-top:16px;border-top:1px solid var(--line)}#selection{line-height:1.9}.stats{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);line-height:1.9;font-size:14px}
+.edge{stroke:#58657d;stroke-width:2;opacity:.65}.edge.used{stroke:#b469ff;stroke-width:6;opacity:1}.trail{fill:none;stroke:var(--purple);stroke-width:7;stroke-linecap:round;opacity:.82}.trail.future{stroke-width:5;stroke-dasharray:2 13}
+.node{cursor:pointer}.node circle{stroke:#e6edf8;stroke-width:2}.node.start circle{stroke:#67d5ff;stroke-width:7}.node.end circle{stroke:#25d7a0;stroke-width:7}.node.priority circle{stroke:#ffad32;stroke-width:5}.node.restricted circle{stroke-dasharray:5 5}.node.blocked circle{fill:#202535;stroke:#74809b}
+.node-label{fill:#fff;stroke:#090b12;stroke-width:4px;paint-order:stroke;stroke-linejoin:round;font-size:13px;font-weight:700;text-anchor:middle}.badge{fill:#111521;stroke:#a855f7;stroke-width:1}.badge-text{fill:#fff;font-size:10px;font-weight:700;text-anchor:middle}
+.drone circle{stroke:#090b12;stroke-width:2}.drone text{fill:white;font-size:9px;font-weight:800;text-anchor:middle;dominant-baseline:middle}
+.progress{position:absolute;left:0;right:0;bottom:0;height:5px;background:#1d2230}.progress span{display:block;height:100%;background:linear-gradient(90deg,#7c3aed,#c084fc)}#progress-input{position:absolute;inset:-8px 0;width:100%;opacity:0;cursor:pointer}
+@media(max-width:800px){main{grid-template-columns:1fr}aside{display:none}}
+</style>
+</head>
+<body>
+<header><div><h1 id="title">Fly-in replay</h1><span class="map-name" id="map-name"></span></div><div class="controls"><button id="prev">&#9664;</button><button id="play">&#9654;</button><button id="next">&#9654;&#9654;</button><span id="turn-label">Turno 0/0</span></div></header>
+<main><section><svg id="map" viewBox="0 0 1000 650"></svg><div class="progress"><span id="progress-fill"></span><input id="progress-input" type="range" min="0" max="0" value="0"></div></section><aside><h2>Lenda</h2><div class="legend"><div class="item"><span class="dot start"></span>Inicio</div><div class="item"><span class="dot end"></span>Fim</div><div class="item"><span class="dot"></span>Normal</div><div class="item"><span class="dot priority"></span>Prioridade</div><div class="item"><span class="dot restricted"></span>Restrita</div><div class="item"><span class="dot blocked"></span>Bloqueada</div><div class="item"><span class="trail-key"></span>Rota percorrida</div><div class="item"><span class="trail-key future"></span>Rota futura</div></div><div class="selected"><h2>Zona selecionada</h2><div id="selection">Clique em uma zona.</div></div><div class="stats" id="stats"></div></aside></main>
+<script>
+const data=__DATA__,NS='http://www.w3.org/2000/svg',svg=document.getElementById('map');
+const nodes=Object.fromEntries(data.nodes.map(n=>[n.id,n])),palette=['#a855f7','#ef5da8','#55a8ff','#21c7a8','#f6c453','#fb7185'];
+let index=0,timer=null;
+function el(name,attrs={}){const e=document.createElementNS(NS,name);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e}
+function safeColor(value){const c=document.createElement('canvas').getContext('2d');c.fillStyle='#';c.fillStyle=value||'';return c.fillStyle==='#000000'||c.fillStyle===''?'#8996ad':value}
+function drawBase(){
+ svg.replaceChildren();
+ data.connections.forEach(c=>{const a=nodes[c.a],b=nodes[c.b];svg.append(el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:'edge',id:'edge-'+c.id.replace(/[^a-z0-9]/gi,'-')}))});
+ data.nodes.forEach(n=>{const g=el('g',{class:'node '+(n.start?'start ':n.end?'end ':'')+n.type});g.dataset.name=n.id;
+ const circle=el('circle',{cx:n.x,cy:n.y,r:n.start||n.end?28:21,fill:safeColor(n.color)});g.append(circle);
+ if(n.start||n.end||n.type==='priority'||n.type==='restricted'||n.type==='blocked'){const t=el('text',{x:n.x,y:n.y+38,class:'node-label'});t.textContent=n.id;g.append(t)}
+ g.onclick=()=>selectZone(n.id);svg.append(g)});
+ svg.append(el('g',{id:'trails'}));svg.append(el('g',{id:'drones'}));
+}
+function selectZone(name){const n=nodes[name],used=occupiedCount(name);document.getElementById('selection').innerHTML='<strong>'+name+'</strong><br>Tipo: '+n.type+'<br>Cor: '+(n.color||'padrao')+'<br>Capacidade: '+used+'/'+n.capacity+' drones';}
+function occupiedCount(name){const frame=data.turns[index];return frame.zones.filter(p=>p.zone===name).length}
+function render(){
+ document.getElementById('trails').replaceChildren();document.getElementById('drones').replaceChildren();
+ const frame=data.turns[index],progress=data.turns.length?index/(data.turns.length-1)*100:0;
+ document.getElementById('turn-label').textContent='Turno '+frame.turn+'/'+data.totalTurns;
+ document.getElementById('progress-fill').style.width=progress+'%';document.getElementById('progress-input').max=data.turns.length-1;document.getElementById('progress-input').value=index;
+ document.querySelectorAll('.edge.used').forEach(e=>e.classList.remove('used'));
+ Object.entries(frame.trails||{}).forEach(([id,trails])=>trails.forEach(edge=>{const a=nodes[edge[0]],b=nodes[edge[1]];if(a&&b)document.getElementById('trails').append(el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:'trail'}))}));
+ frame.zones.forEach(p=>{const n=nodes[p.zone];drawDrone(p.drone,n.x,n.y)});
+ frame.flights.forEach(f=>{const a=nodes[f.from],b=nodes[f.to];drawDrone(f.drone,a.x+(b.x-a.x)*f.progress,a.y+(b.y-a.y)*f.progress)});
+ const current={};frame.zones.forEach(p=>current[p.zone]=(current[p.zone]||0)+1);
+ Object.entries(current).forEach(([name,count])=>{const n=nodes[name],dx=n.x+19,dy=n.y-19;const badge=document.createElementNS(NS,'g');const label=count+'/'+n.capacity;badge.append(el('rect',{x:dx-10,y:dy-7,width:20+label.length*4,height:14,rx:7,class:'badge'}));const text=el('text',{x:dx+label.length*2,y:dy+3,class:'badge-text'});text.textContent=label;badge.append(text);svg.append(badge)});
+ document.getElementById('stats').innerHTML='<strong>Turno '+frame.turn+'/'+data.totalTurns+'</strong><br>'+data.nodes.length+' zonas · '+data.connections.length+' conexoes<br>'+data.droneCount+' drones';
+}
+function drawDrone(id,x,y){const g=el('g',{class:'drone'}),circle=el('circle',{cx:x,cy:y,r:12,fill:palette[(id-1)%palette.length]});g.append(circle);const text=el('text',{x,y:y+0});text.textContent=id;g.append(text);document.getElementById('drones').append(g)}
+function stop(){if(timer){clearInterval(timer);timer=null;document.getElementById('play').innerHTML='&#9654;'}}
+document.getElementById('prev').onclick=()=>{stop();index=Math.max(0,index-1);render()};document.getElementById('next').onclick=()=>{stop();index=Math.min(data.turns.length-1,index+1);render()};
+document.getElementById('play').onclick=()=>{if(timer){stop();return}if(index>=data.turns.length-1)index=0;document.getElementById('play').innerHTML='&#10074;&#10074;';timer=setInterval(()=>{if(index<data.turns.length-1){index++;render()}else stop()},850)};
+document.getElementById('progress-input').oninput=e=>{stop();index=Number(e.target.value);render()};
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')document.getElementById('prev').click();if(e.key==='ArrowRight')document.getElementById('next').click();if(e.key===' ') {e.preventDefault();document.getElementById('play').click()}});
+document.getElementById('title').textContent=data.title;drawBase();render();
+</script>
+</body>
+</html>""".replace("__DATA__", payload)

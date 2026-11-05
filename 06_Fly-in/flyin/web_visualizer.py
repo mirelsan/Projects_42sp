@@ -250,11 +250,36 @@ function drawBase(){
  data.connections.forEach(c=>{const a=nodes[c.a],b=nodes[c.b];svg.append(el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:'edge',id:'edge-'+c.id.replace(/[^a-z0-9]/gi,'-')}))});
  data.nodes.forEach(n=>{const g=el('g',{class:'node '+(n.start?'start ':n.end?'end ':'')+n.type});g.dataset.name=n.id;
  const circle=el('circle',{cx:n.x,cy:n.y,r:n.start||n.end?28:21,fill:safeColor(n.color)});g.append(circle);
- if(n.start||n.end||n.type==='priority'||n.type==='restricted'||n.type==='blocked'){const t=el('text',{x:n.x,y:n.y+38,class:'node-label'});t.textContent=n.id;g.append(t)}
+ const tooltip=el('title');tooltip.textContent=n.id;g.append(tooltip);
+ if(n.start||n.end){const t=el('text',{x:n.x,y:n.y+38,class:'node-label'});t.textContent=n.id;g.append(t)}
  g.onclick=()=>selectZone(n.id);svg.append(g)});
  svg.append(el('g',{id:'trails'}));svg.append(el('g',{id:'drones'}));
 }
-function selectZone(name){const n=nodes[name],used=occupiedCount(name);document.getElementById('selection').innerHTML='<strong>'+name+'</strong><br>Tipo: '+n.type+'<br>Cor: '+(n.color||'padrao')+'<br>Capacidade: '+used+'/'+n.capacity+' drones';}
+let selectedZone=null;
+function selectZone(name){
+ selectedZone=name;const n=nodes[name],used=occupiedCount(name);
+ document.getElementById('selection').innerHTML='<strong>'+shortName(name)+'</strong><br>Tipo: '+n.type+'<br>Cor: '+(n.color||'padrao')+'<br>Capacidade: '+used+'/'+n.capacity+' drones';
+ renderFixedLabels();
+}
+function shortName(name){return name.length<=18?name:name.slice(0,17)+'...'}
+function renderFixedLabels(){
+ svg.querySelectorAll('.selected-label').forEach(label=>label.remove());
+ if(!selectedZone)return;
+ const n=nodes[selectedZone];
+ if(!n.start&&!n.end){
+  const label=el('text',{x:n.x,y:n.y+38,class:'node-label selected-label'});
+  label.textContent=shortName(n.id);
+  svg.append(label);
+ }
+ const placed=[];
+ svg.querySelectorAll('.node-label').forEach(label=>{
+  let x=Number(label.getAttribute('x')), y=Number(label.getAttribute('y'));
+  let attempt=0;
+  while(placed.some(p=>Math.abs(p.x-x)<95&&Math.abs(p.y-y)<16)&&attempt<5){y+=18;attempt++}
+  label.setAttribute('y',y);
+  placed.push({x,y});
+ });
+}
 function occupiedCount(name){const frame=data.turns[index];return frame.zones.filter(p=>p.zone===name).length}
 function render(){
  document.getElementById('trails').replaceChildren();document.getElementById('drones').replaceChildren();
@@ -268,6 +293,7 @@ function render(){
  const current={};frame.zones.forEach(p=>current[p.zone]=(current[p.zone]||0)+1);
  Object.entries(current).forEach(([name,count])=>{const n=nodes[name],dx=n.x+19,dy=n.y-19;const badge=document.createElementNS(NS,'g');const label=count+'/'+n.capacity;badge.append(el('rect',{x:dx-10,y:dy-7,width:20+label.length*4,height:14,rx:7,class:'badge'}));const text=el('text',{x:dx+label.length*2,y:dy+3,class:'badge-text'});text.textContent=label;badge.append(text);svg.append(badge)});
  document.getElementById('stats').innerHTML='<strong>Turno '+frame.turn+'/'+data.totalTurns+'</strong><br>'+data.nodes.length+' zonas · '+data.connections.length+' conexoes<br>'+data.droneCount+' drones';
+ renderFixedLabels();
 }
 function drawDrone(id,x,y){const g=el('g',{class:'drone'}),circle=el('circle',{cx:x,cy:y,r:12,fill:palette[(id-1)%palette.length]});g.append(circle);const text=el('text',{x,y:y+0});text.textContent=id;g.append(text);document.getElementById('drones').append(g)}
 function stop(){if(timer){clearInterval(timer);timer=null;document.getElementById('play').innerHTML='&#9654;'}}

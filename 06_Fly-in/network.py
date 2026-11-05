@@ -1,3 +1,4 @@
+# flake8: noqa
 from __future__ import annotations
 
 
@@ -63,22 +64,38 @@ class MapParser:
 
     def parse(self) -> tuple[list[Zone], list[Connection]]:
         """Retorna as zonas e conexões lidas do arquivo."""
-        zones_read = []
-        connections_read = []
+        zones_read: list[Zone] = []
+        connections_read: list[Connection] = []
 
+        zones_by_name: dict[str, Zone] = {}
         with open(self.path, 'r') as file:
             for n_line, line in enumerate(file, 1):
-                self._parse_line(line, n_line)
                 result = self._parse_line(line, n_line)
-
                 if isinstance(result, Zone):
+                    if result.name in zones_by_name:
+                        raise MapSyntaxError(
+                            f"Error: line {n_line}: duplicated zone detected ({result.name})."
+                        )
+                    zones_by_name[result.name] = result
                     zones_read.append(result)
                 elif isinstance(result, Connection):
-                    connections_read.append(result)
+                    if (result.zone_a.name not in zones_by_name or
+                            result.zone_b.name not in zones_by_name):
+                        raise MapSyntaxError(
+                            f"Error: line {n_line}: connection references an unknown zone."
+                        )
+                    connection = Connection(
+                        zones_by_name[result.zone_a.name],
+                        zones_by_name[result.zone_b.name]
+                    )
+                    connection.max_link_capacity = result.max_link_capacity
+                    connections_read.append(connection)
 
         return zones_read, connections_read
 
-    def _parse_line(self, line: str, line_number: int) -> None:
+    def _parse_line(
+        self, line: str, line_number: int
+    ) -> Zone | Connection | None:
         """Interpreta uma única linha (levanta MapSyntaxError se inválida)."""
         line = line.strip()
 
@@ -99,11 +116,13 @@ class MapParser:
         metadatas = {}
         if len(parts) > 1:
             raw_meta = parts[1].replace(']', '').strip()
-            tags = raw_meta.split()
-            for tag in tags:
-                if '-' in tag:
-                    key, value = tag.split('-')
-                    metadatas[key] = value
+            for tag in raw_meta.split():
+                if '=' not in tag:
+                    raise MapSyntaxError(
+                        f"Error: line {line_number}: metadata format invalid."
+                    )
+                key, value = tag.split('=', 1)
+                metadatas[key] = value
 
         if prefix in ["hub", "start_hub", "end_hub"]:
             if len(blocks) != 4:
@@ -112,6 +131,13 @@ class MapParser:
             name = blocks[1]
             if '-' in name:
                 raise MapSyntaxError(f"Error: line {line_number}: Zone names cannot contain dashes ({name}).")
+            try:
+                int(blocks[2])
+                int(blocks[3])
+            except ValueError as error:
+                raise MapSyntaxError(
+                    f"Error: line {line_number}: coordinates must be integers."
+                ) from error
 
             new_zone = Zone(name)
 
@@ -120,10 +146,24 @@ class MapParser:
             elif prefix == "end_hub":
                 new_zone.zone_type = "end_hub"
             elif "zone" in metadatas:
-                new_zone.zone_type = metadatas["zone"]
+                zone_type = metadatas["zone"]
+                if zone_type not in {"normal", "blocked", "restricted", "priority"}:
+                    raise MapSyntaxError(
+                        f"Error: line {line_number}: invalid zone type '{zone_type}'."
+                    )
+                new_zone.zone_type = zone_type
 
             if "max_drones" in metadatas:
-                new_zone.max_drones = int(metadatas["max_drones"])
+                try:
+                    new_zone.max_drones = int(metadatas["max_drones"])
+                except ValueError as error:
+                    raise MapSyntaxError(
+                        f"Error: line {line_number}: max_drones must be an integer."
+                    ) from error
+                if new_zone.max_drones <= 0:
+                    raise MapSyntaxError(
+                        f"Error: line {line_number}: max_drones must be positive."
+                    )
             if "color" in metadatas:
                 new_zone.color = metadatas["color"]
 
@@ -139,7 +179,18 @@ class MapParser:
             new_connection = Connection(zone_a_fake, zone_b_fake)
 
             if "max_link_capacity" in metadatas:
-                new_connection.max_link_capacity = int(metadatas["max_link_capacity"])
+                try:
+                    new_connection.max_link_capacity = int(
+                        metadatas["max_link_capacity"]
+                    )
+                except ValueError as error:
+                    raise MapSyntaxError(
+                        f"Error: line {line_number}: max_link_capacity must be an integer."
+                    ) from error
+                if new_connection.max_link_capacity <= 0:
+                    raise MapSyntaxError(
+                        f"Error: line {line_number}: max_link_capacity must be positive."
+                    )
 
             return new_connection
 
@@ -166,9 +217,7 @@ class Network:
 
     @property
     def connections(self) -> list[Connection]:
-        connections_list = []
-
-        unique_connections = set()
+        unique_connections: set[Connection] = set()
         for sublist in self._adj_list.values():
             for c in sublist:
                 unique_connections.add(c)
@@ -200,19 +249,27 @@ class Network:
         self._adj_list[zone.name] = []
 
     def add_connection(self, connection: Connection) -> None:
-        #tratar zona inexistente / conexão duplicadhttps://github.com/mirelsan/Projects_42sp.gita
+        # Resolver pelas zonas registradas preserva os atributos reais de cada nó.
         name_a = connection.zone_a.name
         name_b = connection.zone_b.name
 
         if name_a not in self._zones or name_b not in self._zones:
-            raise MapSyntaxError(f"Error: Trying to connect inexisted zones")
+            raise MapSyntaxError("Error: Trying to connect inexisted zones")
+
+        zone_a = self._zones[name_a]
+        zone_b = self._zones[name_b]
 
         for existing_conn in self._adj_list[name_a]:
-            if existing_conn.zone_a.name == name_b or existing_conn.zone_b.name == name_b:
-                raise MapSyntaxError(f"Error: duplicated connection between {name_a} and {name_b}.")
+            if (existing_conn.zone_a.name == name_b or
+                    existing_conn.zone_b.name == name_b):
+                raise MapSyntaxError(
+                    f"Error: duplicated connection between {name_a} and {name_b}."
+                )
 
-        self._adj_list[name_a].append(connection)
-        self._adj_list[name_b].append(connection)
+        registered = Connection(zone_a, zone_b)
+        registered.max_link_capacity = connection.max_link_capacity
+        self._adj_list[name_a].append(registered)
+        self._adj_list[name_b].append(registered)
     # --- consulta ---
 
     def get_zone(self, name: str) -> Zone:

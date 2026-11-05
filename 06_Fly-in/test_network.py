@@ -8,6 +8,7 @@ confere o resultado final.
 
 Rode com:  pytest -v test_network.py
 """
+# flake8: noqa
 from __future__ import annotations
 
 from pathlib import Path

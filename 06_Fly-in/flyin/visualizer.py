@@ -93,6 +93,67 @@ class Visualizer:
             else:
                 positions[drone_id] = move.destination
 
+    def render_capacity(self, schedule: Schedule) -> None:
+        """Print zone and connection usage for every simulation turn."""
+        flight_map = schedule.flight_map
+        positions = {
+            drone_id: flight_map.start
+            for drone_id in range(1, flight_map.nb_drones + 1)
+        }
+        grouped = schedule.moves_by_turn()
+
+        for turn in range(1, schedule.total_turns + 1):
+            previous = positions.copy()
+            connection_usage: dict[str, int] = {}
+            for drone_id, move in grouped.get(turn, []):
+                origin = previous.get(drone_id)
+                if origin is None:
+                    continue
+                connection = None
+                if move.is_transit:
+                    connection = flight_map.connection_by_name(
+                        move.destination
+                    )
+                else:
+                    connection = flight_map.connection(
+                        origin, move.destination
+                    )
+                if connection is not None:
+                    key = connection.name
+                    connection_usage[key] = (
+                        connection_usage.get(key, 0) + 1
+                    )
+
+                if move.is_transit:
+                    positions.pop(drone_id, None)
+                elif move.destination == flight_map.end:
+                    positions.pop(drone_id, None)
+                else:
+                    positions[drone_id] = move.destination
+
+            occupancy: dict[str, int] = {}
+            for zone_name in positions.values():
+                occupancy[zone_name] = occupancy.get(zone_name, 0) + 1
+
+            details = []
+            for zone_name in flight_map.zones:
+                used = occupancy.get(zone_name, 0)
+                if used or zone_name in {flight_map.start, flight_map.end}:
+                    details.append(
+                        f"Zone {zone_name}: {used}/"
+                        f"{flight_map.capacity(zone_name)} drones"
+                    )
+            for connection in flight_map.connections:
+                used = connection_usage.get(connection.name, 0)
+                details.append(
+                    f"Connection {connection.name}: "
+                    f"{used}/{connection.max_link_capacity} capacity used"
+                )
+            print(
+                f"Turn {turn}: " + "; ".join(details),
+                file=self.stream,
+            )
+
     def _print_moves(self, moves: list[tuple[int, Move]]) -> None:
         """Print the visible moves of one turn."""
         if not moves:

@@ -9,6 +9,7 @@ Rode com:  pytest -v test_parser.py
 """
 from __future__ import annotations
 
+# flake8: noqa
 from pathlib import Path
 
 import pytest

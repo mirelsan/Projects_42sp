@@ -80,11 +80,54 @@ Examples:
 python3 main.py maps/easy/02_simple_fork.txt
 python3 main.py maps/hard/03_ultimate_challenge.txt --visual
 python3 main.py maps/challenger/01_the_impossible_dream.txt --stats
+python3 main.py maps/easy/01_linear_path.txt \
+    --capacity-info --html replay.html
 ```
 
 The required simulation lines are written to **stdout**. The optional
 coloured visualisation is written to **stderr**, so stdout always stays in
 the exact submission format.
+
+### Graphical visualisation
+
+Generate an interactive replay for any map:
+
+```sh
+python3 main.py maps/easy/01_linear_path.txt --html replay.html --no-visual
+```
+
+Start a local HTTP server from the project directory:
+
+```sh
+python3 -m http.server 8000
+```
+
+Then open this address in the browser:
+
+```text
+http://localhost:8000/replay.html
+```
+
+In GitHub Codespaces or VS Code, use **Open in Browser** on port `8000` when
+prompted, or forward port `8000` in the **Ports** panel and open its public
+URL. Opening `replay.html` through the terminal can fail in this environment;
+serving it over HTTP is the recommended method.
+
+The replay provides previous, play and next controls. The arrow keys move one
+turn, and the space bar starts or pauses playback. Capacity information can
+be displayed in the terminal at the same time:
+
+```sh
+python3 main.py maps/easy/01_linear_path.txt \
+    --capacity-info --html replay.html --no-visual
+```
+
+For the compact ANSI terminal visualisation, use `--visual`. It is written to
+`stderr`, so normal simulation output remains unchanged:
+
+```sh
+python3 main.py maps/hard/03_ultimate_challenge.txt --visual
+```
 
 ### Command-line options
 
@@ -93,6 +136,8 @@ the exact submission format.
 | `--visual` / `--no-visual` | Force the turn-by-turn visualiser on or off. By default it is enabled when stderr is a terminal. |
 | `--color` / `--no-color` | Force ANSI colours on or off. By default colours are enabled when stdout is a terminal. |
 | `--stats` | Print a short summary (fleet size, turns, lower bound) to stderr. |
+| `--capacity-info` | Print zone occupancy and connection capacity use at each turn. |
+| `--html FILE` | Write an interactive SVG replay with controls, trails and turn animation. |
 | `--debug` | Show the full traceback if an unexpected error occurs. |
 
 ### Makefile targets
@@ -115,6 +160,53 @@ mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports \
     --disallow-untyped-defs --check-untyped-defs
 ```
 
+## Code flow
+
+The following diagram shows the complete execution path, from reading a map
+to producing both the required text schedule and optional visual feedback.
+
+```mermaid
+flowchart TD
+    A[Map file] --> B[main.py]
+    B --> C[MapParser]
+    C --> D[FlightMap]
+    D --> E[FlowScheduler]
+    E --> F[Time-expanded graph]
+    F --> G[Dinic maximum flow]
+    G --> H[Trajectory reconstruction]
+    H --> I[ScheduleValidator]
+    I -->|valid schedule| J[Schedule]
+    I -->|unexpected rejection| K[Shortest-path fallback]
+    K --> J
+    J --> L[Required stdout lines]
+    J --> M[Terminal visualizer]
+    J --> N[Capacity report]
+    J --> O[Standalone HTML replay]
+```
+
+Each turn is replayed independently from the schedule. The normal route
+shows drones entering one zone per turn, while a restricted route reserves a
+connection and reaches its destination two turns later.
+
+```mermaid
+sequenceDiagram
+    participant CLI as main.py
+    participant Map as FlightMap
+    participant Scheduler as FlowScheduler
+    participant Validator as ScheduleValidator
+    participant Output as Schedule output
+
+    CLI->>Map: Parse zones and connections
+    CLI->>Scheduler: Solve an optimal horizon
+    Scheduler->>Scheduler: Build and search time-expanded flow
+    Scheduler->>Validator: Replay all moves
+    Validator->>Validator: Check occupancy and capacities
+    Validator-->>Scheduler: Valid schedule or fallback
+    Scheduler-->>CLI: Schedule with trajectories
+    CLI->>Output: Write stdout schedule
+    CLI->>Output: Optional terminal, capacity or HTML view
+```
+
 ## Project structure
 
 ```text
@@ -134,7 +226,8 @@ mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports \
 │   ├── schedule.py         # Move, Trajectory and Schedule
 │   ├── scheduler.py        # time-expanded flow scheduler
 │   ├── validator.py        # rule-by-rule schedule replay
-│   └── visualizer.py       # coloured terminal visualiser
+│   ├── visualizer.py       # coloured terminal visualiser
+│   └── web_visualizer.py   # interactive SVG replay
 ├── maps/
 │   ├── easy/
 │   ├── medium/

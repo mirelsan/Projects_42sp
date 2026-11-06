@@ -148,11 +148,14 @@ class PygameVisualizer:
         zones: dict[str, Zone],
     ) -> None:
         placed: list[pygame.Rect] = []
-        ordered_names = sorted(zones, key=lambda name: points[name][0])
+        ordered_names = sorted(
+            zones,
+            key=lambda name: (points[name][1], points[name][0]),
+        )
 
         for zone_name in ordered_names:
             x, y = points[zone_name]
-            lines = self._label_lines(zone_name)
+            lines = self._label_lines(zone_name, max_chars=14)
             line_surfaces = [
                 font.render(line, True, (235, 240, 250))
                 for line in lines
@@ -161,33 +164,42 @@ class PygameVisualizer:
             height = line_height * len(line_surfaces)
             width = max(surface.get_width() for surface in line_surfaces)
 
-            candidates = [
-                pygame.Rect(x - width // 2, y + 38 + offset, width, height)
-                for offset in range(0, 121, 20)
-            ]
-            candidates.extend([
-                pygame.Rect(x - width // 2, y - 38 - height - offset, width, height)
-                for offset in range(0, 121, 20)
-            ])
+            candidates: list[pygame.Rect] = []
+            vertical_offsets = list(range(38, 201, 24))
+            vertical_offsets.extend(-value - height for value in vertical_offsets)
+            for vertical_offset in vertical_offsets:
+                candidates.append(pygame.Rect(
+                    x - width // 2,
+                    y + vertical_offset,
+                    width,
+                    height,
+                ))
 
             label_rect = candidates[0]
             for candidate in candidates:
-                if not candidate.collidelist(placed) == -1:
-                    continue
-                label_rect = candidate
-                break
+                if candidate.collidelist(placed) == -1:
+                    label_rect = candidate
+                    break
 
             placed.append(label_rect)
             for index, surface in enumerate(line_surfaces):
                 screen.blit(
                     surface,
                     surface.get_rect(
-                        center=(label_rect.centerx, label_rect.top + index * line_height + line_height // 2)
+                        center=(
+                            label_rect.centerx,
+                            label_rect.top + index * line_height + line_height // 2,
+                        )
                     ),
                 )
 
-    def _label_lines(self, name: str, max_chars: int = 20) -> list[str]:
-        words = name.replace("_", " ").split()
+    def _label_lines(self, name: str, max_chars: int = 14) -> list[str]:
+        display_name = name.replace("_", " ")
+        if len(display_name) > max_chars:
+            compact = name.replace("_", "")
+            if len(compact) > max_chars:
+                return [compact[: max_chars - 1] + "..."]
+        words = display_name.split()
         lines: list[str] = []
         current = ""
         for word in words:

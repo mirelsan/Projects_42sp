@@ -80,8 +80,7 @@ Examples:
 python3 main.py maps/easy/02_simple_fork.txt
 python3 main.py maps/hard/03_ultimate_challenge.txt --visual
 python3 main.py maps/challenger/01_the_impossible_dream.txt --stats
-python3 main.py maps/easy/01_linear_path.txt \
-    --capacity-info --html replay.html
+python3 main.py maps/easy/01_linear_path.txt --capacity-info --pygame
 ```
 
 The required simulation lines are written to **stdout**. Optional visualisations
@@ -100,39 +99,46 @@ Use `SPACE` to play or pause and the arrow keys to move between turns. This mode
 uses only Python and the Pygame library; it does not create or require an HTML
 replay.
 
-### Graphical visualisation
+#### Passo a passo: executar a visualização Pygame
 
-Generate an interactive browser replay for any map:
-
-```sh
-python3 main.py maps/easy/01_linear_path.txt --html replay.html --no-visual
-```
-
-Start a local HTTP server from the project directory:
+1. Entre na pasta do projeto:
 
 ```sh
-python3 -m http.server 8000
+cd 06_Fly-in
 ```
 
-Then open this address in the browser:
-
-```text
-http://localhost:8000/replay.html
-```
-
-In GitHub Codespaces or VS Code, use **Open in Browser** on port `8000` when
-prompted, or forward port `8000` in the **Ports** panel and open its public
-URL. Opening `replay.html` through the terminal can fail in this environment;
-serving it over HTTP is the recommended method.
-
-The replay provides previous, play and next controls. The arrow keys move one
-turn, and the space bar starts or pauses playback. Capacity information can
-be displayed in the terminal at the same time:
+2. Instale Python 3.12 e crie um ambiente virtual:
 
 ```sh
-python3 main.py maps/easy/01_linear_path.txt \
-    --capacity-info --html replay.html --no-visual
+python3.12 -m venv .venv
 ```
+
+3. Ative o ambiente virtual:
+
+```sh
+source .venv/bin/activate
+```
+
+4. Instale o Pygame:
+
+```sh
+python -m pip install pygame
+```
+
+5. Execute o replay Pygame com um mapa:
+
+```sh
+python main.py maps/easy/01_linear_path.txt --pygame
+```
+
+Para testar o mapa desafio:
+
+```sh
+python main.py maps/challenger/01_the_impossible_dream.txt --pygame
+```
+
+No replay, use `SPACE` para reproduzir ou pausar, `←` para voltar um turno e
+`→` para avançar um turno.
 
 For the compact ANSI terminal visualisation, use `--visual`. It is written to
 `stderr`, so normal simulation output remains unchanged:
@@ -150,7 +156,6 @@ python3 main.py maps/hard/03_ultimate_challenge.txt --visual
 | `--stats` | Print a short summary (fleet size, turns, lower bound) to stderr. |
 | `--capacity-info` | Print zone occupancy and connection capacity use at each turn. |
 | `--pygame` | Open the Python/Pygame turn-by-turn replay window. |
-| `--html FILE` | Write an interactive SVG replay with controls, trails and turn animation. |
 | `--debug` | Show the full traceback if an unexpected error occurs. |
 
 ### Makefile targets
@@ -239,8 +244,7 @@ sequenceDiagram
 │   ├── schedule.py         # Move, Trajectory and Schedule
 │   ├── scheduler.py        # time-expanded flow scheduler
 │   ├── validator.py        # rule-by-rule schedule replay
-│   ├── visualizer.py       # coloured terminal visualiser
-│   └── web_visualizer.py   # interactive SVG replay
+│   └── visualizer.py       # coloured terminal visualiser
 ├── maps/
 │   ├── easy/
 │   ├── medium/

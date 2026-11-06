@@ -13,7 +13,7 @@ from .schedule import Move, Schedule
 class PygameVisualizer:
     """Replay a schedule in a Pygame window."""
 
-    def __init__(self, width: int = 1100, height: int = 700) -> None:
+    def __init__(self, width: int = 1600, height: int = 900) -> None:
         self.width = width
         self.height = height
 
@@ -98,12 +98,12 @@ class PygameVisualizer:
                 else:
                     pygame.draw.circle(screen, color, (x, y), 25)
                 pygame.draw.circle(screen, (235, 240, 250), (x, y), 25, 2)
-                label = small_font.render(zone_name, True, (235, 240, 250))
-                screen.blit(label, label.get_rect(center=(x, y + 40)))
                 count = occupancy.get(zone_name, 0)
                 if count:
                     badge = small_font.render(str(count), True, (10, 15, 24))
                     screen.blit(badge, badge.get_rect(center=(x, y)))
+
+            self._draw_zone_labels(screen, small_font, points, flight_map.zones)
 
             for drone, zone_name in positions.items():
                 x, y = points[zone_name]
@@ -139,6 +139,68 @@ class PygameVisualizer:
             pygame.display.flip()
 
         pygame.quit()
+
+    def _draw_zone_labels(
+        self,
+        screen: pygame.Surface,
+        font: pygame.font.Font,
+        points: dict[str, tuple[int, int]],
+        zones: dict[str, Zone],
+    ) -> None:
+        placed: list[pygame.Rect] = []
+        ordered_names = sorted(zones, key=lambda name: points[name][0])
+
+        for zone_name in ordered_names:
+            x, y = points[zone_name]
+            lines = self._label_lines(zone_name)
+            line_surfaces = [
+                font.render(line, True, (235, 240, 250))
+                for line in lines
+            ]
+            line_height = font.get_height()
+            height = line_height * len(line_surfaces)
+            width = max(surface.get_width() for surface in line_surfaces)
+
+            candidates = [
+                pygame.Rect(x - width // 2, y + 38 + offset, width, height)
+                for offset in range(0, 121, 20)
+            ]
+            candidates.extend([
+                pygame.Rect(x - width // 2, y - 38 - height - offset, width, height)
+                for offset in range(0, 121, 20)
+            ])
+
+            label_rect = candidates[0]
+            for candidate in candidates:
+                if not candidate.collidelist(placed) == -1:
+                    continue
+                label_rect = candidate
+                break
+
+            placed.append(label_rect)
+            for index, surface in enumerate(line_surfaces):
+                screen.blit(
+                    surface,
+                    surface.get_rect(
+                        center=(label_rect.centerx, label_rect.top + index * line_height + line_height // 2)
+                    ),
+                )
+
+    def _label_lines(self, name: str, max_chars: int = 20) -> list[str]:
+        words = name.replace("_", " ").split()
+        lines: list[str] = []
+        current = ""
+        for word in words:
+            candidate = word if not current else f"{current} {word}"
+            if len(candidate) <= max_chars:
+                current = candidate
+            else:
+                if current:
+                    lines.append(current)
+                current = word
+        if current:
+            lines.append(current)
+        return lines or [name]
 
     def _apply_turn(
         self,

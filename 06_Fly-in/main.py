@@ -13,7 +13,6 @@ from flyin.parser import MapParser
 from flyin.pygame_visualizer import PygameVisualizer
 from flyin.scheduler import FlowScheduler
 from flyin.visualizer import Visualizer
-from flyin.web_visualizer import WebVisualizer
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -57,11 +56,6 @@ def build_parser() -> argparse.ArgumentParser:
         help="show the interactive replay in a Pygame window",
     )
     parser.add_argument(
-        "--html",
-        metavar="FILE",
-        help="write an interactive graphical replay to FILE",
-    )
-    parser.add_argument(
         "--debug",
         action="store_true",
         help="show the full traceback on unexpected errors",
@@ -79,7 +73,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     show_stats = cast(bool, args.stats)
     capacity_info = cast(bool, args.capacity_info)
     pygame_visual = cast(bool, args.pygame)
-    html_output = cast(Optional[str], args.html)
     debug = cast(bool, args.debug)
 
     visual = (
@@ -123,9 +116,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         Visualizer(palette, sys.stderr).render(schedule)
     if capacity_info:
         Visualizer(palette, sys.stderr).render_capacity(schedule)
-    if html_output is not None:
-        WebVisualizer().render(schedule, html_output)
-        print(f"Graphical replay written to {html_output}", file=sys.stderr)
     if show_stats:
         print(schedule.summary(), file=sys.stderr)
     return 0

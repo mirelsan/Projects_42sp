@@ -84,13 +84,25 @@ python3 main.py maps/easy/01_linear_path.txt \
     --capacity-info --html replay.html
 ```
 
-The required simulation lines are written to **stdout**. The optional
-coloured visualisation is written to **stderr**, so stdout always stays in
-the exact submission format.
+The required simulation lines are written to **stdout**. Optional visualisations
+are printed separately, so stdout always stays in the exact submission format.
+
+### Pygame visualisation
+
+Install the Python dependency and open the interactive replay window:
+
+```sh
+python3 -m pip install pygame
+python3 main.py maps/easy/01_linear_path.txt --pygame
+```
+
+Use `SPACE` to play or pause and the arrow keys to move between turns. This mode
+uses only Python and the Pygame library; it does not create or require an HTML
+replay.
 
 ### Graphical visualisation
 
-Generate an interactive replay for any map:
+Generate an interactive browser replay for any map:
 
 ```sh
 python3 main.py maps/easy/01_linear_path.txt --html replay.html --no-visual
@@ -137,6 +149,7 @@ python3 main.py maps/hard/03_ultimate_challenge.txt --visual
 | `--color` / `--no-color` | Force ANSI colours on or off. By default colours are enabled when stdout is a terminal. |
 | `--stats` | Print a short summary (fleet size, turns, lower bound) to stderr. |
 | `--capacity-info` | Print zone occupancy and connection capacity use at each turn. |
+| `--pygame` | Open the Python/Pygame turn-by-turn replay window. |
 | `--html FILE` | Write an interactive SVG replay with controls, trails and turn animation. |
 | `--debug` | Show the full traceback if an unexpected error occurs. |
 

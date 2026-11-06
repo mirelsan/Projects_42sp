@@ -96,8 +96,7 @@ python3 main.py maps/easy/01_linear_path.txt --pygame
 ```
 
 Use `SPACE` to play or pause and the arrow keys to move between turns. This mode
-uses only Python and the Pygame library; it does not create or require an HTML
-replay.
+uses only Python and the Pygame library; it does not require a browser.
 
 #### Passo a passo: executar a visualização Pygame
 
@@ -199,7 +198,7 @@ flowchart TD
     J --> L[Required stdout lines]
     J --> M[Terminal visualizer]
     J --> N[Capacity report]
-    J --> O[Standalone HTML replay]
+    J --> O[Pygame replay]
 ```
 
 Each turn is replayed independently from the schedule. The normal route
@@ -222,7 +221,7 @@ sequenceDiagram
     Validator-->>Scheduler: Valid schedule or fallback
     Scheduler-->>CLI: Schedule with trajectories
     CLI->>Output: Write stdout schedule
-    CLI->>Output: Optional terminal, capacity or HTML view
+    CLI->>Output: Optional terminal, capacity, or Pygame view
 ```
 
 ## Project structure
@@ -243,6 +242,7 @@ sequenceDiagram
 │   ├── parser.py           # strict map parser
 │   ├── schedule.py         # Move, Trajectory and Schedule
 │   ├── scheduler.py        # time-expanded flow scheduler
+│   ├── pygame_visualizer.py # interactive Pygame replay
 │   ├── validator.py        # rule-by-rule schedule replay
 │   └── visualizer.py       # coloured terminal visualiser
 ├── maps/

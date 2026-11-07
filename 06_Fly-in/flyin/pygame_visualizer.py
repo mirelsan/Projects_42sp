@@ -90,7 +90,9 @@ class _Playback:
     """Logical state of the replay plus what the animation needs."""
 
     positions: dict[int, str] = field(default_factory=dict)
-    transits: dict[int, tuple[str, str, int, int]] = field(default_factory=dict)
+    transits: dict[int, tuple[str, str, int, int]] = field(
+        default_factory=dict
+    )
     delivered: set[int] = field(default_factory=set)
     # Drones that reached the end zone during the last applied turn.
     newly_delivered: set[int] = field(default_factory=set)
@@ -195,7 +197,9 @@ class PygameVisualizer:
                     mouse_pos = pygame.mouse.get_pos()
                     world_under_mouse = self._screen_to_world(mouse_pos)
                     factor = ZOOM_STEP if event.y > 0 else (1 / ZOOM_STEP)
-                    self.zoom = min(MAX_ZOOM, max(MIN_ZOOM, self.zoom * factor))
+                    self.zoom = min(
+                        MAX_ZOOM, max(MIN_ZOOM, self.zoom * factor)
+                    )
                     self.cam_x = world_under_mouse[0] - (
                         mouse_pos[0] - self.width / 2
                     ) / self.zoom
@@ -228,7 +232,9 @@ class PygameVisualizer:
                 and turn <= schedule.total_turns
                 and anim_ms >= TURN_DELAY_MS
             ):
-                self._advance(playback, turn, grouped, flight_map, world_points)
+                self._advance(
+                    playback, turn, grouped, flight_map, world_points
+                )
                 turn += 1
                 anim_ms = 0.0
 
@@ -248,7 +254,9 @@ class PygameVisualizer:
             self._draw_zones(
                 screen, flight_map, world_points, occupancy, delivered_visible,
             )
-            self._draw_zone_labels(screen, flight_map, world_points, hover_font)
+            self._draw_zone_labels(
+                screen, flight_map, world_points, hover_font
+            )
             self._draw_drones(screen, playback, progress, eased)
             self._draw_hud(
                 screen, header_font, hud_font, schedule, turn, playing,
@@ -444,9 +452,14 @@ class PygameVisualizer:
     def _build_world_layout(
         self, zones: dict[str, Zone]
     ) -> dict[str, tuple[float, float]]:
-        return {name: (zone.x * CELL, zone.y * CELL) for name, zone in zones.items()}
+        return {
+            name: (zone.x * CELL, zone.y * CELL)
+            for name, zone in zones.items()
+        }
 
-    def _fit_camera(self, world_points: dict[str, tuple[float, float]]) -> None:
+    def _fit_camera(
+        self, world_points: dict[str, tuple[float, float]]
+    ) -> None:
         if not world_points:
             self.zoom = 1.0
             self.cam_x = self.cam_y = 0.0
@@ -502,7 +515,9 @@ class PygameVisualizer:
             self._font_cache[px] = font
         return font
 
-    def _fit_text(self, text: str, font: pygame.font.Font, max_width: int) -> str:
+    def _fit_text(
+        self, text: str, font: pygame.font.Font, max_width: int
+    ) -> str:
         if font.size(text)[0] <= max_width:
             return text
         truncated = text
@@ -514,12 +529,17 @@ class PygameVisualizer:
         self, screen: pygame.Surface, label: pygame.Surface, rect: pygame.Rect,
         pad: int = 3,
     ) -> None:
-        plate = pygame.Surface((rect.width + pad * 2, rect.height + pad * 2), pygame.SRCALPHA)
+        plate = pygame.Surface(
+            (rect.width + pad * 2, rect.height + pad * 2),
+            pygame.SRCALPHA,
+        )
         plate.fill((*BACKGROUND, 185))
         screen.blit(plate, (rect.x - pad, rect.y - pad))
         screen.blit(label, rect)
 
-    def _glow_sprite(self, color: RGB, radius: int, alpha: int) -> pygame.Surface:
+    def _glow_sprite(
+        self, color: RGB, radius: int, alpha: int
+    ) -> pygame.Surface:
         """Soft round halo, cached because it is reused every frame."""
         radius = max(2, radius)
         key = (color, radius, alpha)
@@ -598,7 +618,8 @@ class PygameVisualizer:
 
     def _draw_zones(
         self, screen: pygame.Surface, flight_map: FlightMap,
-        world_points: dict[str, tuple[float, float]], occupancy: dict[str, int],
+        world_points: dict[str, tuple[float, float]],
+        occupancy: dict[str, int],
         delivered_visible: int,
     ) -> None:
         radius = max(3, round(BASE_RADIUS * self.zoom))
@@ -624,12 +645,16 @@ class PygameVisualizer:
                 screen, _mix(BACKGROUND, color, 0.22), (x, y), radius
             )
             if kind == "restricted" and radius >= 10:
-                self._draw_dashed_ring(screen, color, (x, y), radius, ring_width)
+                self._draw_dashed_ring(
+                    screen, color, (x, y), radius, ring_width
+                )
             else:
                 pygame.draw.circle(screen, color, (x, y), radius, ring_width)
 
             if kind in ("start_hub", "end_hub"):
-                pygame.draw.circle(screen, color, (x, y), radius + outer_gap, 1)
+                pygame.draw.circle(
+                    screen, color, (x, y), radius + outer_gap, 1
+                )
             elif kind == "priority":
                 pygame.draw.circle(
                     screen, PRIORITY_RING, (x, y), radius + outer_gap, 1
@@ -637,10 +662,18 @@ class PygameVisualizer:
             elif kind == "blocked":
                 reach = round(radius * 0.45)
                 pygame.draw.line(
-                    screen, color, (x - reach, y - reach), (x + reach, y + reach), ring_width
+                    screen,
+                    color,
+                    (x - reach, y - reach),
+                    (x + reach, y + reach),
+                    ring_width,
                 )
                 pygame.draw.line(
-                    screen, color, (x - reach, y + reach), (x + reach, y - reach), ring_width
+                    screen,
+                    color,
+                    (x - reach, y + reach),
+                    (x + reach, y - reach),
+                    ring_width,
                 )
 
             if zone_name == self._hovered:
@@ -666,11 +699,14 @@ class PygameVisualizer:
         step = math.tau / dashes
         for index in range(dashes):
             start = index * step
-            pygame.draw.arc(screen, color, rect, start, start + step * 0.6, width)
+            pygame.draw.arc(
+                screen, color, rect, start, start + step * 0.6, width
+            )
 
     def _draw_zone_labels(
         self, screen: pygame.Surface, flight_map: FlightMap,
-        world_points: dict[str, tuple[float, float]], hover_font: pygame.font.Font,
+        world_points: dict[str, tuple[float, float]],
+        hover_font: pygame.font.Font,
     ) -> None:
         radius = max(3, round(BASE_RADIUS * self.zoom))
 
@@ -708,7 +744,10 @@ class PygameVisualizer:
             scale = 1.0
             if drone in playback.newly_delivered:
                 # Docking: shrink away once the drone reaches the end zone.
-                shrink = (progress - DOCK_SHRINK_START) / (1.0 - DOCK_SHRINK_START)
+                shrink = (
+                    (progress - DOCK_SHRINK_START)
+                    / (1.0 - DOCK_SHRINK_START)
+                )
                 scale = 1.0 - min(max(shrink, 0.0), 1.0)
                 if scale <= 0.0:
                     continue
@@ -723,23 +762,36 @@ class PygameVisualizer:
         color = DRONE_COLORS[(drone - 1) % len(DRONE_COLORS)]
         radius = max(1, round(max(4, round(10 * self.zoom)) * scale))
         if radius >= 5:
-            glow = self._glow_sprite(color, round(radius * 2.2), DRONE_GLOW_ALPHA)
+            glow = self._glow_sprite(
+                color, round(radius * 2.2), DRONE_GLOW_ALPHA
+            )
             screen.blit(glow, glow.get_rect(center=(x, y)))
         pygame.draw.circle(screen, color, (x, y), radius)
-        pygame.draw.circle(screen, BACKGROUND, (x, y), radius, max(1, round(2 * self.zoom)))
+        pygame.draw.circle(
+            screen,
+            BACKGROUND,
+            (x, y),
+            radius,
+            max(1, round(2 * self.zoom)),
+        )
         if self.zoom > 0.5 and scale > 0.8:
             label = font.render(str(drone), True, (255, 255, 255))
             screen.blit(label, label.get_rect(center=(x, y)))
 
     def _draw_hud(
         self, screen: pygame.Surface, header_font: pygame.font.Font,
-        hud_font: pygame.font.Font, schedule: Schedule, turn: int, playing: bool,
+        hud_font: pygame.font.Font,
+        schedule: Schedule,
+        turn: int,
+        playing: bool,
         delivered: int,
     ) -> None:
         shown_turn = min(max(turn - 1, 0), schedule.total_turns)
         status = "PLAYING" if playing else "PAUSED"
         header = header_font.render(
-            f"Turn {shown_turn}/{schedule.total_turns}  {status}", True, OUTLINE,
+            f"Turn {shown_turn}/{schedule.total_turns}  {status}",
+            True,
+            OUTLINE,
         )
         screen.blit(header, (18, 16))
         controls = hud_font.render(
@@ -802,4 +854,6 @@ class PygameVisualizer:
         custom = self._parse_color(getattr(zone, "color", None))
         if custom is not None:
             return self._soften(custom)
-        return ZONE_DEFAULTS.get(self._zone_kind(zone), ZONE_DEFAULTS["normal"])
+        return ZONE_DEFAULTS.get(
+            self._zone_kind(zone), ZONE_DEFAULTS["normal"]
+        )
